@@ -1,0 +1,169 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-c01c5d1ef47e519e9df9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "PavementJogger4",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint-Debug-a0d3a78ea5469d1a53b2.json",
+					"name" : "all_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_json-Debug-5cabaa8084d6ad2f2309.json",
+					"name" : "all_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_module-Debug-f3b2a8085e9d683d29df.json",
+					"name" : "all_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmltyperegistrations::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmltyperegistrations-Debug-b11eaf5c87add47f1f90.json",
+					"name" : "all_qmltyperegistrations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4-Debug-cd0cbfbd1fd6f77b0bc7.json",
+					"name" : "appPavementJogger4",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4_autogen-Debug-50932bab931f9e7caaae.json",
+					"name" : "appPavementJogger4_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4_autogen_timestamp_deps-Debug-bcad35e4a902b91fa3ee.json",
+					"name" : "appPavementJogger4_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4_qmlimportscan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4_qmlimportscan-Debug-8d021466fa26ee4d843c.json",
+					"name" : "appPavementJogger4_qmlimportscan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4_qmllint-Debug-dd1ea5cebb55f6ecaa30.json",
+					"name" : "appPavementJogger4_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4_qmllint_json-Debug-c21ddabf0fedea8cdb28.json",
+					"name" : "appPavementJogger4_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4_qmllint_module-Debug-1eb61992555426020cdb.json",
+					"name" : "appPavementJogger4_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4_qmltyperegistration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4_qmltyperegistration-Debug-3cb554fe5f867558b7f1.json",
+					"name" : "appPavementJogger4_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appPavementJogger4_tooling::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appPavementJogger4_tooling-Debug-581ebb472923835e1590.json",
+					"name" : "appPavementJogger4_tooling",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/Draco/Documents/QT Creator/PavementJogger4"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

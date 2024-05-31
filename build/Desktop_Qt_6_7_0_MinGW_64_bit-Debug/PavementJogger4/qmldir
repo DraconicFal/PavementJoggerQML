@@ -1,0 +1,5 @@
+module PavementJogger4
+typeinfo appPavementJogger4.qmltypes
+prefer :/PavementJogger4/
+Main 1.0 Main.qml
+
