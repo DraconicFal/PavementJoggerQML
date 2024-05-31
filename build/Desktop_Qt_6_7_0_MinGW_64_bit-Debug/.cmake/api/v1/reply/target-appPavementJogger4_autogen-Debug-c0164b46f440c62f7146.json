@@ -17,15 +17,15 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 0,
-			"id" : "appPavementJogger4_tooling::@6890427a1f51a3e7e1df"
+			"id" : "appPavementJogger4_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 0,
 			"id" : "appPavementJogger4_qmlimportscan::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "appPavementJogger4_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"backtrace" : 0,
+			"id" : "appPavementJogger4_tooling::@6890427a1f51a3e7e1df"
 		}
 	],
 	"folder" : 

@@ -2,57 +2,81 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls.Windows
 
-Window {
+ApplicationWindow {
     id: mainWindow
     width: 640
     height: 480
     visible: true
     title: qsTr("Pavement Jogger")
 
-    Column {
-        id: columnPallete
-        x: 0
-        y: 0
-        width: 250
-        height: mainWindow.height
-        visible: true
-        //anchors.verticalCenter: mainWindow.verticalCenter
-        anchors.left: mainWindow.left
-        //anchors.right: mainWindow.right
-        anchors.top: mainWindow.top
-        //anchors.bottom: columnTimeline.
-        //anchors.bottom: columnTimeline.TopLeft
-        //anchors.leftMargin: -470
-        //anchors.rightMargin: -30
-        //anchors.topMargin: -184
-        //anchors.bottomMargin: -322
-        //anchors.horizontalCenter: imagetest.horizontalCenter
-
-        Rectangle {
-            id: palleteBackground
-            width: columnPallete.width
-            height: columnPallete.height
-            color: "#5f5f5f"
-            anchors.centerIn: columntest
+    menuBar: MenuBar {
+        Menu {
+            title: "File"
+            MenuItem {
+                text: "Amongus"
+            }
         }
     }
 
-    Column {
-        id: columnTimeline
-        x:0
-        y:0
+    Rectangle {
+        id: palleteBackground
         width: 250
-        height:250
-        anchors.bottom: mainWindow.bottom
-        anchors.left: mainWindow.left
-        anchors.right: mainWindow.right
+        height: parent.height
+        color: "#5f5f5f"
+        //anchors.verticalCenter: mainWindow.verticalCenter
+        anchors.left: parent.left
+        anchors.top: parent.top
 
         Rectangle {
-            id: timelineBackground
-            width: columnTimeline.width
-            height: columnTimeline.height
-            color: "#2d2d2d"
-            anchors.centerIn: columnTimeline
+            id: palleteTitle
+            anchors.top: parent.top
+        }
+
+        Column {
+            id: columnPallete
+            x: 0
+            y: 0
+            width: parent.width
+            height: parent.height
+            visible: true
+        }
+    }
+
+    Rectangle {
+        id: propertiesBackground
+        width: 250
+        height: parent.height
+        color: "#5f5f5f"
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        Column {
+            id: columnProperties
+            x:0
+            y:0
+            width: parent.width
+            height: parent.height
+
+        }
+    }
+
+    Rectangle {
+        id: timelineBackground
+        width: parent.width
+        height: 250
+        color: "#2d2d2d"
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        Column {
+            id: columnTimeline
+            x:0
+            y:0
+            width: parent.width
+            height: parent.height
+
         }
     }
 }
