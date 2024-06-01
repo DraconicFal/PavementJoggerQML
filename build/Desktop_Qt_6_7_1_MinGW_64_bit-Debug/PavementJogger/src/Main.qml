@@ -4,17 +4,15 @@ import "panels"
 
 ApplicationWindow {
     id: mainWindow
-    width: 640
-    height: 480
-    visible: true
-    title: qsTr("PavementJogger 2")
 
     // setup main window
     color: "#1A1A1A"
     minimumWidth: screen.width
-    // maximumWidth: 2*minimumWidth
     minimumHeight: screen.height
-    // maximumHeight: 2*minimumHeight
+    width: screen.width
+    height:screen.height
+    visible: true
+    title: qsTr("PavementJogger 2")
 
     menuBar: PJMenuBar {}
 
