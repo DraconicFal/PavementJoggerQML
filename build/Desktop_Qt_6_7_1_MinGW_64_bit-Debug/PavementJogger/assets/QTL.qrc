@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>PavementJoggerLogo.png</file>
+    </qresource>
+</RCC>
