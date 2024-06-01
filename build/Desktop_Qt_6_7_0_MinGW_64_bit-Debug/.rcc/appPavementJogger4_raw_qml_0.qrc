@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="/PavementJogger4/">
-    <file alias="Main.qml">C:/Users/Draco/Documents/QT Creator/PavementJogger4/Main.qml</file>
-    <file alias="QTL.qrc">C:/Users/Draco/Documents/QT Creator/PavementJogger4/QTL.qrc</file>
-  </qresource>
-</RCC>
-

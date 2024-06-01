@@ -1,0 +1,10 @@
+module PavementJogger4
+typeinfo appPavementJogger4.qmltypes
+prefer :/PavementJogger4/
+Main 1.0 src/Main.qml
+PJMenuBar 1.0 src/PJMenuBar.qml
+PJFieldView 1.0 src/panels/PJFieldView.qml
+PJPalette 1.0 src/panels/PJPalette.qml
+PJProperties 1.0 src/panels/PJProperties.qml
+PJTimeline 1.0 src/panels/PJTimeline.qml
+
