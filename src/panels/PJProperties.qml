@@ -5,7 +5,7 @@ Item {
 
     Rectangle {
         id: background
-        color: "#3d3d3d"
+        color: "#29282E"
         anchors.fill: parent
 
         Rectangle {
@@ -13,7 +13,9 @@ Item {
             anchors.top: parent.top
             width: parent.width
             height: 25
-            color: "#242424"
+            color: "#222127"
+            border.color: "#09090A"
+            border.width: 1.5
 
             Text {
                 id: titleText
@@ -21,7 +23,7 @@ Item {
                 anchors.left: parent.left
                 topPadding: 4
                 leftPadding: 5
-                color: "#ffffff"
+                color: "white"
             }
         }
 

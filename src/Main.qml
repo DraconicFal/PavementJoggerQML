@@ -9,15 +9,26 @@ ApplicationWindow {
     visible: true
     title: qsTr("PavementJogger 2")
 
+    // set background color
+    color: "#1A1A1A"
+
     menuBar: PJMenuBar {}
 
     SplitView {
         anchors.fill: parent
         orientation: Qt.Vertical
+        handle: Rectangle {
+            implicitHeight: 3
+            color: "#09090A"
+        }
 
         SplitView {
             SplitView.fillHeight: true
             orientation: Qt.Horizontal
+            handle: Rectangle {
+                implicitWidth: 3
+                color: "#09090A"
+            }
 
             PJPalette {
                 id: pj_palette
