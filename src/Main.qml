@@ -12,9 +12,7 @@ ApplicationWindow {
     // setup main window
     color: "#1A1A1A"
     minimumWidth: screen.width
-    // maximumWidth: 2*minimumWidth
     minimumHeight: screen.height
-    // maximumHeight: 2*minimumHeight
 
     menuBar: PJMenuBar {}
 
