@@ -3,6 +3,9 @@ import QtQuick.Controls
 
 MenuBar {
     id: pj_menuBar
+
+
+
     Menu {
         title: qsTr("File")
         Action {
@@ -13,29 +16,21 @@ MenuBar {
         Action { text: qsTr("SUSSY AMONGUS") }
         Action { text: qsTr("SUSSY SUS AMOGUS") }
 
-        delegate: MenuBarItem {
-            id: menuBarItem1
-
+        delegate: ItemDelegate {
+            id: menuBarFile
+            highlighted: ListView.isCurrentItem
             contentItem: Text {
-                text: menuBarItem1.text
-                font: menuBarItem1.font
-                opacity:  enabled ? 1.0 : 0.3
-                color: menuBarItem1.highlighted ? "#ffffff" : "#ffffff"
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
+                text: menuBarFile.text
+                font: menuBarFile.font
+                color: "White"
             }
-
             background: Rectangle {
-                implicitWidth: 200
-                implicitHeight: 20
-                opacity: enabled ? 1 : 0.3
-                color: menuBarItem1.highlighted ? "#29282E" : "transparent"
+                color: {
+                    if (parent.hovered)
+                        return "#29282E";
+                    return "#0d0d0d";
+                }
             }
-        }
-        background: Rectangle {
-            implicitWidth: 200
-            implicitHeight: 20
-            color: "#0d0d0d"
         }
     }
 
@@ -72,4 +67,6 @@ MenuBar {
             anchors.bottom: parent.bottom
         }
     }
+
+
 }
