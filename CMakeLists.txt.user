@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 13.0.1, 2024-05-31T22:52:33. -->
+<!-- Written by QtCreator 13.0.1, 2024-06-02T15:08:15. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -393,9 +393,9 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="bool" key="PE.EnvironmentAspect.PrintOnRun">false</value>
     <value type="QString" key="PerfRecordArgsId">-e cpu-cycles --call-graph &quot;dwarf,4096&quot; -F 250</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">appPavementJogger4</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.appPavementJogger4</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">appPavementJogger4</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">appPavementJogger</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.appPavementJogger</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">appPavementJogger</value>
     <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
