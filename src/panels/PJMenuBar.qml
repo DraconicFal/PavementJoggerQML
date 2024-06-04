@@ -11,10 +11,10 @@ MenuBar {
         Action {
             text: qsTr("New Project...")
         }
-        Action { text: qsTr("AMONG US") }
-        Action { text: qsTr("VERY SUS") }
-        Action { text: qsTr("SUSSY AMONGUS") }
-        Action { text: qsTr("SUSSY SUS AMOGUS") }
+        Action { text: qsTr("Open Project...") }
+        Action { text: qsTr("Exit") }
+        //Action { text: qsTr("SUSSY AMONGUS") }
+        //Action { text: qsTr("SUSSY SUS AMOGUS") }
 
         delegate: ItemDelegate {
             id: menuBarFile
