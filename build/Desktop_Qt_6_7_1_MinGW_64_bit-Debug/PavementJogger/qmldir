@@ -10,5 +10,6 @@ PJTimeline 1.0 src/panels/timeline/PJTimeline.qml
 PJTimelineLabels 1.0 src/panels/timeline/PJTimelineLabels.qml
 PJTimelineRuler 1.0 src/panels/timeline/PJTimelineRuler.qml
 PJTimelineTracks 1.0 src/panels/timeline/PJTimelineTracks.qml
+PJTimelineScrubber 1.0 src/panels/timeline/PJTimelineScrubber.qml
 singleton PJGlobalTimeline 1.0 src/global/PJGlobalTimeline.qml
 

@@ -9,6 +9,7 @@
     <file alias="src/panels/timeline/PJTimelineLabels.qml">C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/src/panels/timeline/PJTimelineLabels.qml</file>
     <file alias="src/panels/timeline/PJTimelineRuler.qml">C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/src/panels/timeline/PJTimelineRuler.qml</file>
     <file alias="src/panels/timeline/PJTimelineTracks.qml">C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/src/panels/timeline/PJTimelineTracks.qml</file>
+    <file alias="src/panels/timeline/PJTimelineScrubber.qml">C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/src/panels/timeline/PJTimelineScrubber.qml</file>
     <file alias="src/global/PJGlobalTimeline.qml">C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/src/global/PJGlobalTimeline.qml</file>
     <file alias="QTL.qrc">C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/QTL.qrc</file>
   </qresource>

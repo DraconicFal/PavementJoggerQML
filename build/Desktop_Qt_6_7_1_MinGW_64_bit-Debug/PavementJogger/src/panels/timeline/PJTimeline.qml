@@ -34,7 +34,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 from: 0.001
                 value: 0.005
-                to: 25.6
+                to: 0.1
                 width: 200
 
                 onValueChanged: {
@@ -59,8 +59,8 @@ Item {
             anchors.bottom: parent.bottom
             anchors.left: labels.right
             anchors.right: parent.right
+            onRepaint: () => ruler.canvas.requestPaint()
         }
-
 
     }
 

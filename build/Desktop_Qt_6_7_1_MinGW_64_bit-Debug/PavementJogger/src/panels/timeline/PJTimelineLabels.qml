@@ -28,17 +28,17 @@ Item {
                     var position = PJGlobalTimeline.scrubberPosition;
                     var ticksPerSecond = PJGlobalTimeline.ticksPerSecond;
 
-                    var frames = String(position % ticksPerSecond).padStart(2, '0');
+                    var millis = String(1000 * (position % ticksPerSecond) / ticksPerSecond).padStart(3, '0');
                     var seconds = String(Math.floor(position / ticksPerSecond) % 60).padStart(2, '0');
                     var minutes = String(Math.floor(position / ticksPerSecond / 60) % 60).padStart(2, '0');
                     var hours = String(Math.floor(position / ticksPerSecond / 3600)).padStart(2, '0');
-                    return hours + ":" + minutes + ":" + seconds + ":" + frames;
+                    return hours + ":" + minutes + ":" + seconds + "." + millis;
                 }
 
                 anchors.centerIn: parent
                 text: getScrubberText()
 
-                color: "white"
+                color: "#c4c4c5"
                 font.bold: true
                 font.pointSize: 18
             }

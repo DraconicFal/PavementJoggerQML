@@ -24,6 +24,7 @@ set(plain_qml_files
     src/panels/timeline/PJTimelineLabels.qml
     src/panels/timeline/PJTimelineRuler.qml
     src/panels/timeline/PJTimelineTracks.qml
+    src/panels/timeline/PJTimelineScrubber.qml
 )
 
 set(qml_singletons

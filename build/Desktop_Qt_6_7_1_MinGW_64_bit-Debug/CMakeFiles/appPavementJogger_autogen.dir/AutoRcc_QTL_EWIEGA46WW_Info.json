@@ -7,7 +7,8 @@
 	"INCLUDE_DIR" : "C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/appPavementJogger_autogen/include",
 	"INPUTS" : 
 	[
-		"C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/assets/PavementJoggerLogo.png"
+		"C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/assets/PavementJoggerLogo.png",
+		"C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/src/panels/timeline/PJTimelineScrubber.qml"
 	],
 	"LOCK_FILE" : "C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/appPavementJogger_autogen.dir/AutoRcc_QTL_EWIEGA46WW_Lock.lock",
 	"MULTI_CONFIG" : false,

@@ -105,13 +105,13 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 60,
+				"line" : 61,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 1,
-				"line" : 54,
+				"line" : 55,
 				"parent" : 0
 			},
 			{
@@ -153,7 +153,7 @@
 			{
 				"command" : 10,
 				"file" : 1,
-				"line" : 36,
+				"line" : 37,
 				"parent" : 0
 			},
 			{
@@ -698,6 +698,18 @@
 				"parent" : 69
 			},
 			{
+				"command" : 22,
+				"file" : 5,
+				"line" : 2531,
+				"parent" : 69
+			},
+			{
+				"command" : 22,
+				"file" : 5,
+				"line" : 2683,
+				"parent" : 69
+			},
+			{
 				"command" : 27,
 				"file" : 5,
 				"line" : 2766,
@@ -707,19 +719,19 @@
 				"command" : 26,
 				"file" : 0,
 				"line" : 337,
-				"parent" : 111
+				"parent" : 113
 			},
 			{
 				"command" : 25,
 				"file" : 0,
 				"line" : 2390,
-				"parent" : 112
+				"parent" : 114
 			},
 			{
 				"command" : 22,
 				"file" : 0,
 				"line" : 2004,
-				"parent" : 113
+				"parent" : 115
 			},
 			{
 				"command" : 29,
@@ -731,7 +743,7 @@
 				"command" : 22,
 				"file" : 0,
 				"line" : 2117,
-				"parent" : 115
+				"parent" : 117
 			}
 		]
 	},
@@ -928,8 +940,9 @@
 				21,
 				23,
 				25,
-				26,
-				32
+				27,
+				28,
+				34
 			]
 		},
 		{
@@ -1120,11 +1133,11 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "appPavementJogger_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 70,
 			"id" : "appPavementJogger_tooling::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "appPavementJogger_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 77,
@@ -1278,16 +1291,16 @@
 			"sourceIndexes" : 
 			[
 				0,
-				31,
-				32,
-				51,
-				52,
-				53,
+				33,
+				34,
 				54,
 				55,
 				56,
 				57,
-				58
+				58,
+				59,
+				60,
+				61
 			]
 		},
 		{
@@ -1308,7 +1321,8 @@
 				21,
 				23,
 				25,
-				26
+				27,
+				28
 			]
 		},
 		{
@@ -1326,18 +1340,17 @@
 				20,
 				22,
 				24,
-				27,
-				28,
+				26,
 				29,
-				30
+				30,
+				31,
+				32
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				33,
-				34,
 				35,
 				36,
 				37,
@@ -1353,7 +1366,10 @@
 				47,
 				48,
 				49,
-				50
+				50,
+				51,
+				52,
+				53
 			]
 		}
 	],
@@ -1509,43 +1525,55 @@
 		},
 		{
 			"backtrace" : 109,
-			"path" : "src/global/PJGlobalTimeline.qml",
+			"path" : "src/panels/timeline/PJTimelineScrubber.qml",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 110,
 			"compileGroupIndex" : 0,
 			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/timeline/PJTimelineScrubber_qml.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 111,
+			"path" : "src/global/PJGlobalTimeline.qml",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 112,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/global/PJGlobalTimeline_qml.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
-			"backtrace" : 114,
+			"backtrace" : 116,
 			"compileGroupIndex" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qrc_appPavementJogger_raw_qml_0.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
-			"backtrace" : 116,
+			"backtrace" : 118,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/qmake_PavementJogger.qrc",
 			"sourceGroupIndex" : 2
 		},
 		{
-			"backtrace" : 116,
+			"backtrace" : 118,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/PavementJogger/qmldir",
 			"sourceGroupIndex" : 2
 		},
 		{
-			"backtrace" : 116,
+			"backtrace" : 118,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.qt/rcc/appPavementJogger_raw_qml_0.qrc",
 			"sourceGroupIndex" : 2
 		},
 		{
-			"backtrace" : 116,
+			"backtrace" : 118,
 			"path" : "QTL.qrc",
 			"sourceGroupIndex" : 2
 		},
@@ -1638,6 +1666,12 @@
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/timeline/PJTimelineTracks_qml.cpp.rule",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/timeline/PJTimelineScrubber_qml.cpp.rule",
 			"sourceGroupIndex" : 3
 		},
 		{

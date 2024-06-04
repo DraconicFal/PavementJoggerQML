@@ -68,6 +68,13 @@ namespace _0x5f_PavementJogger_src_panels_timeline_PJTimelineTracks_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
     };
 }
+namespace _0x5f_PavementJogger_src_panels_timeline_PJTimelineScrubber_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
 namespace _0x5f_PavementJogger_src_global_PJGlobalTimeline_qml { 
     extern const unsigned char qmlData[];
     extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
@@ -98,6 +105,7 @@ Registry::Registry() {
     resourcePathToCachedUnit.insert(QStringLiteral("/PavementJogger/src/panels/timeline/PJTimelineLabels.qml"), &QmlCacheGeneratedCode::_0x5f_PavementJogger_src_panels_timeline_PJTimelineLabels_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/PavementJogger/src/panels/timeline/PJTimelineRuler.qml"), &QmlCacheGeneratedCode::_0x5f_PavementJogger_src_panels_timeline_PJTimelineRuler_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/PavementJogger/src/panels/timeline/PJTimelineTracks.qml"), &QmlCacheGeneratedCode::_0x5f_PavementJogger_src_panels_timeline_PJTimelineTracks_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/PavementJogger/src/panels/timeline/PJTimelineScrubber.qml"), &QmlCacheGeneratedCode::_0x5f_PavementJogger_src_panels_timeline_PJTimelineScrubber_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/PavementJogger/src/global/PJGlobalTimeline.qml"), &QmlCacheGeneratedCode::_0x5f_PavementJogger_src_global_PJGlobalTimeline_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.structVersion = 0;

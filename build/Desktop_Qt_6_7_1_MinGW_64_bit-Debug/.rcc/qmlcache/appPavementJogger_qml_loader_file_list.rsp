@@ -11,4 +11,5 @@ C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/build/Desktop_Qt_6
 /PavementJogger/src/panels/timeline/PJTimelineLabels.qml
 /PavementJogger/src/panels/timeline/PJTimelineRuler.qml
 /PavementJogger/src/panels/timeline/PJTimelineTracks.qml
+/PavementJogger/src/panels/timeline/PJTimelineScrubber.qml
 /PavementJogger/src/global/PJGlobalTimeline.qml

@@ -13,11 +13,11 @@ Item {
         function getTimestampText(position) {
             var ticksPerSecond = PJGlobalTimeline.ticksPerSecond;
 
-            var frames = String(position % ticksPerSecond).padStart(2, '0');
+            var millis = String(1000 * (position % ticksPerSecond) / ticksPerSecond).padStart(3, '0');
             var seconds = String(Math.floor(position / ticksPerSecond) % 60).padStart(2, '0');
             var minutes = String(Math.floor(position / ticksPerSecond / 60) % 60).padStart(2, '0');
             var hours = String(Math.floor(position / ticksPerSecond / 3600)).padStart(2, '0');
-            return hours + ":" + minutes + ":" + seconds + ":" + frames;
+            return hours + ":" + minutes + ":" + seconds + "." + millis;
         }
 
         onPaint: {
@@ -38,11 +38,11 @@ Item {
                 totalTicks /= 2.0;
             }
             PJGlobalTimeline.bigTickSignificance = bigTickSignificance;
-            print(totalTicks);
 
             // calculate pixels per tick
             var pixelsPerBigTick = 1 / secondsPerPixel * bigTickSignificance;
             var pixelsPerTick = pixelsPerBigTick / ticksPerSecond;
+            PJGlobalTimeline.spacing = pixelsPerTick;
 
             // calculate the start positions for the ruler
             var leftCutoff = PJGlobalTimeline.leftCutoff;
@@ -63,6 +63,7 @@ Item {
                     rect = false;
 
                     // label Big Ticks
+                    ctx.fillStyle = "#8f8f8f";
                     ctx.fillText(
                         getTimestampText(startTick - (startTick % ticksPerSecond) + i * bigTickSignificance),
                         startPixel + i*pixelsPerTick + 0.75*minSpacing,

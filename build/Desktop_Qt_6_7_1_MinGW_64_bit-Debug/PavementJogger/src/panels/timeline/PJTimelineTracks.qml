@@ -1,7 +1,9 @@
 import QtQuick
+import PavementJogger
 
 Item {
     id: tracks
+    signal repaint
     property alias ruler: rulerDisplay
 
     Rectangle {
@@ -25,6 +27,14 @@ Item {
                 id: rulerDisplay
                 anchors.fill: parent
             }
+        }
+
+
+        PJTimelineScrubber {
+            id: scrubber
+            anchors.fill: parent
+            clip: PJGlobalTimeline.leftCutoff!==0
+            onRepaint: () => tracks.repaint()
         }
 
     }

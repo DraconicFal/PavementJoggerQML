@@ -23,7 +23,7 @@
 			{
 				"command" : 4,
 				"file" : 1,
-				"line" : 36,
+				"line" : 37,
 				"parent" : 0
 			},
 			{
@@ -47,7 +47,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 967,
+				"line" : 994,
 				"parent" : 4
 			}
 		]
@@ -62,8 +62,8 @@
 	{
 		"name" : "QtInternalTargets/QmlLinter"
 	},
-	"id" : "appPavementJogger_qmllint::@6890427a1f51a3e7e1df",
-	"name" : "appPavementJogger_qmllint",
+	"id" : "appPavementJogger_qmllint_json::@6890427a1f51a3e7e1df",
+	"name" : "appPavementJogger_qmllint_json",
 	"paths" : 
 	{
 		"build" : ".",
@@ -91,13 +91,13 @@
 		{
 			"backtrace" : 5,
 			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/appPavementJogger_qmllint",
+			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/appPavementJogger_qmllint_json",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/appPavementJogger_qmllint.rule",
+			"path" : "build/Desktop_Qt_6_7_1_MinGW_64_bit-Debug/CMakeFiles/appPavementJogger_qmllint_json.rule",
 			"sourceGroupIndex" : 1
 		}
 	],
