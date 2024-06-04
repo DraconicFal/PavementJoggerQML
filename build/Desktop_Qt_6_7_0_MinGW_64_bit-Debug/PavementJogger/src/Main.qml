@@ -34,6 +34,7 @@ ApplicationWindow {
 
             PJPalette {
                 id: pj_palette
+                property int startWidth: implicitWidth
 
                 implicitWidth: 200
                 SplitView.minimumWidth: 100
@@ -49,6 +50,7 @@ ApplicationWindow {
 
             PJProperties {
                 id: pj_properties
+                property int startWidth: implicitWidth
 
                 implicitWidth: 200
                 SplitView.minimumWidth: 100
@@ -58,6 +60,7 @@ ApplicationWindow {
 
         PJTimeline {
             id: pj_timeline
+            property int startHeight: implicitHeight
 
             implicitHeight: 250
             SplitView.maximumHeight: 400

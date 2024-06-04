@@ -64,6 +64,14 @@ MenuBar {
         title: qsTr("View")
         Action {
             text: qsTr("Reset View")
+            onTriggered: {
+                pj_palette.width = pj_palette.startWidth
+                pj_properties.width = pj_properties.startWidth
+                pj_timeline.height = pj_timeline.startHeight
+                pj_palette.SplitView.preferredWidth = pj_palette.startWidth
+                pj_properties.SplitView.preferredWidth = pj_properties.startWidth
+                pj_timeline.SplitView.preferredHeight = pj_timeline.startHeight
+            }
         }
         Action { text: qsTr("Amongus") }
         Action { text: qsTr("Exitongus") }
