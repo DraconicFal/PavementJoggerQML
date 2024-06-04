@@ -5,8 +5,9 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-    app.setWindowIcon(QIcon(":/Images/PavementJoggerLogo.png"));
+    app.setWindowIcon(QIcon(":/Images/assets/PavementJoggerLogo.png"));
     QQmlApplicationEngine engine;
+
     const QUrl url(QStringLiteral("qrc:/PavementJogger/src/Main.qml"));
     QObject::connect(
         &engine,

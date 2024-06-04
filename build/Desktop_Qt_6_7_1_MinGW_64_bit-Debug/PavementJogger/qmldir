@@ -2,9 +2,13 @@ module PavementJogger
 typeinfo appPavementJogger.qmltypes
 prefer :/PavementJogger/
 Main 1.0 src/Main.qml
-PJMenuBar 1.0 src/panels/PJMenuBar.qml
-PJFieldView 1.0 src/panels/PJFieldView.qml
-PJPalette 1.0 src/panels/PJPalette.qml
-PJProperties 1.0 src/panels/PJProperties.qml
-PJTimeline 1.0 src/panels/PJTimeline.qml
+PJMenuBar 1.0 src/panels/menubar/PJMenuBar.qml
+PJFieldView 1.0 src/panels/fieldview/PJFieldView.qml
+PJPalette 1.0 src/panels/palette/PJPalette.qml
+PJProperties 1.0 src/panels/properties/PJProperties.qml
+PJTimeline 1.0 src/panels/timeline/PJTimeline.qml
+PJTimelineLabels 1.0 src/panels/timeline/PJTimelineLabels.qml
+PJTimelineRuler 1.0 src/panels/timeline/PJTimelineRuler.qml
+PJTimelineTracks 1.0 src/panels/timeline/PJTimelineTracks.qml
+singleton PJGlobalTimeline 1.0 src/global/PJGlobalTimeline.qml
 

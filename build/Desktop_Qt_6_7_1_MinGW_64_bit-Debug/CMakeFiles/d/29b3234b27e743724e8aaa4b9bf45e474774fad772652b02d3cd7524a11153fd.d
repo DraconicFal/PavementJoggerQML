@@ -460,7 +460,7 @@ appPavementJogger_autogen/timestamp: \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/WindowsPaths.cmake \
   C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/CMakeLists.txt \
-  C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/assets/QTL.qrc \
+  C:/Users/KK201/OneDrive/Documents/QtCreator/PavementJoggerQML/QTL.qrc \
   .qt/qml_imports/appPavementJogger_conf.cmake \
   .qtc/package-manager/auto-setup.cmake \
   CMakeFiles/3.27.7/CMakeCXXCompiler.cmake \
