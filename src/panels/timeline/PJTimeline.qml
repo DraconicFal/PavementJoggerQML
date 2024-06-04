@@ -30,9 +30,13 @@ Item {
 
             Slider {
                 anchors.right: parent.right
+                anchors.rightMargin: 50
+                anchors.verticalCenter: parent.verticalCenter
                 from: 0.001
                 value: 0.005
-                to: 0.1
+                to: 25.6
+                width: 200
+
                 onValueChanged: {
                     PJGlobalTimeline.secondsPerPixel = value;
                     var canvas = tracks.ruler.canvas;
