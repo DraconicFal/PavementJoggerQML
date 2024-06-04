@@ -12,7 +12,6 @@ Item {
 
         function getTimestampText(position) {
             var ticksPerSecond = PJGlobalTimeline.ticksPerSecond;
-            print(position + " TPS:" +ticksPerSecond);
 
             var frames = String(position % ticksPerSecond).padStart(2, '0');
             var seconds = String(Math.floor(position / ticksPerSecond) % 60).padStart(2, '0');
@@ -39,16 +38,16 @@ Item {
                 totalTicks /= 2.0;
             }
             PJGlobalTimeline.bigTickSignificance = bigTickSignificance;
+            print(totalTicks);
 
             // calculate pixels per tick
-            var pixelsPerBigTick = 1 / secondsPerPixel / bigTickSignificance;
+            var pixelsPerBigTick = 1 / secondsPerPixel * bigTickSignificance;
             var pixelsPerTick = pixelsPerBigTick / ticksPerSecond;
 
             // calculate the start positions for the ruler
             var leftCutoff = PJGlobalTimeline.leftCutoff;
             var startPixel = -pixelsPerTick * ((leftCutoff / bigTickSignificance) % ticksPerSecond);
             var startTick = Math.floor(PJGlobalTimeline.leftCutoff / bigTickSignificance);
-            print(startTick + " " + leftCutoff + " " + startPixel);
 
             // render ruler with padding
             ctx.font = "12px sans-serif";

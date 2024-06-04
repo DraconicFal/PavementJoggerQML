@@ -30,11 +30,11 @@ Item {
 
             Slider {
                 anchors.right: parent.right
-                from: 0
-                value: 0
-                to: 100
+                from: 0.001
+                value: 0.005
+                to: 0.1
                 onValueChanged: {
-                    PJGlobalTimeline.leftCutoff = value;
+                    PJGlobalTimeline.secondsPerPixel = value;
                     var canvas = tracks.ruler.canvas;
                     canvas.requestPaint();
                 }
