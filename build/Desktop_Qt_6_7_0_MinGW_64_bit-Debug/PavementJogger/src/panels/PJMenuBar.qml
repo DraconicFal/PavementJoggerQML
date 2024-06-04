@@ -11,20 +11,10 @@ MenuBar {
         Action {
             text: qsTr("New Project...")
         }
-        Action { text: qsTr("AMONG US") }
-        Action { text: qsTr("VERY SUS") }
-        Action { text: qsTr("SUSSY AMONGUS") }
-        Action { text: qsTr("SUSSY SUS AMOGUS") }
-
-        //delegate: MenuBarItem {
-            //id: menuBarItemFile
-            //contentItem: Text {
-                //text: menuBarItemFile.text
-                //font: menuBarItemFile.font
-               // color: "white"
-            //}
-       // }
-
+        Action { text: qsTr("Open Project...") }
+        Action { text: qsTr("Exit") }
+        //Action { text: qsTr("SUSSY AMONGUS") }
+        //Action { text: qsTr("SUSSY SUS AMOGUS") }
 
         delegate: ItemDelegate {
             id: menuBarFile
@@ -32,6 +22,84 @@ MenuBar {
             contentItem: Text {
                 text: menuBarFile.text
                 font: menuBarFile.font
+                color: "White"
+            }
+            background: Rectangle {
+                color: {
+                    if (parent.hovered)
+                        return "#29282E";
+                    return "#0d0d0d";
+                }
+            }
+        }
+    }
+
+    Menu {
+        title: qsTr("Edit")
+        Action {
+            text: qsTr("DUnno insert somethig")
+        }
+        Action { text: qsTr("Amongus") }
+        Action { text: qsTr("Exitongus") }
+
+        delegate: ItemDelegate {
+            id: menuBarEdit
+            highlighted: ListView.isCurrentItem
+            contentItem: Text {
+                text: menuBarEdit.text
+                font: menuBarEdit.font
+                color: "White"
+            }
+            background: Rectangle {
+                color: {
+                    if (parent.hovered)
+                        return "#29282E";
+                    return "#0d0d0d";
+                }
+            }
+        }
+    }
+
+    Menu {
+        title: qsTr("View")
+        Action {
+            text: qsTr("Reset View")
+        }
+        Action { text: qsTr("Amongus") }
+        Action { text: qsTr("Exitongus") }
+
+        delegate: ItemDelegate {
+            id: menuBarView
+            highlighted: ListView.isCurrentItem
+            contentItem: Text {
+                text: menuBarView.text
+                font: menuBarView.font
+                color: "White"
+            }
+            background: Rectangle {
+                color: {
+                    if (parent.hovered)
+                        return "#29282E";
+                    return "#0d0d0d";
+                }
+            }
+        }
+    }
+
+    Menu {
+        title: qsTr("Timeline")
+        Action {
+            text: qsTr("Translation")
+        }
+        Action { text: qsTr("Rotation") }
+        Action { text: qsTr("Exitongus") }
+
+        delegate: ItemDelegate {
+            id: menuBarTimeline
+            highlighted: ListView.isCurrentItem
+            contentItem: Text {
+                text: menuBarTimeline.text
+                font: menuBarTimeline.font
                 color: "White"
             }
             background: Rectangle {

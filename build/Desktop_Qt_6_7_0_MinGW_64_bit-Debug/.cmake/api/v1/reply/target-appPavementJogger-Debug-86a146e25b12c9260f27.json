@@ -27,12 +27,12 @@
 			"find_dependency",
 			"_qt_internal_find_qt_dependencies",
 			"add_dependencies",
-			"qt6_target_qml_sources",
 			"_qt_internal_scan_qml_imports",
 			"_qt_internal_generate_deploy_qml_imports_script",
 			"cmake_language",
 			"_qt_internal_finalize_executable",
 			"qt6_finalize_target",
+			"qt6_target_qml_sources",
 			"target_include_directories",
 			"_qt_internal_qml_type_registration",
 			"target_sources",
@@ -447,7 +447,48 @@
 				"parent" : 67
 			},
 			{
+				"file" : 1,
+				"line" : -1,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 25,
+				"line" : 1,
+				"parent" : 69
+			},
+			{
+				"command" : 17,
+				"file" : 0,
+				"line" : 774,
+				"parent" : 70
+			},
+			{
+				"command" : 16,
+				"file" : 0,
+				"line" : 678,
+				"parent" : 71
+			},
+			{
+				"command" : 15,
+				"file" : 0,
+				"line" : 678,
+				"parent" : 72
+			},
+			{
 				"command" : 14,
+				"file" : 5,
+				"line" : 3468,
+				"parent" : 73
+			},
+			{
+				"command" : 13,
+				"file" : 5,
+				"line" : 3284,
+				"parent" : 74
+			},
+			{
+				"command" : 19,
 				"file" : 5,
 				"line" : 647,
 				"parent" : 15
@@ -456,47 +497,6 @@
 				"command" : 13,
 				"file" : 5,
 				"line" : 2730,
-				"parent" : 69
-			},
-			{
-				"file" : 1,
-				"line" : -1,
-				"parent" : 0
-			},
-			{
-				"command" : 19,
-				"file" : 25,
-				"line" : 1,
-				"parent" : 71
-			},
-			{
-				"command" : 18,
-				"file" : 0,
-				"line" : 774,
-				"parent" : 72
-			},
-			{
-				"command" : 17,
-				"file" : 0,
-				"line" : 678,
-				"parent" : 73
-			},
-			{
-				"command" : 16,
-				"file" : 0,
-				"line" : 678,
-				"parent" : 74
-			},
-			{
-				"command" : 15,
-				"file" : 5,
-				"line" : 3468,
-				"parent" : 75
-			},
-			{
-				"command" : 13,
-				"file" : 5,
-				"line" : 3284,
 				"parent" : 76
 			},
 			{
@@ -569,13 +569,13 @@
 				"command" : 22,
 				"file" : 5,
 				"line" : 2514,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 28,
 				"file" : 5,
 				"line" : 2618,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
@@ -587,73 +587,73 @@
 				"command" : 22,
 				"file" : 5,
 				"line" : 2666,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2514,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2666,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2514,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2666,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2514,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2666,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2514,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2666,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2514,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 22,
 				"file" : 5,
 				"line" : 2666,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 27,
 				"file" : 5,
 				"line" : 2749,
-				"parent" : 69
+				"parent" : 76
 			},
 			{
 				"command" : 26,
@@ -677,7 +677,7 @@
 				"command" : 29,
 				"file" : 0,
 				"line" : 768,
-				"parent" : 72
+				"parent" : 70
 			},
 			{
 				"command" : 22,
@@ -1068,10 +1068,11 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "appPavementJogger_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+			"backtrace" : 75,
+			"id" : "appPavementJogger_qmlimportscan::@6890427a1f51a3e7e1df"
 		},
 		{
-			"backtrace" : 70,
+			"backtrace" : 77,
 			"id" : "appPavementJogger_tooling::@6890427a1f51a3e7e1df"
 		},
 		{
@@ -1079,8 +1080,7 @@
 			"id" : "appPavementJogger_autogen::@6890427a1f51a3e7e1df"
 		},
 		{
-			"backtrace" : 77,
-			"id" : "appPavementJogger_qmlimportscan::@6890427a1f51a3e7e1df"
+			"id" : "appPavementJogger_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "appPavementJogger::@6890427a1f51a3e7e1df",
