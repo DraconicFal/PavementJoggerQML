@@ -39,7 +39,7 @@ Item {
 
                 onValueChanged: {
                     PJGlobalTimeline.secondsPerPixel = Math.pow(2, value) / 200;
-                    var canvas = tracks.ruler.canvas;
+                    var canvas = content.ruler.canvas;
                     canvas.requestPaint();
                 }
             }
@@ -53,8 +53,8 @@ Item {
             anchors.left: parent.left
         }
 
-        PJTimelineTracks {
-            id: tracks
+        PJTimelineContent {
+            id: content
             anchors.top: title.bottom
             anchors.bottom: parent.bottom
             anchors.left: labels.right

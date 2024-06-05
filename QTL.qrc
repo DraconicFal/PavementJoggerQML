@@ -4,5 +4,6 @@
     </qresource>
     <qresource prefix="/">
         <file>src/panels/timeline/PJTimelineScrubber.qml</file>
+        <file>src/panels/timeline/PJTimelineTracks.qml</file>
     </qresource>
 </RCC>
