@@ -1,6 +1,10 @@
 import QtQuick
 import QtQuick.Controls
-import "panels"
+import "panels/fieldview"
+import "panels/menubar"
+import "panels/palette"
+import "panels/properties"
+import "panels/timeline"
 
 ApplicationWindow {
     id: mainWindow
@@ -36,9 +40,9 @@ ApplicationWindow {
                 id: pj_palette
                 property int startWidth: implicitWidth
 
-                implicitWidth: 200
                 SplitView.minimumWidth: 100
                 SplitView.maximumWidth: 500
+                implicitWidth: (SplitView.minimumWidth + SplitView.maximumWidth) / 2
             }
 
             PJFieldView {
@@ -52,9 +56,9 @@ ApplicationWindow {
                 id: pj_properties
                 property int startWidth: implicitWidth
 
-                implicitWidth: 200
                 SplitView.minimumWidth: 100
                 SplitView.maximumWidth: 500
+                implicitWidth: (SplitView.minimumWidth + SplitView.maximumWidth) / 2
             }
         }
 
@@ -62,9 +66,9 @@ ApplicationWindow {
             id: pj_timeline
             property int startHeight: implicitHeight
 
-            implicitHeight: 250
-            SplitView.maximumHeight: 400
-            SplitView.minimumHeight: 100
+            implicitHeight: 400
+            SplitView.maximumHeight: 600
+            SplitView.minimumHeight: 200
             SplitView.fillHeight: true
         }
     }

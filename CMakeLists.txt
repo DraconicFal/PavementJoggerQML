@@ -13,17 +13,33 @@ qt_add_executable(appPavementJogger
     src/main.cpp
 )
 
+set(plain_qml_files
+    src/Main.qml
+    src/panels/menubar/PJMenuBar.qml
+    src/panels/fieldview/PJFieldView.qml
+    src/panels/palette/PJPalette.qml
+    src/panels/properties/PJProperties.qml
+
+    src/panels/timeline/PJTimeline.qml
+    src/panels/timeline/PJTimelineLabels.qml
+    src/panels/timeline/PJTimelineRuler.qml
+    src/panels/timeline/PJTimelineContent.qml
+    src/panels/timeline/PJTimelineScrubber.qml
+    src/panels/timeline/PJTimelineTracks.qml
+)
+
+set(qml_singletons
+    src/global/PJGlobalTimeline.qml
+)
+
+set_source_files_properties(${qml_singletons}
+    PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
 qt_add_qml_module(appPavementJogger
     URI PavementJogger
     VERSION 1.0
-    QML_FILES
-        src/Main.qml
-        RESOURCES assets/QTL.qrc
-        QML_FILES src/panels/PJMenuBar.qml
-        QML_FILES src/panels/PJFieldView.qml
-        QML_FILES src/panels/PJPalette.qml
-        QML_FILES src/panels/PJProperties.qml
-        QML_FILES src/panels/PJTimeline.qml
+    RESOURCES QTL.qrc
+    QML_FILES ${plain_qml_files} ${qml_singletons}
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -38,7 +54,8 @@ set_target_properties(appPavementJogger PROPERTIES
 )
 
 target_link_libraries(appPavementJogger
-    PRIVATE Qt6::Quick
+    PRIVATE
+        Qt6::Quick
 )
 
 include(GNUInstallDirs)
