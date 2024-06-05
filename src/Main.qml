@@ -11,10 +11,10 @@ ApplicationWindow {
 
     // setup main window
     color: "#1A1A1A"
-    minimumWidth: screen.width
-    minimumHeight: screen.height
-    width: screen.width
-    height: screen.height
+    minimumWidth: screen.width / 2
+    minimumHeight: screen.height / 2
+    width: screen.width * (2/3)
+    height:screen.height * (2/3)
     visible: true
     title: qsTr("PavementJogger 2")
 
@@ -38,6 +38,7 @@ ApplicationWindow {
 
             PJPalette {
                 id: pj_palette
+                property int startWidth: implicitWidth
 
                 SplitView.minimumWidth: 100
                 SplitView.maximumWidth: 500
@@ -53,6 +54,7 @@ ApplicationWindow {
 
             PJProperties {
                 id: pj_properties
+                property int startWidth: implicitWidth
 
                 SplitView.minimumWidth: 100
                 SplitView.maximumWidth: 500
@@ -62,6 +64,7 @@ ApplicationWindow {
 
         PJTimeline {
             id: pj_timeline
+            property int startHeight: implicitHeight
 
             implicitHeight: 400
             SplitView.maximumHeight: 600
