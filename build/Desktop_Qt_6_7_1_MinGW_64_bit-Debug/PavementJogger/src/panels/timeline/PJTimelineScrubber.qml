@@ -85,8 +85,8 @@ Item {
         DropShadow {
            anchors.fill: body
            source: body
-           radius: 4
-           samples: 9
+           radius: 3
+           samples: 7
            color: "black"
        }
 
