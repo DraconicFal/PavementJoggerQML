@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/Images">
-        <file>assets/PavementJoggerLogo.png</file>
-    </qresource>
-    <qresource prefix="/">
-        <file>src/panels/timeline/PJTimelineScrubber.qml</file>
-    </qresource>
-</RCC>
