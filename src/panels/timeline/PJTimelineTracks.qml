@@ -40,7 +40,7 @@ Item {
 
             onRepaint: {
                 () => tracks.repaint()
-                trackFlickable.contentX = PJGlobalTimeline.leftCutoff/(PJGlobalTimeline.bigTickSignificance*PJGlobalTimeline.ticksPerSecond*PJGlobalTimeline.secondsPerPixel);
+                trackFlickable.contentX = PJGlobalTimeline.leftCutoff/PJGlobalTimeline.ticksPerPixel;
             }
         }
 
@@ -57,7 +57,7 @@ Item {
                 id: trackFlickable
                 anchors.fill: parent
                 boundsBehavior: Flickable.StopAtBounds
-                contentWidth: Math.max(goofyaahlabel.width, contentX+parent.width)
+                contentWidth: Math.max(goofyaahlabel.width, contentX+parent.width, PJGlobalTimeline.scrubberPixelPosition)
                 contentHeight: goofyaahlabel.height
                 maximumFlickVelocity: 0
 
@@ -73,7 +73,7 @@ Item {
                 }
                 onContentXChanged: {
                     if (!dragging) {
-                        PJGlobalTimeline.leftCutoff = contentX * (PJGlobalTimeline.bigTickSignificance*PJGlobalTimeline.ticksPerSecond*PJGlobalTimeline.secondsPerPixel);
+                        PJGlobalTimeline.leftCutoff = contentX*PJGlobalTimeline.ticksPerPixel;
                         ruler.canvas.requestPaint();
                     } else {
                         contentX = dragStartX;

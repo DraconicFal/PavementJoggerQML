@@ -11,7 +11,7 @@ Item {
     property int handleWidth: 15
     property int handleHeight: 15
     property int stemWidth: 2
-    readonly property double screenX: (PJGlobalTimeline.scrubberPosition - PJGlobalTimeline.leftCutoff) / (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond)
+    readonly property double screenX: (PJGlobalTimeline.scrubberTickPosition - PJGlobalTimeline.leftCutoff) / (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond)
 
     MouseArea {
         id: mousearea
@@ -47,7 +47,7 @@ Item {
             // adjust global scrubber position
             var projectedPosition = PJGlobalTimeline.leftCutoff + adjMousePos * (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond);
             projectedPosition = Math.round(projectedPosition / bigTickSignificance) * bigTickSignificance;
-            PJGlobalTimeline.scrubberPosition = projectedPosition;
+            PJGlobalTimeline.scrubberTickPosition = projectedPosition;
         }
     }
 

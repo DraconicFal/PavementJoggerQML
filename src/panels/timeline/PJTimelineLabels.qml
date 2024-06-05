@@ -25,7 +25,7 @@ Item {
 
             Label {
                 function getScrubberText() {
-                    var position = PJGlobalTimeline.scrubberPosition;
+                    var position = PJGlobalTimeline.scrubberTickPosition;
                     var ticksPerSecond = PJGlobalTimeline.ticksPerSecond;
 
                     var millis = String(1000 * (position % ticksPerSecond) / ticksPerSecond).padStart(3, '0');

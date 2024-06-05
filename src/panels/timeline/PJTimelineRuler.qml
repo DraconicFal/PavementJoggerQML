@@ -26,7 +26,7 @@ Item {
             context.clearRect(0, 0, canvas.width, canvas.height);
             var ticksPerSecond = PJGlobalTimeline.ticksPerSecond;
             var minSpacing = PJGlobalTimeline.minSpacing;
-            var position = PJGlobalTimeline.scrubberPosition;
+            var position = PJGlobalTimeline.scrubberTickPosition;
             var secondsPerPixel = PJGlobalTimeline.secondsPerPixel;
 
             // calculate Big Tick Significance
