@@ -7,10 +7,10 @@ ApplicationWindow {
 
     // setup main window
     color: "#1A1A1A"
-    minimumWidth: screen.width
-    minimumHeight: screen.height
-    width: screen.width
-    height:screen.height
+    minimumWidth: screen.width / 2
+    minimumHeight: screen.height / 2
+    width: screen.width * (2/3)
+    height:screen.height * (2/3)
     visible: true
     title: qsTr("PavementJogger 2")
 

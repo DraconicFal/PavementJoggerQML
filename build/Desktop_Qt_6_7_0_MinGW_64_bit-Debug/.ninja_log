@@ -2,46 +2,46 @@
 356	554	7389135830108644	apppavementjogger_qmltyperegistrations.cpp	6850dab7e98f45eb
 970	6171	7389135886857866	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_qmlcache_loader.cpp.obj	d5930b453a521725
 5	33	7389135825510004	PavementJogger/src/panels/PJFieldView.qml	a695846a3515492e
-11	371	7391716856369350	.qt_plugins/Qt6_QmlPlugins_Imports_appPavementJogger.cmake	8c3944a2741a784c
+27	431	7393150583807959	.qt_plugins/Qt6_QmlPlugins_Imports_appPavementJogger.cmake	8c3944a2741a784c
 1016	1544	7389135840584782	CMakeFiles/appPavementJogger.dir/appPavementJogger_autogen/GBFAFXFCVO/qrc_QTL.cpp.obj	c17fe9f0a7047f66
 356	554	7389135830108644	PavementJogger/appPavementJogger.qmltypes	6850dab7e98f45eb
 2	29	7389135825449998	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/assets/QTL.qrc	5bfd32b4829f5625
-11	371	7391716856369350	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.qt_plugins/Qt6_QmlPlugins_Imports_appPavementJogger.cmake	8c3944a2741a784c
+27	431	7393150583807959	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.qt_plugins/Qt6_QmlPlugins_Imports_appPavementJogger.cmake	8c3944a2741a784c
 973	1118	7389135836244787	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_qmake_PavementJogger.cpp.obj	8c4e35353471254a
-370	1860	7391716870592349	build.ninja	649145dd14f8d93d
+465	2449	7393150598154459	build.ninja	649145dd14f8d93d
 19	52	7389135825689986	PavementJogger/src/panels/PJProperties.qml	4e08fdc75ba1cd8a
 2	29	7389135825449998	PavementJogger/assets/QTL.qrc	5bfd32b4829f5625
 5	33	7389135825510004	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/panels/PJFieldView.qml	a695846a3515492e
-13	37	7391716004371948	PavementJogger/src/panels/PJMenuBar.qml	bd64ecd5d0f63526
+21	73	7393149309001151	PavementJogger/src/panels/PJMenuBar.qml	bd64ecd5d0f63526
 284	355	7389135828710168	meta_types/qt6apppavementjogger_debug_metatypes.json.gen	2ddab9804239d9ba
-13	37	7391716004371948	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/panels/PJMenuBar.qml	bd64ecd5d0f63526
+21	73	7393149309001151	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/panels/PJMenuBar.qml	bd64ecd5d0f63526
 982	1109	7389135836194786	CMakeFiles/appPavementJogger.dir/appPavementJogger_autogen/mocs_compilation.cpp.obj	853fc381de594a0e
 11	40	7389135825569982	PavementJogger/src/panels/PJTimeline.qml	bfc69aa97624aa94
 573	936	7389135833534791	.rcc/qmlcache/appPavementJogger_src/panels/PJTimeline_qml.cpp	eace6d3b29557171
 11	40	7389135825569982	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/panels/PJTimeline.qml	bfc69aa97624aa94
 14	47	7389135825639986	PavementJogger/src/panels/PJPalette.qml	fbb75143337de42a
 14	47	7389135825639986	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/panels/PJPalette.qml	fbb75143337de42a
-422	2588	7391716029825533	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp.obj	2426a3b7d974e7a7
+424	2069	7393150015894179	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp.obj	2426a3b7d974e7a7
 19	52	7389135825689986	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/panels/PJProperties.qml	4e08fdc75ba1cd8a
 225	404	7389135828460181	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_qmake_PavementJogger.cpp	35162484ba672301
-17	39	7391716004391940	PavementJogger/src/Main.qml	458db3fa4ab42ca3
-17	39	7391716004391940	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/Main.qml	458db3fa4ab42ca3
+13	46	7393149995671932	PavementJogger/src/Main.qml	458db3fa4ab42ca3
+13	46	7393149995671932	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/Main.qml	458db3fa4ab42ca3
 979	5662	7389135881747850	CMakeFiles/appPavementJogger.dir/apppavementjogger_qmltyperegistrations.cpp.obj	153695e4a76d9c4c
-40	134	7391716005341934	appPavementJogger_autogen/timestamp	d76816fdf8912ab4
-40	134	7391716005341934	appPavementJogger_autogen/mocs_compilation.cpp	d76816fdf8912ab4
-40	134	7391716005341934	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/appPavementJogger_autogen/timestamp	d76816fdf8912ab4
-40	134	7391716005341934	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/appPavementJogger_autogen/mocs_compilation.cpp	d76816fdf8912ab4
+47	162	7393149996833987	appPavementJogger_autogen/timestamp	d76816fdf8912ab4
+47	162	7393149996833987	appPavementJogger_autogen/mocs_compilation.cpp	d76816fdf8912ab4
+47	162	7393149996833987	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/appPavementJogger_autogen/timestamp	d76816fdf8912ab4
+47	162	7393149996833987	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/appPavementJogger_autogen/mocs_compilation.cpp	d76816fdf8912ab4
 993	5752	7389135882647861	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJPalette_qml.cpp.obj	7b262563edf85279
-170	416	7391716007611930	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp	582f964a897c0b6e
-145	166	7391716004851987	meta_types/appPavementJogger_json_file_list.txt	cd843782c5bfec31
-145	166	7391716004851987	meta_types/appPavementJogger_json_file_list.txt.timestamp	cd843782c5bfec31
-149	279	7391716006131957	.rcc/qrc_appPavementJogger_raw_qml_0.cpp	7b6cc7a640deaf12
-145	166	7391716004851987	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/appPavementJogger_json_file_list.txt	cd843782c5bfec31
-145	166	7391716004851987	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/appPavementJogger_json_file_list.txt.timestamp	cd843782c5bfec31
+312	614	7393149313807283	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp	582f964a897c0b6e
+179	211	7393149996261350	meta_types/appPavementJogger_json_file_list.txt	cd843782c5bfec31
+179	211	7393149996261350	meta_types/appPavementJogger_json_file_list.txt.timestamp	cd843782c5bfec31
+174	319	7393149997875557	.rcc/qrc_appPavementJogger_raw_qml_0.cpp	7b6cc7a640deaf12
+179	211	7393149996261350	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/appPavementJogger_json_file_list.txt	cd843782c5bfec31
+179	211	7393149996261350	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/appPavementJogger_json_file_list.txt.timestamp	cd843782c5bfec31
 284	355	7389135828710168	meta_types/qt6apppavementjogger_debug_metatypes.json	2ddab9804239d9ba
 284	355	7389135828710168	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/qt6apppavementjogger_debug_metatypes.json.gen	2ddab9804239d9ba
-149	279	7391716006131957	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_appPavementJogger_raw_qml_0.cpp	7b6cc7a640deaf12
-166	419	7391716007711933	.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp	a3cc780640b05f9d
+174	319	7393149997875557	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_appPavementJogger_raw_qml_0.cpp	7b6cc7a640deaf12
+212	423	7393149999048888	.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp	a3cc780640b05f9d
 284	355	7389135828710168	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/qt6apppavementjogger_debug_metatypes.json	2ddab9804239d9ba
 225	404	7389135828460181	.rcc/qrc_qmake_PavementJogger.cpp	35162484ba672301
 985	5704	7389135882147854	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJFieldView_qml.cpp.obj	2c0dfdece1de1c0b
@@ -53,34 +53,34 @@
 561	936	7389135833514788	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJFieldView_qml.cpp	92c8cd47d1e93ef7
 356	554	7389135830108644	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/apppavementjogger_qmltyperegistrations.cpp	6850dab7e98f45eb
 356	554	7389135830108644	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/appPavementJogger.qmltypes	6850dab7e98f45eb
-170	416	7391716007611930	.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp	582f964a897c0b6e
+312	614	7393149313807283	.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp	582f964a897c0b6e
 561	936	7389135833514788	.rcc/qmlcache/appPavementJogger_src/panels/PJFieldView_qml.cpp	92c8cd47d1e93ef7
 573	936	7389135833534791	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJTimeline_qml.cpp	eace6d3b29557171
-166	419	7391716007711933	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp	a3cc780640b05f9d
+212	423	7393149999048888	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp	a3cc780640b05f9d
 564	963	7389135833604794	.rcc/qmlcache/appPavementJogger_src/panels/PJProperties_qml.cpp	f30e2077e55b4b8c
 564	963	7389135833604794	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJProperties_qml.cpp	f30e2077e55b4b8c
 997	5907	7389135884228413	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJProperties_qml.cpp.obj	71a17e1ab57cccfd
 568	970	7389135833754782	.rcc/qmlcache/appPavementJogger_src/panels/PJPalette_qml.cpp	5ada6ba6691ac7f9
-419	489	7391716008881932	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_appPavementJogger_raw_qml_0.cpp.obj	ec0446f1535f34be
-424	2661	7391716030555636	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp.obj	77d514b370895b53
+427	505	7393150000262527	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_appPavementJogger_raw_qml_0.cpp.obj	ec0446f1535f34be
+620	2764	7393149335904162	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp.obj	77d514b370895b53
 989	5838	7389135883537861	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJTimeline_qml.cpp.obj	d23980ec6dec9296
 976	5973	7389135884887841	CMakeFiles/appPavementJogger.dir/src/main.cpp.obj	41ca4ad337c2ef46
-2662	3054	7391716034477563	appPavementJogger.exe	d9093c4accb0e703
-371	1822	7391716870592349	build.ninja	649145dd14f8d93d
-12	34	7391716872054394	PavementJogger/src/panels/PJMenuBar.qml	bd64ecd5d0f63526
-12	34	7391716872054394	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/panels/PJMenuBar.qml	bd64ecd5d0f63526
-35	115	7391716872854426	appPavementJogger_autogen/timestamp	d76816fdf8912ab4
-35	115	7391716872854426	appPavementJogger_autogen/mocs_compilation.cpp	d76816fdf8912ab4
-35	115	7391716872854426	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/appPavementJogger_autogen/timestamp	d76816fdf8912ab4
-35	115	7391716872854426	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/appPavementJogger_autogen/mocs_compilation.cpp	d76816fdf8912ab4
-131	152	7391716872414434	meta_types/appPavementJogger_json_file_list.txt	cd843782c5bfec31
-131	152	7391716872414434	meta_types/appPavementJogger_json_file_list.txt.timestamp	cd843782c5bfec31
-131	152	7391716872414434	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/appPavementJogger_json_file_list.txt	cd843782c5bfec31
-131	152	7391716872414434	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/appPavementJogger_json_file_list.txt.timestamp	cd843782c5bfec31
-127	272	7391716873634401	.rcc/qrc_appPavementJogger_raw_qml_0.cpp	7b6cc7a640deaf12
-127	272	7391716873634401	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_appPavementJogger_raw_qml_0.cpp	7b6cc7a640deaf12
-153	378	7391716875027308	.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp	582f964a897c0b6e
-153	378	7391716875027308	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp	582f964a897c0b6e
-378	432	7391716876029001	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_appPavementJogger_raw_qml_0.cpp.obj	ec0446f1535f34be
-380	2213	7391716893839166	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/panels/PJMenuBar_qml.cpp.obj	77d514b370895b53
-2214	2523	7391716896888966	appPavementJogger.exe	d9093c4accb0e703
+2070	2389	7393150019032872	appPavementJogger.exe	d9093c4accb0e703
+431	2033	7393150598154459	build.ninja	649145dd14f8d93d
+13	45	7393150600873372	PavementJogger/src/Main.qml	458db3fa4ab42ca3
+13	45	7393150600873372	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/PavementJogger/src/Main.qml	458db3fa4ab42ca3
+45	156	7393150601979295	appPavementJogger_autogen/timestamp	d76816fdf8912ab4
+45	156	7393150601979295	appPavementJogger_autogen/mocs_compilation.cpp	d76816fdf8912ab4
+45	156	7393150601979295	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/appPavementJogger_autogen/timestamp	d76816fdf8912ab4
+45	156	7393150601979295	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/appPavementJogger_autogen/mocs_compilation.cpp	d76816fdf8912ab4
+171	205	7393150601427659	meta_types/appPavementJogger_json_file_list.txt	cd843782c5bfec31
+171	205	7393150601427659	meta_types/appPavementJogger_json_file_list.txt.timestamp	cd843782c5bfec31
+171	205	7393150601427659	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/appPavementJogger_json_file_list.txt	cd843782c5bfec31
+171	205	7393150601427659	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/meta_types/appPavementJogger_json_file_list.txt.timestamp	cd843782c5bfec31
+177	296	7393150602987232	.rcc/qrc_appPavementJogger_raw_qml_0.cpp	7b6cc7a640deaf12
+177	296	7393150602987232	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_appPavementJogger_raw_qml_0.cpp	7b6cc7a640deaf12
+206	406	7393150604089413	.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp	a3cc780640b05f9d
+206	406	7393150604089413	C:/Users/Draco/Documents/QT Creator/PavementJogger4/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp	a3cc780640b05f9d
+406	483	7393150605268458	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qrc_appPavementJogger_raw_qml_0.cpp.obj	ec0446f1535f34be
+410	2035	7393150620755228	CMakeFiles/appPavementJogger.dir/build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug/.rcc/qmlcache/appPavementJogger_src/Main_qml.cpp.obj	2426a3b7d974e7a7
+2036	2367	7393150624045677	appPavementJogger.exe	d9093c4accb0e703

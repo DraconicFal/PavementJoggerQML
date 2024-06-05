@@ -13,8 +13,8 @@ MenuBar {
         }
         Action { text: qsTr("Open Project...") }
         Action { text: qsTr("Exit") }
-        //Action { text: qsTr("SUSSY AMONGUS") }
-        //Action { text: qsTr("SUSSY SUS AMOGUS") }
+        Action { text: qsTr("SUSSY AMONGUS") }
+        Action { text: qsTr("SUSSY SUS AMOGUS") }
 
         delegate: ItemDelegate {
             id: menuBarFile
@@ -37,10 +37,10 @@ MenuBar {
     Menu { //Edit
         title: qsTr("Edit")
         Action {
-            text: qsTr("DUnno insert somethig")
+            text: qsTr("Undo")
         }
-        Action { text: qsTr("Amongus") }
-        Action { text: qsTr("Exitongus") }
+        Action { text: qsTr("Redo") }
+        Action { text: qsTr("Copy") }
 
         delegate: ItemDelegate {
             id: menuBarEdit
@@ -62,6 +62,9 @@ MenuBar {
 
     Menu { //View
         title: qsTr("View")
+        id: menuView
+        property bool isMaximized: false
+
         Action {
             text: qsTr("Reset View")
             onTriggered: {
@@ -73,8 +76,22 @@ MenuBar {
                 pj_timeline.SplitView.preferredHeight = pj_timeline.startHeight
             }
         }
-        Action { text: qsTr("Amongus") }
-        Action { text: qsTr("Exitongus") }
+        Action {
+            text: qsTr("Maximize")
+            //enabled: !isMaximized
+            onTriggered: {
+                //isMaximized: true
+                mainWindow.visibility = Window.Maximized
+            }
+        }
+        Action {
+            text: qsTr("Minimize")
+            //enabled: isMaximized
+            onTriggered: {
+                //isMaximized: false
+                mainWindow.visibility = Window.Minimized
+            }
+        }
 
         delegate: ItemDelegate {
             id: menuBarView

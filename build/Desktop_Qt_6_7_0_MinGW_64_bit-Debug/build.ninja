@@ -546,7 +546,7 @@ build .qt_plugins/Qt6_QmlPlugins_Imports_appPavementJogger.cmake | ${cmake_ninja
 #############################################
 # Phony custom command for CMakeFiles\appPavementJogger_autogen_timestamp_deps
 
-build CMakeFiles/appPavementJogger_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/appPavementJogger_autogen_timestamp_deps: phony C$:/Qt/6.7.0/mingw_64/./bin/moc.exe C$:/Qt/6.7.0/mingw_64/lib/libQt6Qml.a C$:/Qt/6.7.0/mingw_64/lib/libQt6Quick.a
+build CMakeFiles/appPavementJogger_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/appPavementJogger_autogen_timestamp_deps: phony C$:/Qt/6.7.0/mingw_64/./bin/moc.exe C$:/Qt/6.7.0/mingw_64/lib/libQt6Quick.a C$:/Qt/6.7.0/mingw_64/lib/libQt6Qml.a
 
 
 #############################################
