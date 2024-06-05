@@ -32,13 +32,13 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 50
                 anchors.verticalCenter: parent.verticalCenter
-                from: 0.001
-                value: 0.005
-                to: 0.1
+                from: -1
+                value: 0
+                to: 6
                 width: 200
 
                 onValueChanged: {
-                    PJGlobalTimeline.secondsPerPixel = value;
+                    PJGlobalTimeline.secondsPerPixel = Math.pow(2, value) / 200;
                     var canvas = tracks.ruler.canvas;
                     canvas.requestPaint();
                 }

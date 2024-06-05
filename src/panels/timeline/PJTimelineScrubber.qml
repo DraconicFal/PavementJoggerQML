@@ -22,18 +22,20 @@ Item {
 
         // use ruler area to position scrubber
         onPositionChanged: {
-            var adjMousePos = Math.max(0, Math.min(width, mouseX + PJGlobalTimeline.spacing/2));
+            var adjMousePos = mouseX;
+            adjMousePos = Math.max(0, Math.min(width, adjMousePos));
+            var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
 
             // adjust global left cutoff
             var projectedLeftCutoff = PJGlobalTimeline.leftCutoff;
             var scrollMargin = 100;
             var scrolled = false;
             if (adjMousePos < scrollMargin) {
-                projectedLeftCutoff += (adjMousePos-scrollMargin) / 50;
+                projectedLeftCutoff += bigTickSignificance * (adjMousePos-scrollMargin) / 100;
                 scrolled = true;
             }
             if (adjMousePos > width - scrollMargin) {
-                projectedLeftCutoff += (adjMousePos-(width - scrollMargin)) / 50;
+                projectedLeftCutoff += bigTickSignificance *(adjMousePos-(width - scrollMargin)) / 100;
                 scrolled = true;
             }
             projectedLeftCutoff = Math.max(0, projectedLeftCutoff);
@@ -44,8 +46,7 @@ Item {
 
             // adjust global scrubber position
             var projectedPosition = PJGlobalTimeline.leftCutoff + adjMousePos * (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond);
-            var roundMultiple = PJGlobalTimeline.bigTickSignificance;
-            projectedPosition = Math.round(projectedPosition / roundMultiple) * roundMultiple;
+            projectedPosition = Math.round(projectedPosition / bigTickSignificance) * bigTickSignificance;
             PJGlobalTimeline.scrubberPosition = projectedPosition;
         }
     }

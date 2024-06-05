@@ -769,6 +769,77 @@ r2_3 = r7_0 != double(r2_2);
 // generate_Ret
 return r2_3;
 });}
+ },{ 6, QMetaType::fromType<void>(), {  }, 
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+Q_UNUSED(aotContext)
+Q_UNUSED(argumentsPtr)
+// expression for onRepaint at line 37, column 13
+// generate_CreateCallContext
+{
+{
+}
+{
+}
+{
+}
+// generate_PopContext
+{}
+}
+{
+}
+{
+}
+// generate_Ret
+return;
+});}
+ },{ 7, QMetaType::fromType<void>(), {  }, 
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+Q_UNUSED(aotContext)
+Q_UNUSED(argumentsPtr)
+//  at line 37, column 24
+QObject *r2_0;
+QObject *r7_0;
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
+while (!aotContext->loadContextIdLookup(10, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
+aotContext->initLoadContextIdLookup(10);
+if (aotContext->engine->hasError())
+    return ;
+}
+{
+}
+// generate_StoreReg
+r7_0 = r2_0;
+{
+}
+// generate_CallPropertyLookup
+{
+void *args[] = { nullptr };
+const QMetaType types[] = { QMetaType() };
+#ifndef QT_NO_DEBUG
+aotContext->setInstructionPointer(9);
+#endif
+while (!aotContext->callObjectPropertyLookup(11, r7_0, args, types, 0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(9);
+#endif
+aotContext->initCallObjectPropertyLookup(11);
+if (aotContext->engine->hasError())
+    return ;
+}
+}
+{
+}
+// generate_Ret
+return;
+});}
  },{ 8, QMetaType::fromType<QObject*>(), {  }, 
     [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
         wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {

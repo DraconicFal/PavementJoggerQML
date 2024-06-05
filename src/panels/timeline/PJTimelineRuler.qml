@@ -46,16 +46,16 @@ Item {
 
             // calculate the start positions for the ruler
             var leftCutoff = PJGlobalTimeline.leftCutoff;
-            var startPixel = -pixelsPerTick * ((leftCutoff / bigTickSignificance) % ticksPerSecond);
-            var startTick = Math.floor(PJGlobalTimeline.leftCutoff / bigTickSignificance);
+            var startPixel = -pixelsPerTick * (leftCutoff%bigTickSignificance)/bigTickSignificance;
+            var startTick = Math.floor(leftCutoff / bigTickSignificance);
 
             // render ruler with padding
             ctx.font = "12px sans-serif";
-            for (var i = 0; i < Math.ceil(totalTicks) + ticksPerSecond; i++) {
+            for (var i = -ticksPerSecond + 1; i < Math.ceil(totalTicks) + ticksPerSecond; i++) {
                 var width = 0.75;
                 var height;
                 var rect = true;
-                var modTick = i % ticksPerSecond;
+                var modTick = (startTick + i) % ticksPerSecond;
                 if (modTick===0) {
                     // Big Ticks
                     height = 27;
@@ -65,7 +65,7 @@ Item {
                     // label Big Ticks
                     ctx.fillStyle = "#8f8f8f";
                     ctx.fillText(
-                        getTimestampText(startTick - (startTick % ticksPerSecond) + i * bigTickSignificance),
+                        getTimestampText((startTick + i) * bigTickSignificance),
                         startPixel + i*pixelsPerTick + 0.75*minSpacing,
                         27
                     );
