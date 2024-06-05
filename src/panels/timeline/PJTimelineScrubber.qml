@@ -67,7 +67,7 @@ Item {
             anchors.fill: parent
 
             ShapePath {
-                fillColor: "#3d4be6"
+                fillColor: "#38b6ff"
                 strokeColor: "transparent"
 
                 startX: 0; startY: 0

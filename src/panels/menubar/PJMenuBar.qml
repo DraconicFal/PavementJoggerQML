@@ -48,7 +48,7 @@ MenuBar {
             contentItem: Text {
                 text: menuBarEdit.text
                 font: menuBarEdit.font
-                color: "White"
+                color: "white"
             }
             background: Rectangle {
                 color: {
@@ -83,6 +83,7 @@ MenuBar {
                 //isMaximized: true
                 mainWindow.visibility = Window.Maximized
             }
+            enabled: false
         }
         Action {
             text: qsTr("Minimize")
@@ -99,11 +100,11 @@ MenuBar {
             contentItem: Text {
                 text: menuBarView.text
                 font: menuBarView.font
-                color: "White"
+                color: enabled ? "white" : "gray"
             }
             background: Rectangle {
                 color: {
-                    if (parent.hovered)
+                    if (parent.hovered && enabled)
                         return "#29282E";
                     return "#0d0d0d";
                 }
