@@ -4,8 +4,14 @@ import PavementJogger
 
 Item {
     id: content
-    signal repaint
+    signal repaint()
     property alias ruler: ruler
+
+    function resizeTracks() {
+        tracks.flickable.contentWidth = PJGlobalTimeline.timelinePixelLength;
+        tracks.canvas.width = PJGlobalTimeline.timelinePixelLength;
+        tracks.canvas.requestPaint();
+    }
 
     Rectangle {
         id: background
@@ -28,6 +34,8 @@ Item {
             PJTimelineRuler {
                 id: ruler
                 anchors.fill: parent
+
+                onResizeTracks: content.resizeTracks()
             }
         }
 
@@ -35,13 +43,15 @@ Item {
         PJTimelineScrubber {
             id: scrubber
             anchors.fill: parent
-            clip: PJGlobalTimeline.leftCutoff!==0
+            clip: !(PJGlobalTimeline.leftPixelCutoff <= scrubber.stemWidth)
             z: 2
 
             onRepaint: {
                 () => content.repaint()
-                tracks.flickable.contentX = PJGlobalTimeline.leftCutoff/PJGlobalTimeline.ticksPerPixel;
+                tracks.flickable.contentX = PJGlobalTimeline.leftTickCutoff/PJGlobalTimeline.ticksPerPixel;
             }
+
+            onResizeTracks: content.resizeTracks()
         }
 
         PJTimelineTracks {
@@ -55,7 +65,10 @@ Item {
 
             onRepaint: {
                 ruler.canvas.requestPaint();
+                flickable.contentWidth = Math.max(flickable.contentWidth, PJGlobalTimeline.leftTickCutoff)
             }
+
+            onResizeTracks: content.resizeTracks()
         }
 
     }

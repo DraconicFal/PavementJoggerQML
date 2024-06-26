@@ -5,6 +5,7 @@ import PavementJogger
 Item {
     id: ruler
     property alias canvas: rulerCanvas
+    signal resizeTracks()
 
     Canvas {
         id: rulerCanvas
@@ -45,7 +46,7 @@ Item {
             PJGlobalTimeline.spacing = pixelsPerTick;
 
             // calculate the start positions for the ruler
-            var leftCutoff = PJGlobalTimeline.leftCutoff;
+            var leftCutoff = PJGlobalTimeline.leftTickCutoff;
             var startPixel = -pixelsPerTick * (leftCutoff%bigTickSignificance)/bigTickSignificance;
             var startTick = Math.floor(leftCutoff / bigTickSignificance);
 
@@ -96,6 +97,16 @@ Item {
                 }
             }
 
+            // // adjust available timeline length
+            // var timelinePixelLength = PJGlobalTimeline.timelinePixelLength;
+            // var leftPixelCutoff = PJGlobalTimeline.leftPixelCutoff;
+            // PJGlobalTimeline.timelinePixelLength = Math.max(timelinePixelLength, leftPixelCutoff + ruler.width);
+
+            var leftPixelCutoff = PJGlobalTimeline.leftPixelCutoff;
+            PJGlobalTimeline.rightPixelCutoff = leftPixelCutoff + ruler.width;
+
+            // propagate an update upwards
+            ruler.resizeTracks();
         }
     }
 

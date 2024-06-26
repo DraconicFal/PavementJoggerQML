@@ -24,8 +24,23 @@ QtObject {
     property double scrubberSecondPosition: scrubberTickPosition/ticksPerSecond
 
     // the left cutoff point of the timeline view, in ticks
-    property double leftCutoff: 0
+    property double leftTickCutoff: 0
+    // the left cutoff point of the timeline view, in pixels
+    property double leftPixelCutoff: leftTickCutoff/ticksPerPixel
+    // the right cutoff point of the timeline view, in pixels
+    property double rightPixelCutoff: 0
+
+    // the length of the timeline track content, in pixels
+    property double trackPixelLength: 0
+
+    // the length of the available timeline, in pixels
+    property double timelinePixelLength: getTimelinePixelLength()
+
     // how many seconds are denoted by the distance between two big ticks
     property int bigTickSignificance: 0
+
+    function getTimelinePixelLength() {
+        return Math.max(rightPixelCutoff, scrubberPixelPosition, trackPixelLength)
+    }
 
 }

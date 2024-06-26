@@ -4,22 +4,24 @@ import PavementJogger
 
 Item {
     id: tracks
-    signal repaint
-    property alias flickable: trackFlickable
+    signal repaint()
+    signal resizeTracks()
+    property alias flickable: flickable
+    property alias canvas: canvas
+
 
     Flickable {
-        id: trackFlickable
+        id: flickable
         anchors.fill: parent
-        anchors.rightMargin: 5
-        anchors.bottomMargin: 5
 
-        contentWidth: goofyaahlabel.width
-        contentHeight: goofyaahlabel.height
+        contentHeight: canvas.height
 
         boundsBehavior: Flickable.StopAtBounds
         maximumFlickVelocity: 0
 
-        // disable drag
+        //////////////////
+        // DISABLE DRAG //
+        //////////////////
         property double dragStartX
         property double dragStartY
 
@@ -31,8 +33,13 @@ Item {
         }
         onContentXChanged: {
             if (!dragging) {
-                PJGlobalTimeline.leftCutoff = contentX*PJGlobalTimeline.ticksPerPixel;
-                repaint();
+                PJGlobalTimeline.leftTickCutoff = contentX*PJGlobalTimeline.ticksPerPixel;
+                PJGlobalTimeline.rightTickCutoff = PJGlobalTimeline.leftTickCutoff + tracks.width;
+                tracks.repaint();
+
+                // propagate an update upwards
+                tracks.resizeTracks();
+
             } else {
                 contentX = dragStartX;
             }
@@ -43,26 +50,48 @@ Item {
             }
         }
 
-        // actual content
-        Label {
-            id: goofyaahlabel
-            text: "G. g. marquez"
-            font.pixelSize: 224
+
+        ////////////////////
+        // ACTUAL CONTENT //
+        ////////////////////
+        Canvas {
+            id: canvas
+            width: 3000
+            height: 500
+
+            onPaint: {
+                // get context and reset canvas
+                const ctx = getContext("2d");
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = "#8f8f8f";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                PJGlobalTimeline.trackPixelLength = goofyaahlabel.width;
+            }
+
+            Label {
+                id: goofyaahlabel
+                text: "gatimala city\n good game marquez"
+                font.pixelSize: 224
+            }
         }
 
-        // scroll bars
+
+        /////////////////
+        // SCROLL BARS //
+        /////////////////
         ScrollBar.vertical: ScrollBar {
-            width: 7.5
+            height: 40
             anchors.right: parent.right
             policy: ScrollBar.AsNeeded
-            interactive: true
+            visible: true
         }
 
         ScrollBar.horizontal: ScrollBar {
-            height: 7.5
+            width: 40
             anchors.bottom: parent.bottom
             policy: ScrollBar.AsNeeded
-            interactive: true
+            visible: true
         }
     }
 
