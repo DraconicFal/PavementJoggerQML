@@ -38,6 +38,7 @@ Item {
                 bigTickSignificance *= 2.0;
                 totalTicks /= 2.0;
             }
+            PJGlobalTimeline.totalTicks = totalTicks;
             PJGlobalTimeline.bigTickSignificance = bigTickSignificance;
 
             // calculate pixels per tick
@@ -60,7 +61,7 @@ Item {
                 if (modTick===0) {
                     // Big Ticks
                     height = 27;
-                    ctx.fillStyle = Qt.rgba(1, 1, 1, 0.6);
+                    ctx.fillStyle = "#ffffff";
                     rect = false;
 
                     // label Big Ticks

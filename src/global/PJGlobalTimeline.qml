@@ -15,6 +15,8 @@ QtObject {
 
     // spacing between ticks, in pixels
     property double spacing: 10
+    // total visible ticks on screen
+    property int totalTicks: 0
 
     // position of the scrubbing handle, in ticks
     property double scrubberTickPosition: 0
@@ -42,5 +44,12 @@ QtObject {
     function getTimelinePixelLength() {
         return Math.max(rightPixelCutoff, scrubberPixelPosition, trackPixelLength)
     }
+
+
+    //////////////////
+    // TRACK VALUES //
+    //////////////////
+
+
 
 }

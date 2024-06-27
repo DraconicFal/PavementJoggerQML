@@ -8,8 +8,7 @@ Item {
     property alias ruler: ruler
 
     function resizeTracks() {
-        tracks.flickable.contentWidth = PJGlobalTimeline.timelinePixelLength;
-        tracks.canvas.width = PJGlobalTimeline.timelinePixelLength;
+        // TODO reposition tracks
         tracks.canvas.requestPaint();
     }
 
@@ -46,10 +45,11 @@ Item {
             clip: !(PJGlobalTimeline.leftPixelCutoff <= scrubber.stemWidth)
             z: 2
 
-            onRepaint: {
-                () => content.repaint()
-                tracks.flickable.contentX = PJGlobalTimeline.leftTickCutoff/PJGlobalTimeline.ticksPerPixel;
-            }
+            // onRepaint: {
+            //     () => content.repaint();
+            //     // TODO reposition tracks
+            // }
+            onRepaint: content.repaint()
 
             onResizeTracks: content.resizeTracks()
         }
@@ -65,7 +65,7 @@ Item {
 
             onRepaint: {
                 ruler.canvas.requestPaint();
-                flickable.contentWidth = Math.max(flickable.contentWidth, PJGlobalTimeline.leftTickCutoff)
+                // TODO reposition tracks
             }
 
             onResizeTracks: content.resizeTracks()
