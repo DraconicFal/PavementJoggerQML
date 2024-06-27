@@ -15,7 +15,7 @@ Item {
         function drawVerticalBars(ctx) {
             // calculate the start positions of the ruler
             var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
-            var pixelsPerTick = 1/PJGlobalTimeline.ticksPerPixel;
+            var pixelsPerTick = bigTickSignificance*bigTickSignificance/PJGlobalTimeline.ticksPerPixel;
             var leftCutoff = PJGlobalTimeline.leftTickCutoff;
             var startPixel = -pixelsPerTick * (leftCutoff%bigTickSignificance)/bigTickSignificance;
             var startTick = Math.floor(leftCutoff / bigTickSignificance);
@@ -55,6 +55,10 @@ Item {
             ctx.stroke();
         }
 
+        function renderClip(ctx, clip) {
+
+        }
+
         onPaint: {
             // get context and reset canvas
             const ctx = getContext("2d");
@@ -64,7 +68,9 @@ Item {
 
             // test for drawing roudned rectankgneoles
 
-            roundRect(ctx, 0, 0, 100, 50, 5);
+            var clipWidth = 100;
+            var clipHeight = PJGlobalTimeline.clipHeight;
+            roundRect(ctx, 0, 0, clipWidth, clipHeight, 5);
 
         }
 

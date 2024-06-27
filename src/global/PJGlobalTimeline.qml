@@ -50,6 +50,7 @@ QtObject {
     // TRACK VALUES //
     //////////////////
 
+    property double clipHeight: 40
 
 
 }
