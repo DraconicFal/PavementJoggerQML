@@ -98,11 +98,6 @@ Item {
                 }
             }
 
-            // // adjust available timeline length
-            // var timelinePixelLength = PJGlobalTimeline.timelinePixelLength;
-            // var leftPixelCutoff = PJGlobalTimeline.leftPixelCutoff;
-            // PJGlobalTimeline.timelinePixelLength = Math.max(timelinePixelLength, leftPixelCutoff + ruler.width);
-
             var leftPixelCutoff = PJGlobalTimeline.leftPixelCutoff;
             PJGlobalTimeline.rightPixelCutoff = leftPixelCutoff + ruler.width;
 

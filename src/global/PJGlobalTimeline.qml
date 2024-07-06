@@ -28,7 +28,7 @@ QtObject {
     // the left cutoff point of the timeline view, in ticks
     property double leftTickCutoff: 0
     // the left cutoff point of the timeline view, in pixels
-    property double leftPixelCutoff: leftTickCutoff/ticksPerPixel
+    property double leftPixelCutoff: leftTickCutoff/ticksPerPixel * PJGlobalTimeline.bigTickSignificance
     // the right cutoff point of the timeline view, in pixels
     property double rightPixelCutoff: 0
 

@@ -45,11 +45,9 @@ Item {
             clip: !(PJGlobalTimeline.leftPixelCutoff <= scrubber.stemWidth)
             z: 2
 
-            // onRepaint: {
-            //     () => content.repaint();
-            //     // TODO reposition tracks
-            // }
-            onRepaint: content.repaint()
+            onRepaint: {
+                content.repaint();
+            }
 
             onResizeTracks: content.resizeTracks()
         }
@@ -65,7 +63,6 @@ Item {
 
             onRepaint: {
                 ruler.canvas.requestPaint();
-                // TODO reposition tracks
             }
 
             onResizeTracks: content.resizeTracks()

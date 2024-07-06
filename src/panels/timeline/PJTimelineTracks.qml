@@ -74,6 +74,22 @@ Item {
 
         }
 
+        MouseArea {
+            id: mousearea
+            anchors.fill: parent
+            scrollGestureEnabled: true
+
+            onClicked: console.log("Clicked: " + mouse.button)
+
+            onWheel: function(wheel) {
+                // console.log(`Wheeled (${wheel.angleDelta.x}, ${wheel.angleDelta.y})`);
+                PJGlobalTimeline.leftTickCutoff = Math.max(0, PJGlobalTimeline.leftTickCutoff - wheel.angleDelta.x * PJGlobalTimeline.ticksPerPixel / PJGlobalTimeline.bigTickSignificance);
+                tracks.repaint();
+
+                console.log(`Left cutoff ${PJGlobalTimeline.leftPixelCutoff}`);
+            }
+        }
+
         Label {
             id: goofyaahlabel
             text: "gatimala city\n good game marquez"
