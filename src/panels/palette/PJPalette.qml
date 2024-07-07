@@ -1,4 +1,5 @@
 import QtQuick
+import "prefabs"
 
 Item {
     id: pj_palette
@@ -35,6 +36,10 @@ Item {
             height: parent.height
             visible: true
         }
+
+        //DraggableObj {
+
+        //}
     }
 
 }
