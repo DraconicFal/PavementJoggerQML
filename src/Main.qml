@@ -5,6 +5,7 @@ import "panels/menubar"
 import "panels/palette"
 import "panels/properties"
 import "panels/timeline"
+import "panels/palette/prefabs"
 
 ApplicationWindow {
     id: mainWindow
@@ -19,6 +20,11 @@ ApplicationWindow {
     title: qsTr("PavementJogger 2")
 
     menuBar: PJMenuBar {}
+
+    function createNewDraggableObj() {
+        var component = Qt.createComponent("panels/palette/prefabs/DraggableObj.qml")
+        component.createObject(root, {"x": 0, "y": 0})
+    }
 
     SplitView {
         anchors.fill: parent
@@ -43,6 +49,12 @@ ApplicationWindow {
                 SplitView.minimumWidth: 100
                 SplitView.maximumWidth: 500
                 implicitWidth: (SplitView.minimumWidth + SplitView.maximumWidth) / 2
+
+                Button {
+                    anchors.centerIn: parent
+                    onClicked: createNewDraggableObj
+                }
+
             }
 
             PJFieldView {

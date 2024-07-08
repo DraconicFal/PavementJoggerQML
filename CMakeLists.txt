@@ -17,7 +17,10 @@ set(plain_qml_files
     src/Main.qml
     src/panels/menubar/PJMenuBar.qml
     src/panels/fieldview/PJFieldView.qml
+
     src/panels/palette/PJPalette.qml
+    src/panels/palette/prefabs/DraggableObj.qml
+
     src/panels/properties/PJProperties.qml
 
     src/panels/timeline/PJTimeline.qml

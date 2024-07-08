@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Shapes
 import QtQuick.Effects
-import Qt5Compat.GraphicalEffects
+//import Qt5Compat.GraphicalEffects
 import PavementJogger
 
 Item {
@@ -82,13 +82,13 @@ Item {
             }
         }
 
-        DropShadow {
-           anchors.fill: body
-           source: body
-           radius: 3
-           samples: 7
-           color: "black"
-       }
+       //  DropShadow {
+       //     anchors.fill: body
+       //     source: body
+       //     radius: 3
+       //     samples: 7
+       //     color: "black"
+       // }
 
     }
 
