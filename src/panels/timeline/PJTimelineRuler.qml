@@ -5,6 +5,7 @@ import PavementJogger
 Item {
     id: ruler
     property alias canvas: rulerCanvas
+    signal resizeTracks()
 
     Canvas {
         id: rulerCanvas
@@ -37,6 +38,7 @@ Item {
                 bigTickSignificance *= 2.0;
                 totalTicks /= 2.0;
             }
+            PJGlobalTimeline.totalTicks = totalTicks;
             PJGlobalTimeline.bigTickSignificance = bigTickSignificance;
 
             // calculate pixels per tick
@@ -45,7 +47,7 @@ Item {
             PJGlobalTimeline.spacing = pixelsPerTick;
 
             // calculate the start positions for the ruler
-            var leftCutoff = PJGlobalTimeline.leftCutoff;
+            var leftCutoff = PJGlobalTimeline.leftTickCutoff;
             var startPixel = -pixelsPerTick * (leftCutoff%bigTickSignificance)/bigTickSignificance;
             var startTick = Math.floor(leftCutoff / bigTickSignificance);
 
@@ -59,7 +61,7 @@ Item {
                 if (modTick===0) {
                     // Big Ticks
                     height = 27;
-                    ctx.fillStyle = Qt.rgba(1, 1, 1, 0.6);
+                    ctx.fillStyle = "#ffffff";
                     rect = false;
 
                     // label Big Ticks
@@ -96,6 +98,11 @@ Item {
                 }
             }
 
+            var leftPixelCutoff = PJGlobalTimeline.leftPixelCutoff;
+            PJGlobalTimeline.rightPixelCutoff = leftPixelCutoff + ruler.width;
+
+            // propagate an update upwards
+            ruler.resizeTracks();
         }
     }
 

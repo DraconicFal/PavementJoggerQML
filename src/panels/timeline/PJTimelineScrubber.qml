@@ -8,10 +8,11 @@ Item {
     id: scrubber
 
     signal repaint()
+    signal resizeTracks()
     property int handleWidth: 15
     property int handleHeight: 15
     property int stemWidth: 2
-    readonly property double screenX: (PJGlobalTimeline.scrubberTickPosition - PJGlobalTimeline.leftCutoff) / (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond)
+    readonly property double screenX: (PJGlobalTimeline.scrubberTickPosition - PJGlobalTimeline.leftTickCutoff) / (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond)
 
     MouseArea {
         id: mousearea
@@ -20,14 +21,13 @@ Item {
         anchors.right: parent.right
         height: 50
 
-        // use ruler area to position scrubber
-        onPositionChanged: {
+        function updateScrubber() {
             var adjMousePos = mouseX;
             adjMousePos = Math.max(0, Math.min(width, adjMousePos));
             var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
 
             // adjust global left cutoff
-            var projectedLeftCutoff = PJGlobalTimeline.leftCutoff;
+            var projectedLeftCutoff = PJGlobalTimeline.leftTickCutoff;
             var scrollMargin = 100;
             var scrolled = false;
             if (adjMousePos < scrollMargin) {
@@ -40,15 +40,29 @@ Item {
             }
             projectedLeftCutoff = Math.max(0, projectedLeftCutoff);
             if (scrolled) {
-                PJGlobalTimeline.leftCutoff = projectedLeftCutoff;
+                PJGlobalTimeline.leftTickCutoff = projectedLeftCutoff;
                 scrubber.repaint();
             }
 
             // adjust global scrubber position
-            var projectedPosition = PJGlobalTimeline.leftCutoff + adjMousePos * (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond);
+            var projectedPosition = PJGlobalTimeline.leftTickCutoff + adjMousePos * (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond);
             projectedPosition = Math.round(projectedPosition / bigTickSignificance) * bigTickSignificance;
             PJGlobalTimeline.scrubberTickPosition = projectedPosition;
+
+            // // adjust available timeline length
+            // var timelinePixelLength = PJGlobalTimeline.timelinePixelLength;
+            // var scrubberPixelPosition = PJGlobalTimeline.scrubberPixelPosition;
+            // PJGlobalTimeline.timelinePixelLength = Math.max(timelinePixelLength, scrubberPixelPosition);
+
+            // propagate an update upwards
+            scrubber.resizeTracks();
         }
+
+        // use ruler area to position scrubber
+        onClicked: updateScrubber()
+        onPressed: updateScrubber()
+        onPositionChanged: updateScrubber()
+
     }
 
     Rectangle {

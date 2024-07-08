@@ -15,6 +15,9 @@ qt_add_executable(appPavementJogger
 
 set(plain_qml_files
     src/Main.qml
+
+    src/panels/PJClip.qml
+
     src/panels/menubar/PJMenuBar.qml
     src/panels/fieldview/PJFieldView.qml
 
