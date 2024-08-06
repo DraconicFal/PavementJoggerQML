@@ -1,7 +1,5 @@
 import QtQuick
 import QtQuick.Shapes
-import QtQuick.Effects
-//import Qt5Compat.GraphicalEffects
 import PavementJogger
 
 Item {
@@ -49,11 +47,6 @@ Item {
             projectedPosition = Math.round(projectedPosition / bigTickSignificance) * bigTickSignificance;
             PJGlobalTimeline.scrubberTickPosition = projectedPosition;
 
-            // // adjust available timeline length
-            // var timelinePixelLength = PJGlobalTimeline.timelinePixelLength;
-            // var scrubberPixelPosition = PJGlobalTimeline.scrubberPixelPosition;
-            // PJGlobalTimeline.timelinePixelLength = Math.max(timelinePixelLength, scrubberPixelPosition);
-
             // propagate an update upwards
             scrubber.resizeTracks();
         }
@@ -94,15 +87,8 @@ Item {
                 PathLine { x: 0; y: handleHeight/2 }
                 PathLine { x: 0; y: 0 }
             }
-        }
 
-       //  DropShadow {
-       //     anchors.fill: body
-       //     source: body
-       //     radius: 3
-       //     samples: 7
-       //     color: "black"
-       // }
+        }
 
     }
 

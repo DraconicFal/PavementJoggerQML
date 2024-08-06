@@ -70,6 +70,7 @@ Item {
         internal.minDuration = init_minDuration;
     }
 
+
     // Private value container.
     QtObject {
         id: internal
@@ -94,19 +95,16 @@ Item {
     }
 
 
+    // Visual component.
     Rectangle {
         id: visual
         visible: getStartPixel()<PJGlobalTimeline.trackPixelWidth && getEndPixel()>0
-        color: "gray"
+        color: "#4376a1"
         border.width: 2
-        border.color: "#212229"
+        border.color: "#435691"
 
         x: Math.max(-radius, getStartPixel())
         y: parent.trackID * PJGlobalTimeline.clipHeight
-
-        onXChanged: {
-            console.log(`Visible ${visible} | Start pixel ${getStartPixel()} | End pixel ${getEndPixel()}`);
-        }
 
         width: getWidth()
         height: PJGlobalTimeline.clipHeight

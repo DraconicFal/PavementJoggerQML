@@ -34,31 +34,6 @@ Item {
             }
         }
 
-        function roundRect(ctx, x, y, w, h, radius) {
-            var r = x + w;
-            var b = y + h;
-            ctx.beginPath();
-            ctx.strokeStyle="#212229";
-            ctx.fillStyle="gray";
-            ctx.lineWidth="2";
-            ctx.moveTo(x+radius, y);
-            ctx.lineTo(r-radius, y);
-            ctx.quadraticCurveTo(r, y, r, y+radius);
-            ctx.lineTo(r, y+h-radius);
-            ctx.quadraticCurveTo(r, b, r-radius, b);
-            ctx.lineTo(x+radius, b);
-            ctx.quadraticCurveTo(x, b, x, b-radius);
-            ctx.lineTo(x, y+radius);
-            ctx.quadraticCurveTo(x, y, x+radius, y);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-        }
-
-        function renderClip(ctx, clip) {
-
-        }
-
         onPaint: {
             // Get context and reset canvas
             const ctx = getContext("2d");
@@ -68,23 +43,12 @@ Item {
             drawVerticalBars(ctx);
             PJGlobalTimeline.trackPixelWidth = tracks.width;
             PJGlobalTimeline.trackPixelHeight = tracks.height;
-
-            // test for drawing roudned rectankgneoles
-
-            /*
-            var clipWidth = 20/PJGlobalTimeline.ticksPerPixel*PJGlobalTimeline.bigTickSignificance;
-            var clipHeight = PJGlobalTimeline.clipHeight;
-            var px_start = -PJGlobalTimeline.leftPixelCutoff;
-            roundRect(ctx, px_start, 0, clipWidth, clipHeight, 5);
-            */
-
         }
 
         MouseArea {
             id: mousearea
             anchors.fill: parent
             scrollGestureEnabled: true
-            focus: true
 
             onWheel: function(wheel) {
                 // wheel telemetry // console.log(`Wheeled (${wheel.angleDelta.x}, ${wheel.angleDelta.y})`);
@@ -95,21 +59,23 @@ Item {
             }
 
             // Handle side scroll via shift+scroll
+            // TODO: fix because it gets disabled when clicking any other mousearea
             property bool shiftPressed: false
-            Keys.onPressed: (event)=> {
-                if (event.key === Qt.Key_Shift) {
-                    mousearea.shiftPressed = true;
-                    event.accepted = true;
-                }
-            }
-            Keys.onReleased: (event)=> {
-                if (event.key === Qt.Key_Shift) {
-                    mousearea.shiftPressed = false;
-                    event.accepted = true;
-                }
-            }
+            // focus: true
+            // Keys.onPressed: (event)=> {
+            //     if (event.key === Qt.Key_Shift) {
+            //         mousearea.shiftPressed = true;
+            //     }
+            // }
+            // Keys.onReleased: (event)=> {
+            //     if (event.key === Qt.Key_Shift) {
+            //         mousearea.shiftPressed = false;
+            //     }
+            // }
         }
 
+
+        // TEST CLIP --- REMOVE LATER
         PJClip {
             id: testClip
 
@@ -119,12 +85,25 @@ Item {
             init_startTick: 80
             init_endTick: 90
             init_minDuration: 5.0
+
+            MouseArea {
+                anchors.fill: parent
+                focus: true
+                Keys.onPressed: (event)=> {
+                    if (event.key === Qt.Key_Left) {
+                        parent.setStartTick(parent.startTick-10);
+                        parent.setEndTick(parent.endTick-10);
+                        console.log("pressing left");
+                    }
+                    if (event.key === Qt.Key_Right) {
+                        parent.setEndTick(parent.endTick+10);
+                        parent.setStartTick(parent.startTick+10);
+                        console.log("pressing right");
+                    }
+                }
+            }
         }
 
-        Label {
-            id: goofyaahlabel
-            text: "gatimala city\n good game marquez"
-            font.pixelSize: 224
-        }
     }
+
 }
