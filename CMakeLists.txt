@@ -18,6 +18,7 @@ set(plain_qml_files
 
     src/panels/PJClip.qml
 
+
     src/panels/menubar/PJMenuBar.qml
     src/panels/fieldview/PJFieldView.qml
 
@@ -32,6 +33,7 @@ set(plain_qml_files
     src/panels/timeline/PJTimelineContent.qml
     src/panels/timeline/PJTimelineScrubber.qml
     src/panels/timeline/PJTimelineTracks.qml
+
 )
 
 set(qml_singletons

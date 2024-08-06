@@ -28,6 +28,7 @@ Item {
                 color: "white"
             }
 
+            // For changing Big Tick Significance aka. Zoom factor
             Slider {
                 id: zoomSlider
                 anchors.right: parent.right

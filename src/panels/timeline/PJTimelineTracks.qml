@@ -60,17 +60,23 @@ Item {
         }
 
         onPaint: {
-            // get context and reset canvas
+            // Get context and reset canvas
             const ctx = getContext("2d");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            // Render tracks background
             drawVerticalBars(ctx);
+            PJGlobalTimeline.trackPixelWidth = tracks.width;
+            PJGlobalTimeline.trackPixelHeight = tracks.height;
 
             // test for drawing roudned rectankgneoles
 
-            var clipWidth = 100;
+            /*
+            var clipWidth = 20/PJGlobalTimeline.ticksPerPixel*PJGlobalTimeline.bigTickSignificance;
             var clipHeight = PJGlobalTimeline.clipHeight;
-            roundRect(ctx, 0, 0, clipWidth, clipHeight, 5);
+            var px_start = -PJGlobalTimeline.leftPixelCutoff;
+            roundRect(ctx, px_start, 0, clipWidth, clipHeight, 5);
+            */
 
         }
 
@@ -78,14 +84,41 @@ Item {
             id: mousearea
             anchors.fill: parent
             scrollGestureEnabled: true
-
-            onClicked: console.log("Clicked: " + mouse.button)
+            focus: true
 
             onWheel: function(wheel) {
                 // wheel telemetry // console.log(`Wheeled (${wheel.angleDelta.x}, ${wheel.angleDelta.y})`);
-                PJGlobalTimeline.leftTickCutoff = Math.max(0, PJGlobalTimeline.leftTickCutoff - wheel.angleDelta.x * PJGlobalTimeline.ticksPerPixel / PJGlobalTimeline.bigTickSignificance);
+                var deltaX = wheel.angleDelta.x;
+                if (mousearea.shiftPressed) deltaX += wheel.angleDelta.y;
+                PJGlobalTimeline.leftTickCutoff = Math.max(0, PJGlobalTimeline.leftTickCutoff - deltaX * PJGlobalTimeline.ticksPerPixel / PJGlobalTimeline.bigTickSignificance);
                 tracks.repaint();
             }
+
+            // Handle side scroll via shift+scroll
+            property bool shiftPressed: false
+            Keys.onPressed: (event)=> {
+                if (event.key === Qt.Key_Shift) {
+                    mousearea.shiftPressed = true;
+                    event.accepted = true;
+                }
+            }
+            Keys.onReleased: (event)=> {
+                if (event.key === Qt.Key_Shift) {
+                    mousearea.shiftPressed = false;
+                    event.accepted = true;
+                }
+            }
+        }
+
+        PJClip {
+            id: testClip
+
+            // Initialize the internal properties
+            init_clipID: 0
+            init_trackID: 0
+            init_startTick: 80
+            init_endTick: 90
+            init_minDuration: 5.0
         }
 
         Label {
