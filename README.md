@@ -1,6 +1,8 @@
 ## About PavementJogger
 "PavementJogger" (PJ) is a motion planning *utility* software that is currently being developed by FTC Team 12331 (as of 8/8/2024). Its purpose is to serve as the high-level path builder for [SynchroPather](https://github.com/KK201431873/SynchroPather), a motion planning software also developed by FTC Team 12331.
+
 PJ is developed using Qt Markdown Language and runs on Qt version 6. The basic premise of the application is a clip positioning and trimming software, aesthetically similar to video editing software such as [DaVinci Resolve](https://www.blackmagicdesign.com/products/davinciresolve/edit).
+
 We (team 12331) aim to release Version 1.0 of this project no later than 10/01/2024.
 
 
