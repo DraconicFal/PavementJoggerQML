@@ -38,6 +38,11 @@ QtObject {
     // The right cutoff point of the timeline view, in pixels.
     property double rightPixelCutoff: 0
 
+    // The vertical positioning of the track alignment lines, in pixels.
+    property double verticalPixelScroll: 0
+
+    // The height of each track, in pixels.
+    property double trackHeight: 60
     // The length of the timeline track content, in pixels.
     property double trackPixelWidth: 0
     // The height of the timeline track content, in pixels.
@@ -57,9 +62,6 @@ QtObject {
     /////////////////
     // CLIP VALUES //
     /////////////////
-
-    // The height of each clip in the timeline, in pixels.
-    property double clipHeight: 40
 
     property var clips: ({})
 

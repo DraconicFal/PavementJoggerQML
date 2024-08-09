@@ -9,9 +9,9 @@ We (team 12331) aim to release Version 1.0 of this project no later than 10/01/2
 ## PavementJogger Changelog
 
 ### [v1.0]
-- 05/31/2024: Resizeable panels implementation using QtQuick SplitView, Stephen
-- 06/03/2024: Scrollable/zoomable timeline ruler implementation using JS Canvas, Stephen
-- 06/03/2024: Reset View menu bar implementation, Aaron
+- 05/31/2024: Resizeable panels implementation using QtQuick SplitView
+- 06/03/2024: Scrollable/zoomable timeline ruler implementation using JS Canvas
+- 06/03/2024: Reset View menu bar implementation
 - 06/04/2024: Scrubber implementation using QtQuick Shape and ShapePath
 
 TODO: 

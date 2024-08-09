@@ -100,14 +100,24 @@ Item {
         id: visual
         visible: getStartPixel()<PJGlobalTimeline.trackPixelWidth && getEndPixel()>0
         color: "#4376a1"
-        border.width: 2
-        border.color: "#435691"
+        border.width: 1
+        border.color: "#030303"
 
-        x: Math.max(-radius, getStartPixel())
-        y: parent.trackID * PJGlobalTimeline.clipHeight
+        function getXPosition() {
+            return Math.max(-radius, getStartPixel());
+        }
+
+        function getYPosition() {
+            var verticalPixelScroll = PJGlobalTimeline.verticalPixelScroll;
+            // Plus 1 to account for horizontal track separator lines
+            return verticalPixelScroll + parent.trackID * PJGlobalTimeline.trackHeight + 1;
+        }
+
+        x: getXPosition()
+        y: getYPosition()
 
         width: getWidth()
-        height: PJGlobalTimeline.clipHeight
+        height: PJGlobalTimeline.trackHeight - 2 // Minus 2 to for same reason as in getYPosition()
         radius: 5
 
         function getWidth() {

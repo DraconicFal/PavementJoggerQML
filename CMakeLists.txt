@@ -18,15 +18,20 @@ set(plain_qml_files
 
     src/panels/PJClip.qml
 
-
+    # Menu Bar files
     src/panels/menubar/PJMenuBar.qml
+
+    # Field View panel files
     src/panels/fieldview/PJFieldView.qml
 
+    # Palette panel files
     src/panels/palette/PJPalette.qml
     src/panels/palette/prefabs/DraggableObj.qml
 
+    # Properties panel files
     src/panels/properties/PJProperties.qml
 
+    # Timeline panel files
     src/panels/timeline/PJTimeline.qml
     src/panels/timeline/PJTimelineLabels.qml
     src/panels/timeline/PJTimelineRuler.qml

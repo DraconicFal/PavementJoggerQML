@@ -24,13 +24,32 @@ Item {
             var width = 0.25;
             var totalTicks = PJGlobalTimeline.totalTicks;
             var ticksPerSecond = PJGlobalTimeline.ticksPerSecond;
+            ctx.fillStyle = "#6f6f6f";
             for (var i = -ticksPerSecond + 1; i < Math.ceil(totalTicks) + ticksPerSecond; i++) {
                 var modTick = (startTick + i) % ticksPerSecond;
                 if (modTick===0) {
                     // Big Ticks
-                    ctx.fillStyle = "#8f8f8f";
                     ctx.fillRect(startPixel + i*pixelsPerTick - width/2, 0, width, canvas.height);
                 }
+            }
+        }
+
+        function drawHorizontalLines(ctx) {
+            // get the start position and spacing
+            var verticalPixelScroll = PJGlobalTimeline.verticalPixelScroll;
+            var trackHeight = PJGlobalTimeline.trackHeight;
+
+            // render horizontal lines
+            var exteriorWidth = 2;
+            var interiorWidth = 1;
+            var startPixel = verticalPixelScroll % trackHeight - trackHeight;
+            var n = Math.floor(canvas.height / trackHeight) + 2;
+            for (var i = 0; i < n; i++) {
+                ctx.fillStyle = "#030303";
+                ctx.fillRect(0, startPixel-exteriorWidth/2, canvas.width, exteriorWidth);
+                ctx.fillStyle = "#484848";
+                ctx.fillRect(0, startPixel-interiorWidth/2, canvas.width, interiorWidth);
+                startPixel += trackHeight;
             }
         }
 
@@ -40,6 +59,7 @@ Item {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Render tracks background
+            drawHorizontalLines(ctx);
             drawVerticalBars(ctx);
             PJGlobalTimeline.trackPixelWidth = tracks.width;
             PJGlobalTimeline.trackPixelHeight = tracks.height;
@@ -53,8 +73,14 @@ Item {
             onWheel: function(wheel) {
                 // wheel telemetry // console.log(`Wheeled (${wheel.angleDelta.x}, ${wheel.angleDelta.y})`);
                 var deltaX = wheel.angleDelta.x;
-                if (mousearea.shiftPressed) deltaX += wheel.angleDelta.y;
+                var kY = 0.1
+                var deltaY = wheel.angleDelta.y * kY;
+                if (mousearea.shiftPressed) {
+                    deltaX += wheel.angleDelta.y;
+                    deltaY = 0;
+                }
                 PJGlobalTimeline.leftTickCutoff = Math.max(0, PJGlobalTimeline.leftTickCutoff - deltaX * PJGlobalTimeline.ticksPerPixel / PJGlobalTimeline.bigTickSignificance);
+                PJGlobalTimeline.verticalPixelScroll = Math.min(0, PJGlobalTimeline.verticalPixelScroll + deltaY);
                 tracks.repaint();
             }
 
@@ -77,12 +103,12 @@ Item {
 
         // TEST CLIP --- REMOVE LATER
         PJClip {
-            id: testClip
+            id: testClip1
 
             // Initialize the internal properties
             init_clipID: 0
             init_trackID: 0
-            init_startTick: 80
+            init_startTick: 20
             init_endTick: 90
             init_minDuration: 5.0
 
@@ -102,6 +128,26 @@ Item {
                     }
                 }
             }
+        }
+
+        PJClip {
+            id: testClip2
+
+            init_clipID: 1
+            init_trackID: 1
+            init_startTick: 40
+            init_endTick: 120
+            init_minDuration: 5.0
+        }
+
+        PJClip {
+            id: testClip3
+
+            init_clipID: 2
+            init_trackID: 2
+            init_startTick: 0
+            init_endTick: 200
+            init_minDuration: 5.0
         }
 
     }
