@@ -13,8 +13,8 @@ Item {
     }
 
     Image {
-        width: 25
-        height: 25
+        width: parent.width
+        height: parent.height
         source: "qrc:/Images/assets/STEPHEN.jpg"
         z: 100
         //anchors.alignWhenCentered: parent
