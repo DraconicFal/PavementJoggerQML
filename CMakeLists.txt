@@ -31,17 +31,24 @@ set(plain_qml_files
     # Properties panel files
     src/panels/properties/PJProperties.qml
 
-    # Timeline panel files
+    ## Timeline panel files ##
     src/panels/timeline/PJTimeline.qml
+    src/panels/timeline/PJTimelineZoomSlider.qml
+    src/panels/timeline/PJTimelineScrollArea.qml
+    # Labels
     src/panels/timeline/PJTimelineLabels.qml
-    src/panels/timeline/PJTimelineRuler.qml
+    src/panels/timeline/PJTimelineScrubberLabel.qml
+    src/panels/timeline/PJTimelineTrackLabels.qml
+    # Content
     src/panels/timeline/PJTimelineContent.qml
+    src/panels/timeline/PJTimelineRuler.qml
     src/panels/timeline/PJTimelineScrubber.qml
     src/panels/timeline/PJTimelineTracks.qml
 
 )
 
 set(qml_singletons
+    src/global/PJGlobalKeyboard.qml
     src/global/PJGlobalTimeline.qml
 )
 

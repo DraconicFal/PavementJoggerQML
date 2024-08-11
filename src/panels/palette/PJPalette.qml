@@ -2,7 +2,7 @@ import QtQuick
 import "prefabs"
 
 Item {
-    id: pj_palette
+    id: palette
 
     Rectangle {
         id: background

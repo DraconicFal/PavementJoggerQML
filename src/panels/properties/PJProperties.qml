@@ -1,7 +1,7 @@
 import QtQuick
 
 Item {
-    id: pj_properties
+    id: properties
 
     Rectangle {
         id: background

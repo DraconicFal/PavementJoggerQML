@@ -1,7 +1,7 @@
 import QtQuick
 
 Item {
-    id: pj_fieldView
+    id: fieldView
 
     Image {
         id: testImage

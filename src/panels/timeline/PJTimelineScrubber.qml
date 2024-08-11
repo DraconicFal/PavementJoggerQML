@@ -4,13 +4,11 @@ import PavementJogger
 
 Item {
     id: scrubber
-
-    signal repaint()
-    signal resizeTracks()
     property int handleWidth: 15
     property int handleHeight: 15
     property int stemWidth: 2
-    readonly property double screenX: (PJGlobalTimeline.scrubberTickPosition - PJGlobalTimeline.leftTickCutoff) / (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond)
+
+    signal repaintTimeline()
 
     MouseArea {
         id: mousearea
@@ -39,16 +37,13 @@ Item {
             projectedLeftCutoff = Math.max(0, projectedLeftCutoff);
             if (scrolled) {
                 PJGlobalTimeline.leftTickCutoff = projectedLeftCutoff;
-                scrubber.repaint();
             }
 
             // adjust global scrubber position
-            var projectedPosition = PJGlobalTimeline.leftTickCutoff + adjMousePos * (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond);
-            projectedPosition = Math.round(projectedPosition / bigTickSignificance) * bigTickSignificance;
-            PJGlobalTimeline.scrubberTickPosition = projectedPosition;
+            PJGlobalTimeline.scrubberTickPosition = PJGlobalTimeline.pixelToTick(adjMousePos, true);
 
             // propagate an update upwards
-            scrubber.resizeTracks();
+            scrubber.repaintTimeline();
         }
 
         // use ruler area to position scrubber
@@ -65,7 +60,11 @@ Item {
         anchors.top: parent.top
         color: "transparent"
 
-        x: screenX - handleWidth/2
+        function getScreenX() {
+            return (PJGlobalTimeline.scrubberTickPosition - PJGlobalTimeline.leftTickCutoff) / (PJGlobalTimeline.secondsPerPixel * PJGlobalTimeline.ticksPerSecond) - handleWidth/2;
+        }
+
+        x: getScreenX()
 
         property bool updating: false
 

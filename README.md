@@ -15,7 +15,7 @@ We (team 12331) aim to release Version 1.0 of this project no later than 10/01/2
 - 06/04/2024: Scrubber implementation using QtQuick Shape and ShapePath
 
 TODO: 
-- Timeline tracks rendering
+- Timeline tracks name storage
 - Clip QML object
 - Global clip storage implementation
 - Clip rendering onto timeline tracks implementation

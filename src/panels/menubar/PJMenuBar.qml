@@ -1,8 +1,9 @@
 import QtQuick
 import QtQuick.Controls
+import PavementJogger
 
 MenuBar {
-    id: pj_menuBar
+    id: menuBar
 
 
 
@@ -68,12 +69,19 @@ MenuBar {
         Action {
             text: qsTr("Reset View")
             onTriggered: {
+                // Reset panel sizes
                 pj_palette.width = pj_palette.startWidth
                 pj_properties.width = pj_properties.startWidth
                 pj_timeline.height = pj_timeline.startHeight
                 pj_palette.SplitView.preferredWidth = pj_palette.startWidth
                 pj_properties.SplitView.preferredWidth = pj_properties.startWidth
                 pj_timeline.SplitView.preferredHeight = pj_timeline.startHeight
+
+                // Reset timeline view
+                PJGlobalTimeline.trackHeight = PJGlobalTimeline.initTrackHeight;
+                PJGlobalTimeline.leftTickCutoff = 0;
+                PJGlobalTimeline.verticalPixelScroll = 0;
+                pj_timeline.repaintTimeline();
             }
         }
         Action {

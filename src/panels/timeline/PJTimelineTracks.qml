@@ -4,9 +4,11 @@ import PavementJogger
 
 Item {
     id: tracks
-    signal repaint()
-    signal resizeTracks()
-    property alias canvas: canvas
+
+    signal repaintTimeline()
+    function repaint() {
+        canvas.requestPaint();
+    }
 
     Canvas {
         id: canvas
@@ -59,46 +61,46 @@ Item {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Render tracks background
-            drawHorizontalLines(ctx);
-            drawVerticalBars(ctx);
             PJGlobalTimeline.trackPixelWidth = tracks.width;
             PJGlobalTimeline.trackPixelHeight = tracks.height;
+            drawHorizontalLines(ctx);
+            drawVerticalBars(ctx);
         }
 
-        MouseArea {
-            id: mousearea
-            anchors.fill: parent
-            scrollGestureEnabled: true
+        // MouseArea {
+        //     id: mousearea
+        //     anchors.fill: parent
+        //     scrollGestureEnabled: true
 
-            onWheel: function(wheel) {
-                // wheel telemetry // console.log(`Wheeled (${wheel.angleDelta.x}, ${wheel.angleDelta.y})`);
-                var deltaX = wheel.angleDelta.x;
-                var kY = 0.1
-                var deltaY = wheel.angleDelta.y * kY;
-                if (mousearea.shiftPressed) {
-                    deltaX += wheel.angleDelta.y;
-                    deltaY = 0;
-                }
-                PJGlobalTimeline.leftTickCutoff = Math.max(0, PJGlobalTimeline.leftTickCutoff - deltaX * PJGlobalTimeline.ticksPerPixel / PJGlobalTimeline.bigTickSignificance);
-                PJGlobalTimeline.verticalPixelScroll = Math.min(0, PJGlobalTimeline.verticalPixelScroll + deltaY);
-                tracks.repaint();
-            }
+        //     onWheel: function(wheel) {
+        //         // wheel telemetry // console.log(`Wheeled (${wheel.angleDelta.x}, ${wheel.angleDelta.y})`);
+        //         var deltaX = wheel.angleDelta.x;
+        //         var kY = 0.1
+        //         var deltaY = wheel.angleDelta.y * kY;
+        //         if (mousearea.shiftPressed) {
+        //             deltaX += wheel.angleDelta.y;
+        //             deltaY = 0;
+        //         }
+        //         PJGlobalTimeline.scrollHorizontally(deltaX);
+        //         PJGlobalTimeline.scrollVertically(deltaY);
+        //         tracks.repaintTimeline();
+        //     }
 
-            // Handle side scroll via shift+scroll
-            // TODO: fix because it gets disabled when clicking any other mousearea
-            property bool shiftPressed: false
-            // focus: true
-            // Keys.onPressed: (event)=> {
-            //     if (event.key === Qt.Key_Shift) {
-            //         mousearea.shiftPressed = true;
-            //     }
-            // }
-            // Keys.onReleased: (event)=> {
-            //     if (event.key === Qt.Key_Shift) {
-            //         mousearea.shiftPressed = false;
-            //     }
-            // }
-        }
+        //     // Handle side scroll via shift+scroll
+        //     // TODO: fix because it gets disabled when clicking any other mousearea
+        //     property bool shiftPressed: false
+        //     // focus: true
+        //     // Keys.onPressed: (event)=> {
+        //     //     if (event.key === Qt.Key_Shift) {
+        //     //         mousearea.shiftPressed = true;
+        //     //     }
+        //     // }
+        //     // Keys.onReleased: (event)=> {
+        //     //     if (event.key === Qt.Key_Shift) {
+        //     //         mousearea.shiftPressed = false;
+        //     //     }
+        //     // }
+        // }
 
 
         // TEST CLIP --- REMOVE LATER

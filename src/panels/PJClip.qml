@@ -99,7 +99,7 @@ Item {
     Rectangle {
         id: visual
         visible: getStartPixel()<PJGlobalTimeline.trackPixelWidth && getEndPixel()>0
-        color: "#4376a1"
+        color: PJGlobalTimeline.hsv2rgb(75*trackID, 0.5839, 0.6314)
         border.width: 1
         border.color: "#030303"
 
@@ -118,7 +118,7 @@ Item {
 
         width: getWidth()
         height: PJGlobalTimeline.trackHeight - 2 // Minus 2 to for same reason as in getYPosition()
-        radius: 5
+        radius: 4
 
         function getWidth() {
             var boundedStartPixel = Math.max(-radius, getStartPixel());

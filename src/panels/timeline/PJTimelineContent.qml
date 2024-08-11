@@ -4,12 +4,14 @@ import PavementJogger
 
 Item {
     id: content
-    signal repaint()
     property alias ruler: ruler
+    property alias scrubber: scrubber
+    property alias tracks: tracks
 
-    function resizeTracks() {
-        // TODO reposition tracks
-        tracks.canvas.requestPaint();
+    signal repaintTimeline()
+    function repaint() {
+        ruler.repaint();
+        tracks.repaint();
     }
 
     Rectangle {
@@ -17,27 +19,17 @@ Item {
         anchors.fill: parent
         color: "#28282e"
 
-        Rectangle {
-            id: rulerArea
+        PJTimelineRuler {
+            id: ruler
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            clip: true
+            height: 50
             z: 1
 
-            height: 50
-            color: "#28282e"
-            border.color: "#09090A"
-            border.width: 1
-
-            PJTimelineRuler {
-                id: ruler
-                anchors.fill: parent
-
-                onResizeTracks: content.resizeTracks()
-            }
+            // Propagate Repaint Upwards
+            onRepaintTimeline: content.repaintTimeline()
         }
-
 
         PJTimelineScrubber {
             id: scrubber
@@ -45,28 +37,23 @@ Item {
             clip: !(PJGlobalTimeline.leftPixelCutoff <= scrubber.stemWidth)
             z: 2
 
-            onRepaint: {
-                content.repaint();
-            }
-
-            onResizeTracks: content.resizeTracks()
+            // Propagate Repaint Upwards
+            onRepaintTimeline: content.repaintTimeline()
         }
 
         PJTimelineTracks {
             id: tracks
-            anchors.top: rulerArea.bottom
+            anchors.top: ruler.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             clip: true
             z: 0
 
-            onRepaint: {
-                ruler.canvas.requestPaint();
-            }
-
-            onResizeTracks: content.resizeTracks()
+            // Propagate Repaint Upwards
+            onRepaintTimeline: content.repaintTimeline()
         }
 
     }
+
 }
