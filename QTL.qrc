@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/Images">
         <file>assets/PavementJoggerLogo.png</file>
+        <file>assets/STEPHEN.jpg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>src/panels/fieldview/FVRobot.qml</file>
     </qresource>
 </RCC>

@@ -86,12 +86,11 @@ MenuBar {
         }
         Action {
             text: qsTr("Maximize")
-            //enabled: !isMaximized
             onTriggered: {
                 //isMaximized: true
                 mainWindow.visibility = Window.Maximized
             }
-            enabled: false
+            //enabled: !isMaximized
         }
         Action {
             text: qsTr("Minimize")
