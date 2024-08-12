@@ -13,23 +13,29 @@ qt_add_executable(appPavementJogger
     src/main.cpp
 )
 
+set(cpp_files
+    pjprojectxmlhandler.h
+    pjprojectxmlhandler.cpp
+)
+
 set(plain_qml_files
     src/Main.qml
 
+    #-# Panels #-#
     src/panels/PJClip.qml
 
-    # Menu Bar files
+    ## Menu Bar files ##
     src/panels/menubar/PJMenuBar.qml
 
-    # Field View panel files
+    ## Field View panel files ##
     src/panels/fieldview/PJFieldView.qml
     src/panels/fieldview/PJFieldViewRobot.qml
 
-    # Palette panel files
+    ## Palette panel files ##
     src/panels/palette/PJPalette.qml
     src/panels/palette/prefabs/DraggableObj.qml
 
-    # Properties panel files
+    ## Properties panel files ##
     src/panels/properties/PJProperties.qml
 
     ## Timeline panel files ##
@@ -51,6 +57,7 @@ set(plain_qml_files
 set(qml_singletons
     src/global/PJGlobalKeyboard.qml
     src/global/PJGlobalTimeline.qml
+    src/global/PJGlobalProject.qml
 )
 
 set_source_files_properties(${qml_singletons}
@@ -60,6 +67,7 @@ qt_add_qml_module(appPavementJogger
     URI PavementJogger
     VERSION 1.0
     RESOURCES QTL.qrc
+    SOURCES ${cpp_files}
     QML_FILES ${plain_qml_files} ${qml_singletons}
 )
 

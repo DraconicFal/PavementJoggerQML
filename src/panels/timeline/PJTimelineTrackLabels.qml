@@ -9,6 +9,11 @@ Item {
         canvas.requestPaint();
     }
 
+    property double fieldViewRobotX: fieldView.fieldViewRobot.x
+    onFieldViewRobotXChanged: {
+        trackLabels.repaintTimeline();
+    }
+
     Canvas {
         id: canvas
         anchors.fill: parent
@@ -18,16 +23,16 @@ Item {
             var verticalPixelScroll = PJGlobalTimeline.verticalPixelScroll;
             var trackHeight = PJGlobalTimeline.trackHeight;
 
-            var names = ["Track A", "Track B", "Track C", "Track D", "Track E", "The FitnessGram PACER Test is a multi-stage aerobic capacity test, that progressively gets more difficult as it continues", "aaron he real?!??!!//1"];
+            var names = projectXmlHandler.getTrackNames(PJGlobalProject.projectPath);
 
             // render horizontal lines
             var width = 1;
-            var fontSize = 12.5
+            var fontSize = 12.5 + (trackHeight-30)/4
             ctx.font = `${fontSize}px sans-serif`;
 
             var startPixel = verticalPixelScroll % trackHeight - trackHeight;
             var startIndex = Math.ceil(verticalPixelScroll / trackHeight)+1;
-            var n = Math.floor(canvas.height / trackHeight) + 2;
+            var n = Math.floor(canvas.height / trackHeight) + 3;
             for (var i = 0; i < n; i++) {
                 var yPixel = startPixel + i*trackHeight;
                 ctx.fillStyle = "#090909";
@@ -35,7 +40,7 @@ Item {
                 var nameIndex = i-startIndex;
                 if (0<=nameIndex && nameIndex<names.length) {
                     ctx.fillStyle = "#ffffff";
-                    ctx.fillText(`${names[nameIndex]}`, fontSize/2, Math.round(yPixel + (trackHeight+fontSize)/2));
+                    ctx.fillText(`${names[nameIndex]}`, fontSize/2, Math.round(yPixel + (trackHeight+0.75*fontSize)/2));
                 }
             }
         }

@@ -78,6 +78,8 @@ MenuBar {
                 pj_timeline.SplitView.preferredHeight = pj_timeline.startHeight
 
                 // Reset timeline view
+                PJGlobalTimeline.secondsPerPixel = PJGlobalTimeline.initSecondsPerPixel;
+                PJGlobalTimeline.bigTickSignificance = 1;
                 PJGlobalTimeline.trackHeight = PJGlobalTimeline.initTrackHeight;
                 PJGlobalTimeline.leftTickCutoff = 0;
                 PJGlobalTimeline.verticalPixelScroll = 0;

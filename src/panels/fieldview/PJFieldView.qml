@@ -2,6 +2,7 @@ import QtQuick
 
 Item {
     id: fieldView
+    property alias fieldViewRobot: fieldViewRobot
     property int originalWidth;
     property int currentWidth;
 
@@ -22,13 +23,9 @@ Item {
         // Update currentWidth when resizing panels
         onHeightChanged: {
             fieldView.currentWidth = Math.min(width, height);
-            console.log(`currentWidth ${currentWidth}`);
-            console.log(`fieldViewRobot offsetX ${fieldViewRobot.offsetX}`);
-            console.log(`fieldViewRobot offsetY ${fieldViewRobot.offsetY}`);
         }
         onWidthChanged: {
             fieldView.currentWidth = Math.min(width, height);
-            console.log(`currentWidth ${currentWidth}`);
         }
 
         PJFieldViewRobot {

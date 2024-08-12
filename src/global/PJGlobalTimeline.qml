@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick
+import QtQml.XmlListModel
 import "../panels"
 import "../panels/timeline"
 
@@ -11,8 +12,10 @@ QtObject {
 
     // Conversion between seconds and ticks.
     readonly property int ticksPerSecond: 20
+    // Initial secondsPerPixel value.
+    readonly property double initSecondsPerPixel: 0.005
     // Conversion between seconds to onscreen pixels.
-    property double secondsPerPixel: 0.005;
+    property double secondsPerPixel: 0.005
     // Conversion between ticks and onscreen, accounting for stretch.
     property double ticksPerPixel: ticksPerSecond * secondsPerPixel * bigTickSignificance
 
@@ -96,7 +99,8 @@ QtObject {
     // CLIP VALUES //
     /////////////////
 
-    property var clips: ({})
+    // Clips is a list of PJClip's.
+    property list<PJClip> clips: ({})
 
 
     //////////////////////

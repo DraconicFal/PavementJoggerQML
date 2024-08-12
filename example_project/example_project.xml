@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<tracks>
+    <track name="Translation"/>
+    <track name="Rotation"/>
+    <track name="Arm"/>
+    <track name="Lift"/>
+    <track name="Claw"/>
+    <track name="Wrist"/>
+</tracks>
