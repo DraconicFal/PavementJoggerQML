@@ -2,59 +2,85 @@ import QtQuick
 
 Item {
     id: fieldView
-    property var imageAspectRatio;
+    property int originalWidth;
+    property int currentWidth;
 
     Image {
         id: testImage
         anchors.fill: parent
-        source: "qrc:/Images/assets/PavementJoggerLogo.png"
+        source: "qrc:/Images/assets/centerstage_field.png"
         fillMode: Image.PreserveAspectFit
 
+        // Save original image width
+        asynchronous: true
+        onStatusChanged: {
+            if (status == Image.Ready) {
+                fieldView.originalWidth = sourceSize.width;
+            }
+        }
+
+        // Update currentWidth when resizing panels
         onHeightChanged: {
-            imageAspectRatio = width / height
-            fVRobot.changeParameters()
+            fieldView.currentWidth = Math.min(width, height);
+            console.log(`currentWidth ${currentWidth}`);
+            console.log(`fieldViewRobot offsetX ${fieldViewRobot.offsetX}`);
+            console.log(`fieldViewRobot offsetY ${fieldViewRobot.offsetY}`);
         }
         onWidthChanged: {
-            imageAspectRatio = width / height
-            fVRobot.changeParameters()
+            fieldView.currentWidth = Math.min(width, height);
+            console.log(`currentWidth ${currentWidth}`);
         }
 
-        FVRobot {
-            id: fVRobot
-            width: 50 / imageAspectRatio
-            height: 50 / imageAspectRatio
-            x: parent.x
-            y: parent.y
-            //focus: true //ENABLE if want fVRobot to move
+        PJFieldViewRobot {
+            id: fieldViewRobot
+            imageScale: 2
 
-            function changeParameters() {
-                fVRobot.width = 50 / imageAspectRatio
-                fVRobot.height = 50 / imageAspectRatio
-                fVRobot.x = parent.x
-                fVRobot.y = parent.y
-                console.log(imageAspectRatio)
-            }
-
-            Keys.onPressed: {
-                let key = event.key
-                if(key === Qt.Key_W)
-                {
-                    //console.log("DOES THIS WORK")
-                    fVRobot.move(-15 / imageAspectRatio, "vertical")
+            // idk screensaver animation lmao
+            SequentialAnimation on inchesX {
+                loops: Animation.Infinite
+                PropertyAnimation {
+                    to: 72
+                    duration: 1000
                 }
-                else if(key === Qt.Key_S)
-                {
-                    fVRobot.move(15 / imageAspectRatio, "vertical")
-                }
-                else if(key === Qt.Key_A)
-                {
-                    fVRobot.move(-15 / imageAspectRatio, "horizontal")
-                }
-                else if(key === Qt.Key_D)
-                {
-                    fVRobot.move(15 / imageAspectRatio, "horizontal")
+                PropertyAnimation {
+                    to: -72
+                    duration: 1000
                 }
             }
+            SequentialAnimation on inchesY {
+                loops: Animation.Infinite
+                PropertyAnimation {
+                    to: 72
+                    duration: 900
+                }
+                PropertyAnimation {
+                    to: -72
+                    duration: 900
+                }
+            }
+
+
+            // focus: true //ENABLE if want fieldViewRobot to move
+
+            // Keys.onPressed: {
+            //     let key = event.key
+            //     if(key === Qt.Key_W)
+            //     {
+            //         fieldViewRobot.changeY(12);
+            //     }
+            //     else if(key === Qt.Key_S)
+            //     {
+            //         fieldViewRobot.changeY(-12);
+            //     }
+            //     else if(key === Qt.Key_A)
+            //     {
+            //         fieldViewRobot.changeX(-12);
+            //     }
+            //     else if(key === Qt.Key_D)
+            //     {
+            //         fieldViewRobot.changeX(12);
+            //     }
+            // }
         }
     }
 }

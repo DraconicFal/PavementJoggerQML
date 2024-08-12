@@ -23,6 +23,7 @@ set(plain_qml_files
 
     # Field View panel files
     src/panels/fieldview/PJFieldView.qml
+    src/panels/fieldview/PJFieldViewRobot.qml
 
     # Palette panel files
     src/panels/palette/PJPalette.qml
@@ -60,7 +61,6 @@ qt_add_qml_module(appPavementJogger
     VERSION 1.0
     RESOURCES QTL.qrc
     QML_FILES ${plain_qml_files} ${qml_singletons}
-    QML_FILES src/panels/fieldview/FVRobot.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
