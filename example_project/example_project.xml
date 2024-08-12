@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
+<project name="Example Project" />
+<timeline>
+<settings ticksPerSecond="20" secondsPerPixel="0.005" leftTickCutoff="0" verticalPixelScroll="0" trackHeight="60" />
 <tracks>
     <track name="Translation"/>
     <track name="Rotation"/>
@@ -7,3 +10,4 @@
     <track name="Claw"/>
     <track name="Wrist"/>
 </tracks>
+</timeline>
