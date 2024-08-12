@@ -41,21 +41,25 @@ Item {
                 PropertyAnimation {
                     to: 72
                     duration: 1000
+                    easing.type: Easing.InOutSine;
                 }
                 PropertyAnimation {
                     to: -72
-                    duration: 1000
+                    duration: 900
+                    easing.type: Easing.InOutSine;
                 }
             }
-            SequentialAnimation on inchesY {
+            SequentialAnimation on inchesY{
                 loops: Animation.Infinite
                 PropertyAnimation {
-                    to: 72
-                    duration: 900
+                    to: -72
+                    duration: 800
+                    easing.type: Easing.InOutSine;
                 }
                 PropertyAnimation {
-                    to: -72
-                    duration: 900
+                    to: 72
+                    duration: 700
+                    easing.type: Easing.InOutSine;
                 }
             }
 
