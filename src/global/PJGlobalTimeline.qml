@@ -101,12 +101,85 @@ QtObject {
 
     // For deciding clip selection.
     property bool timelinePressed: false
+    onTimelinePressedChanged: {
+        if (!timelinePressed) {
+            visualSelectionUpdateNeeded = false;
+        }
+    }
 
-    // Tracks is a list of strings, representing the name of each track
+    // Whether or not a selection is being dragged on the canvas.
+    property bool timelineDragging: false
+
+    // Tracks is a list of strings, representing the name of each track.
     property var tracks: []
 
     // Clips is a 2D list, where each sublist represents a track and contains PJClip's.
-    property var clips: [[]]
+    property var clips: []
+
+    // Same shape array as Clips, contains booleans for whether or not the corresponding clip is selected.
+    property var selection: []
+    onClipsChanged: {
+        selection = [];
+        for (var r=0; r<clips.length; r++) {
+            selection.push([]);
+            for (var c=0; c<clips[r].length; c++) {
+                selection[r].push(false);
+            }
+        }
+    }
+
+    // Boundaries for selection.
+    property int minSelectionTick: 0
+    property int maxSelectionTick: 0
+    property int minSelectionTrack: 0
+    property int maxSelectionTrack: 0
+    property bool visualSelectionUpdateNeeded: false
+
+    function updateSelectionBounds() {
+        // Determine boundaries
+        var proc_minSelectionTick = null;
+        var proc_maxSelectionTick = null;
+        var proc_minSelectionTrack = null;
+        var proc_maxSelectionTrack = null;
+        for (var track=0; track<clips.length; track++) {
+            for (var index=0; index<clips[track].length; index++) {
+                if (selection[track][index]) {
+                    var startTick = clips[track][index].startTick;
+                    var endTick = clips[track][index].endTick;
+                    proc_minSelectionTick = proc_minSelectionTick==null ? startTick : Math.min(proc_minSelectionTick, startTick);
+                    proc_maxSelectionTick = proc_maxSelectionTick==null ? endTick : Math.max(proc_maxSelectionTick, endTick);
+                    proc_minSelectionTrack = proc_minSelectionTrack==null ? track : Math.min(proc_minSelectionTrack, track);
+                    proc_maxSelectionTrack = proc_maxSelectionTrack==null ? track : Math.max(proc_maxSelectionTrack, track);
+                }
+            }
+        }
+        minSelectionTick = proc_minSelectionTick==null ? -1 : proc_minSelectionTick;
+        maxSelectionTick = proc_maxSelectionTick==null ? -1 : proc_maxSelectionTick;
+        minSelectionTrack = proc_minSelectionTrack==null ? -1 : proc_minSelectionTrack;
+        maxSelectionTrack = proc_maxSelectionTrack==null ? -1 : proc_maxSelectionTrack;
+
+        console.log("\nSelection bounds");
+        console.log(`-------- minSelectionTick ${minSelectionTick}`);
+        console.log(`-------- maxSelectionTick ${maxSelectionTick}`);
+        console.log(`-------- minSelectionTrack ${minSelectionTrack}`);
+        console.log(`-------- maxSelectionTrack ${maxSelectionTrack}`);
+    }
+
+    // Select clips within selection bounds.
+    function performMultiSelect() {
+        if (minSelectionTick==-1 || maxSelectionTick==-1 || minSelectionTrack==-1 || maxSelectionTrack==-1) return;
+        if (!PJGlobalKeyboard.shiftPressed) return;
+        for (track=minSelectionTrack; track<=maxSelectionTrack; track++) {
+            for (index=0; index<clips[track].length; index++) {
+                startTick = clips[track][index].startTick;
+                endTick = clips[track][index].endTick;
+                if (startTick <= maxSelectionTick && endTick >= minSelectionTick) {
+                    selection[track][index] = true;
+                }
+            }
+        }
+        visualSelectionUpdateNeeded = true;
+    }
 
 
     //////////////////////

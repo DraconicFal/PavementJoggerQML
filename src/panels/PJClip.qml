@@ -13,6 +13,17 @@ Item {
 
     // Index representing this clip within its respective track
     property int trackIndex: getTrackIndex()
+    function getTrackIndex(telemetry=false) {
+        if (!clipsExists) return -1;
+        for (var i=0; i<PJGlobalTimeline.clips[trackID].length; i++) {
+            if (Object.is(this, PJGlobalTimeline.clips[trackID][i])) {
+                if (telemetry) console.log(`Clip on track ${trackID} at tick time ${startTick} found trackIndex ${i}`);
+                return i
+            }
+        }
+        if (telemetry) console.exception(`Clip on track ${trackID} at tick time ${startTick} could not determine its clipIndex!`);
+        return -1;
+    }
 
     // The tick at which this clip starts.
     property int startTick
@@ -26,19 +37,11 @@ Item {
     // The minimum amount of ticks that this clip lasts for.
     property double minDuration
 
+    // Whether or not global clips array exists.
+    property bool clipsExists: typeof(PJGlobalTimeline.clips) !== "undefined" && PJGlobalTimeline.clips.length > 0
+
     // Whether this clip is selected/highlighted.
     property bool selected: false
-
-    function getTrackIndex(telemetry=false) {
-        for (var i=0; i<PJGlobalTimeline.clips[trackID].length; i++) {
-            if (Object.is(this, PJGlobalTimeline.clips[trackID][i])) {
-                if (telemetry) console.log(`Clip on track ${trackID} at tick time ${startTick} found trackIndex ${i}`);
-                return i
-            }
-        }
-        if (telemetry) console.exception(`Clip on track ${trackID} at tick time ${startTick} could not determine its clipIndex!`);
-        return -1;
-    }
 
     // Constantly update trackIndex.
     readonly property var clipsArray: PJGlobalTimeline.clips
@@ -46,6 +49,13 @@ Item {
         trackIndex = getTrackIndex();
     }
 
+    // Update global selection.
+    onSelectedChanged: {
+        console.log(`\nSelection array`);
+        for (var r=0; r<PJGlobalTimeline.selection.length; r++) {
+            console.log(`-------- ${PJGlobalTimeline.selection[r]}`);
+        }
+    }
 
     // Visual/interactable component.
     Rectangle {
@@ -185,7 +195,6 @@ Item {
             onMouseXChanged: function(mouse) {
                 if (pressed) {
                     var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
-                    console.log(`bts ${bigTickSignificance}`);
                     var maxTick;
                     if (clipAttributes.endTick%bigTickSignificance == 0)
                         maxTick = clipAttributes.endTick - bigTickSignificance;
@@ -240,7 +249,6 @@ Item {
             onMouseXChanged: function(mouse) {
                 if (pressed) {
                     var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
-                    console.log(`bts ${bigTickSignificance}`);
                     var minTick;
                     if (clipAttributes.startTick%bigTickSignificance == 0)
                         minTick = clipAttributes.startTick + bigTickSignificance;
@@ -267,20 +275,34 @@ Item {
             property bool timelinePressed: PJGlobalTimeline.timelinePressed
             onTimelinePressedChanged: {
                 if (!pressed && !PJGlobalKeyboard.shiftPressed && !PJGlobalKeyboard.ctrlPressed && timelinePressed)
-                    clipAttributes.selected = false;
+                    PJGlobalTimeline.selection[trackID][trackIndex] = false;
+                clipAttributes.selected = PJGlobalTimeline.selection[trackID][trackIndex];
+                console.log(`clip (${trackID},${trackIndex}): selected is ${clipAttributes.selected}`);
             }
+
             onPressed: function(mouse) {
                 block.centerDragging = true;
                 PJGlobalTimeline.timelinePressed = true;
                 clickTick = PJGlobalTimeline.pixelToTick(block.x + centerArea.x + mouse.x, false);
                 if (PJGlobalKeyboard.ctrlPressed && !PJGlobalKeyboard.shiftPressed)
-                    clipAttributes.selected = !clipAttributes.selected
+                    PJGlobalTimeline.selection[trackID][trackIndex] = !PJGlobalTimeline.selection[trackID][trackIndex]
                 else
-                    clipAttributes.selected = true;
+                    PJGlobalTimeline.selection[trackID][trackIndex] = true;
+                if (PJGlobalKeyboard.shiftPressed && !clipAttributes.selected && PJGlobalTimeline.selection[trackID][trackIndex]) {
+                    PJGlobalTimeline.updateSelectionBounds(); // only do Multiple Select if this clip was just selected
+                    PJGlobalTimeline.performMultiSelect();
+                }
+                clipAttributes.selected = PJGlobalTimeline.selection[trackID][trackIndex];
+
             }
             onReleased: {
                 block.centerDragging = false;
                 PJGlobalTimeline.timelinePressed = false;
+            }
+
+            property bool visualSelectionUpdateNeeded: PJGlobalTimeline.visualSelectionUpdateNeeded
+            onVisualSelectionUpdateNeededChanged: {
+                clipAttributes.selected = PJGlobalTimeline.selection[trackID][trackIndex];
             }
         }
 

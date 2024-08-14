@@ -17,7 +17,7 @@
         </track>
 
         <track name="Lift">
-            <clip movementName="LinearLift" startTick="0" endTick="1000" minDuration="5.0"/>
+            <clip movementName="LinearLift" startTick="0" endTick="200" minDuration="5.0"/>
         </track>
 
     </timeline>
