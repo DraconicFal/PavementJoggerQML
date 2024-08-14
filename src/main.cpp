@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     // Add PJProjectXmlHandler to PJGlobalProject
-    PJProjectXmlHandler projectXmlHandler;
+    PJProjectXmlHandler projectXmlHandler(nullptr, &engine);
     engine.rootContext()->setContextProperty("projectXmlHandler", &projectXmlHandler);
 
     const QUrl url(QStringLiteral("qrc:/PavementJogger/src/Main.qml"));
@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.load(url);
-
 
     return app.exec();
 }

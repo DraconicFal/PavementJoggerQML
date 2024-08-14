@@ -13,7 +13,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
 
         from: -1
-        value: 0
+        value: 3
         to: 6
 
         background: Rectangle {

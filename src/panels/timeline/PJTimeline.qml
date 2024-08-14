@@ -1,5 +1,7 @@
 import QtQuick
 import QtQuick.Controls
+import "labels"
+import "content"
 import PavementJogger
 
 Item {
@@ -7,6 +9,7 @@ Item {
     signal repaintTimeline()
     property alias labels: labels
     property alias content: content
+    property alias scrollArea: scrollArea
 
     onRepaintTimeline: {
         labels.repaint();

@@ -9,11 +9,6 @@ Item {
         canvas.requestPaint();
     }
 
-    property double fieldViewRobotX: fieldView.fieldViewRobot.x
-    onFieldViewRobotXChanged: {
-        trackLabels.repaintTimeline();
-    }
-
     Canvas {
         id: canvas
         anchors.fill: parent
@@ -23,7 +18,7 @@ Item {
             var verticalPixelScroll = PJGlobalTimeline.verticalPixelScroll;
             var trackHeight = PJGlobalTimeline.trackHeight;
 
-            var names = projectXmlHandler.getTrackNames(PJGlobalProject.projectPath);
+            var names = PJGlobalTimeline.tracks;
 
             // render horizontal lines
             var width = 1;

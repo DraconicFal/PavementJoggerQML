@@ -9,6 +9,7 @@ MouseArea {
     // Allow propagation settings
     propagateComposedEvents: true
     onPressed: function(mouse) {mouse.accepted = false;}
+    onReleased: function(mouse) {mouse.accepted = false;}
 
     // Enable scrolling
     scrollGestureEnabled: true

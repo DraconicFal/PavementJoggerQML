@@ -5,4 +5,7 @@
         <file>assets/DRIVE.png</file>
         <file>assets/centerstage_field.png</file>
     </qresource>
+    <qresource prefix="/components">
+        <file>src/panels/PJClip.qml</file>
+    </qresource>
 </RCC>

@@ -13,9 +13,9 @@ QtObject {
     // Conversion between seconds and ticks.
     readonly property int ticksPerSecond: 20
     // Initial secondsPerPixel value.
-    readonly property double initSecondsPerPixel: 0.005
+    readonly property double initSecondsPerPixel: 0.04
     // Conversion between seconds to onscreen pixels.
-    property double secondsPerPixel: 0.005
+    property double secondsPerPixel: 0.04
     // Conversion between ticks and onscreen, accounting for stretch.
     property double ticksPerPixel: ticksPerSecond * secondsPerPixel * bigTickSignificance
 
@@ -99,8 +99,14 @@ QtObject {
     // CLIP VALUES //
     /////////////////
 
-    // Clips is a list of PJClip's.
-    property list<PJClip> clips: ({})
+    // For deciding clip selection.
+    property bool timelinePressed: false
+
+    // Tracks is a list of strings, representing the name of each track
+    property var tracks: []
+
+    // Clips is a 2D list, where each sublist represents a track and contains PJClip's.
+    property var clips: [[]]
 
 
     //////////////////////

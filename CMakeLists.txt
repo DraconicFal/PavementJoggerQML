@@ -43,14 +43,14 @@ set(plain_qml_files
     src/panels/timeline/PJTimelineZoomSlider.qml
     src/panels/timeline/PJTimelineScrollArea.qml
     # Labels
-    src/panels/timeline/PJTimelineLabels.qml
-    src/panels/timeline/PJTimelineScrubberLabel.qml
-    src/panels/timeline/PJTimelineTrackLabels.qml
+    src/panels/timeline/labels/PJTimelineLabels.qml
+    src/panels/timeline/labels/PJTimelineScrubberLabel.qml
+    src/panels/timeline/labels/PJTimelineTrackLabels.qml
     # Content
-    src/panels/timeline/PJTimelineContent.qml
-    src/panels/timeline/PJTimelineRuler.qml
-    src/panels/timeline/PJTimelineScrubber.qml
-    src/panels/timeline/PJTimelineTracks.qml
+    src/panels/timeline/content/PJTimelineContent.qml
+    src/panels/timeline/content/PJTimelineRuler.qml
+    src/panels/timeline/content/PJTimelineScrubber.qml
+    src/panels/timeline/content/PJTimelineTracks.qml
 
 )
 

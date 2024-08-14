@@ -25,19 +25,28 @@ ApplicationWindow {
     visible: true
     title: qsTr("PavementJogger 2")
 
+    // Read in XML track names on completion
+    Component.onCompleted: {
+        PJGlobalTimeline.tracks = projectXmlHandler.getTrackNames(PJGlobalProject.projectPath);
+    }
+
     //////////////
     // MENU BAR //
     //////////////
     menuBar: PJMenuBar {
         id: menuBar
+        property string name: "I am PJMenuBar"
     }
 
     /////////////////////////////////////////////////
     // Catch all keyboard inputs at the Root Level //
     /////////////////////////////////////////////////
     FocusScope {
+        id: focusScope
         anchors.fill: parent
         focus: true
+
+        property string name: "I am focus scope"
 
         Keys.onPressed: (event)=>PJGlobalKeyboard.setEvent(event);
         Keys.onReleased: (event)=>PJGlobalKeyboard.setEvent(event);

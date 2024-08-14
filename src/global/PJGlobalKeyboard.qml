@@ -19,7 +19,7 @@ Item {
     QtObject {
         id: internal
         property var event
-        property bool eventExists: typeof internal.event !== "undefined"
+        property bool eventExists: typeof(internal.event) !== "undefined"
     }
 
 }

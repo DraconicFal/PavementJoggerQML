@@ -5,10 +5,10 @@ import PavementJogger
 MenuBar {
     id: menuBar
 
-
-
     Menu { //File
         title: qsTr("File")
+        width: 250
+
         Action {
             text: qsTr("New Project...")
         }
@@ -16,6 +16,25 @@ MenuBar {
         Action { text: qsTr("Exit") }
         Action { text: qsTr("SUSSY AMONGUS") }
         Action { text: qsTr("SUSSY SUS AMOGUS") }
+        MenuSeparator {}
+        Action {
+            text: "[Temporary] Reload Project from XML"
+            onTriggered: {
+                console.log(`Current clips ${PJGlobalTimeline.clips}`);
+                console.log("Reloading project!")
+                PJGlobalTimeline.clips = projectXmlHandler.getClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips);
+                console.log(`Clips after reading ${PJGlobalTimeline.clips}`);
+                for (var i=0; i<PJGlobalTimeline.clips.length; i++) {
+                    var track = PJGlobalTimeline.clips[i];
+                    var names = "";
+                    var prop = "movementName";
+                    for (var j=0; j<track.length; j++) {
+                        names += track[j][prop] + ", ";
+                    }
+                    console.log(`-------- Track ${i} ${prop}'s: ${names}`);
+                }
+            }
+        }
 
         delegate: ItemDelegate {
             id: menuBarFile
