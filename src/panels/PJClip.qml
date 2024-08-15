@@ -267,6 +267,25 @@ Item {
             selected = PJGlobalTimeline.selection[trackID][trackIndex];
         }
 
+        // Attempt to scroll horizontally while mouse is dragging.
+        function attemptScroll(mouseX, width) {
+            var projectedLeftCutoff = PJGlobalTimeline.leftTickCutoff;
+            var scrollMargin = 100;
+            var scrolled = false;
+            if (mouseX < scrollMargin) {
+                projectedLeftCutoff += bigTickSignificance * (mouseX-scrollMargin) / 100;
+                scrolled = true;
+            }
+            if (mouseX > width - scrollMargin) {
+                projectedLeftCutoff += bigTickSignificance *(mouseX-(width - scrollMargin)) / 100;
+                scrolled = true;
+            }
+            projectedLeftCutoff = Math.max(0, projectedLeftCutoff);
+            if (scrolled) {
+                PJGlobalTimeline.leftTickCutoff = projectedLeftCutoff;
+            }
+        }
+
         // MouseArea on the left for resizing.
         MouseArea {
             id: leftHandle
@@ -314,7 +333,8 @@ Item {
 
             // Dragging
             onMouseXChanged: function(mouse) {
-                var mouseTick = PJGlobalTimeline.pixelToTick(block.x + leftHandle.x + mouse.x, true);
+                var mouseX = block.x + leftHandle.x + mouse.x;
+                var mouseTick = PJGlobalTimeline.pixelToTick(mouseX, true); // TODO
                 if (pressed && (mouseTick !== clickTick || block.leftDragging)) {
                     block.leftDragging = true;
                     var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;

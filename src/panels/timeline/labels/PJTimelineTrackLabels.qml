@@ -38,8 +38,8 @@ Item {
                     ctx.fillText(`${names[nameIndex]}`, sideMargin, Math.round(startPixel + 4/3*fontSize));
                 }
                 // Render color bar
-                var colorBarWidth = 4;
-                ctx.fillStyle = PJGlobalTimeline.hsv2rgb(75*(i-1), 0.6, 0.5314);
+                var colorBarWidth = 5;
+                ctx.fillStyle = PJGlobalTimeline.hsv2rgb(75*(i-1), 0.7, 0.7314);
                 ctx.fillRect(0, startPixel, colorBarWidth, trackHeight);
                 // Render lines
                 ctx.fillStyle = "#090909";

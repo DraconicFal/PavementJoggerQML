@@ -6,19 +6,19 @@
         <settings ticksPerSecond="20" secondsPerPixel="0.005" leftTickCutoff="0" verticalPixelScroll="0" trackHeight="60" />
 
         <track name="Translation">
-            <clip movementName="LinearTranslation" startTick="30" endTick="225" minDuration="5.0"/>
-            <clip movementName="LinearTranslation" startTick="225" endTick="315" minDuration="5.0"/>
-            <clip movementName="LinearTranslation" startTick="435" endTick="630" minDuration="5.0"/>
+            <clip movementName="LinearTranslation" startTick="40" endTick="300" minDuration="60.0"/>
+            <clip movementName="LinearTranslation" startTick="300" endTick="420" minDuration="60.0"/>
+            <clip movementName="LinearTranslation" startTick="580" endTick="840" minDuration="60.0"/>
         </track>
 
         <track name="Rotation">
-            <clip movementName="LinearRotation" startTick="0" endTick="225" minDuration="5.0"/>
-            <clip movementName="LinearRotation" startTick="270" endTick="480" minDuration="5.0"/>
+            <clip movementName="LinearRotation" startTick="0" endTick="300" minDuration="60.0"/>
+            <clip movementName="LinearRotation" startTick="360" endTick="720" minDuration="60.0"/>
         </track>
 
         <track name="Lift">
-            <clip movementName="LinearLift" startTick="270" endTick="360" minDuration="5.0"/>
-            <clip movementName="LinearLift" startTick="435" endTick="525" minDuration="5.0"/>
+            <clip movementName="LinearLift" startTick="360" endTick="480" minDuration="60.0"/>
+            <clip movementName="LinearLift" startTick="580" endTick="700" minDuration="60.0"/>
         </track>
 
     </timeline>
