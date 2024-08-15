@@ -25,9 +25,10 @@ ApplicationWindow {
     visible: true
     title: qsTr("PavementJogger 2")
 
-    // Read in XML track names on completion
+    // Read in project file on completion
     Component.onCompleted: {
         PJGlobalTimeline.tracks = projectXmlHandler.getTrackNames(PJGlobalProject.projectPath);
+        PJGlobalTimeline.clips = projectXmlHandler.getClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips, true);
     }
 
     //////////////
@@ -35,7 +36,11 @@ ApplicationWindow {
     //////////////
     menuBar: PJMenuBar {
         id: menuBar
-        property string name: "I am PJMenuBar"
+        onFocusChanged: {
+            if (focus) {
+                focusScope.forceActiveFocus();
+            }
+        }
     }
 
     /////////////////////////////////////////////////
@@ -49,10 +54,14 @@ ApplicationWindow {
         anchors.right: parent.right
         focus: true
 
-        property string name: "I am focus scope"
 
-        Keys.onPressed: (event)=>PJGlobalKeyboard.setEvent(event);
-        Keys.onReleased: (event)=>PJGlobalKeyboard.setEvent(event);
+        /////////////////////
+        // KEYBIND HANDLER //
+        /////////////////////
+        Keys.onPressed: (event)=>PJGlobalKeyboard.processEvent(event, true);
+        Keys.onReleased: (event)=>PJGlobalKeyboard.processEvent(event, false);
+        PJKeybindHandler {}
+
 
         ///////////////
         // SPLITVIEW //
@@ -140,6 +149,7 @@ ApplicationWindow {
                 SplitView.maximumHeight: maximumHeight
                 SplitView.fillHeight: true
                 implicitHeight: 300
+
             }
 
         }
