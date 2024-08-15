@@ -20,6 +20,7 @@ set(cpp_files
 
 set(plain_qml_files
     src/Main.qml
+    src/PJKeybindHandler.qml
 
     #-# Panels #-#
     src/panels/PJClip.qml

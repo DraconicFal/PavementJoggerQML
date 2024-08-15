@@ -11,6 +11,9 @@ Item {
         id: slider
         width: parent.width
         anchors.verticalCenter: parent.verticalCenter
+        onFocusChanged: {
+            if (focus) focus = false;
+        }
 
         from: -1
         value: 3

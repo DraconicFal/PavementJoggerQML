@@ -88,7 +88,11 @@ QList<QList<QQuickItem *>> PJProjectXmlHandler::getClips(QString projectPath, QL
     if (telemetry) qInfo() << "cpp: getClips() - Opened XML file";
 
     // Find parent item for clips
-    QQuickItem *timelineTracks = engine->rootObjects()[0]->findChild<QQuickItem*>("timelineTracks");
+    if (engine->rootObjects().length()==0) {
+        qCritical() << "cpp: Length of engine->rootObjects() is zero!";
+        return QList<QList<QQuickItem *>>();
+    }
+    QQuickItem *timelineTracks = engine->rootObjects().at(0)->findChild<QQuickItem*>("timelineTracks");
     if (telemetry) qInfo() << "cpp: getClips() - Found timelineTracks parent item" << timelineTracks;
 
     // Create clip component
@@ -157,6 +161,7 @@ QList<QList<QQuickItem *>> PJProjectXmlHandler::getClips(QString projectPath, QL
                 if (clipObject) {
                     clipCount++;
                     QQuickItem *clipItem = qobject_cast<QQuickItem*>(clipObject);
+                    engine->setObjectOwnership(clipItem, QQmlEngine::JavaScriptOwnership);
                     clipItem->setParentItem(timelineTracks);
                     clipItem->setProperty("movementName", movementName);
                     clipItem->setProperty("trackID", trackNumber);

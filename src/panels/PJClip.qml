@@ -1,5 +1,4 @@
 import QtQuick
-import Qt5Compat.GraphicalEffects
 import PavementJogger
 
 Item {
@@ -86,27 +85,17 @@ Item {
 
             Text {
                 id: text
-                property double leftMargin: 5
-
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
                 anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - font.pixelSize
+
+                property double leftMargin: 5
+                x: leftMargin
 
                 font.pixelSize: 11
                 color: "white"
                 text: movementName
-                x: leftMargin
-
                 elide: Text.ElideRight
             }
-
-            visible: false
-        }
-        OpacityMask {
-            anchors.fill: label
-            source: label
-            maskSource: block
         }
 
 
@@ -125,7 +114,7 @@ Item {
         // Returns the border width in pixels
         function getBorderWidth() {
             if (!roundedCorners || !selected)
-                return 1;
+                return 1.125;
             else
                 return 2;
         }
