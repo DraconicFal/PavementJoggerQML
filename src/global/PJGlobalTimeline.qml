@@ -84,6 +84,11 @@ QtObject {
         return Math.max(rightPixelCutoff, scrubberPixelPosition, trackPixelWidth)
     }
 
+    // Clamps a number between the given bounds.
+    function clamp(x, lower, upper) {
+        return Math.max(lower, Math.min(upper, x));
+    }
+
     // Attempt to the tracks horizontally by the given amount in pixels.
     function scrollHorizontally(pixels) {
         leftTickCutoff = Math.max(0, leftTickCutoff - pixels * ticksPerPixel / bigTickSignificance);
@@ -91,7 +96,8 @@ QtObject {
 
     // Attempt to the tracks vertically by the given amount in pixels.
     function scrollVertically(pixels) {
-        verticalPixelScroll = Math.min(0, verticalPixelScroll + pixels);
+        var minScrollY = Math.min(0, trackPixelHeight - tracks.length*trackHeight);
+        verticalPixelScroll = clamp(verticalPixelScroll + pixels, minScrollY, 0);
     }
 
 
@@ -108,7 +114,7 @@ QtObject {
     }
 
     // Whether or not a selection is being dragged on the canvas.
-    property bool timelineDragging: false
+    property bool selectionDragging: false
 
     // Tracks is a list of strings, representing the name of each track.
     property var tracks: []
@@ -135,7 +141,7 @@ QtObject {
     property int maxSelectionTrack: 0
     property bool visualSelectionUpdateNeeded: false
 
-    function updateSelectionBounds() {
+    function updateSelectionBounds(telemetry=false) {
         // Determine boundaries
         var proc_minSelectionTick = null;
         var proc_maxSelectionTick = null;
@@ -158,22 +164,24 @@ QtObject {
         minSelectionTrack = proc_minSelectionTrack==null ? -1 : proc_minSelectionTrack;
         maxSelectionTrack = proc_maxSelectionTrack==null ? -1 : proc_maxSelectionTrack;
 
-        console.log("\nSelection bounds");
-        console.log(`-------- minSelectionTick ${minSelectionTick}`);
-        console.log(`-------- maxSelectionTick ${maxSelectionTick}`);
-        console.log(`-------- minSelectionTrack ${minSelectionTrack}`);
-        console.log(`-------- maxSelectionTrack ${maxSelectionTrack}`);
+        if (telemetry) {
+            console.log("\nSelection bounds");
+            console.log(`-------- minSelectionTick ${minSelectionTick}`);
+            console.log(`-------- maxSelectionTick ${maxSelectionTick}`);
+            console.log(`-------- minSelectionTrack ${minSelectionTrack}`);
+            console.log(`-------- maxSelectionTrack ${maxSelectionTrack}`);
+        }
     }
 
     // Select clips within selection bounds.
     function performMultiSelect() {
         if (minSelectionTick==-1 || maxSelectionTick==-1 || minSelectionTrack==-1 || maxSelectionTrack==-1) return;
         if (!PJGlobalKeyboard.shiftPressed) return;
-        for (track=minSelectionTrack; track<=maxSelectionTrack; track++) {
-            for (index=0; index<clips[track].length; index++) {
-                startTick = clips[track][index].startTick;
-                endTick = clips[track][index].endTick;
-                if (startTick <= maxSelectionTick && endTick >= minSelectionTick) {
+        for (var track=minSelectionTrack; track<=maxSelectionTrack; track++) {
+            for (var index=0; index<clips[track].length; index++) {
+                var startTick = clips[track][index].startTick;
+                var endTick = clips[track][index].endTick;
+                if (startTick < maxSelectionTick && endTick > minSelectionTick) {
                     selection[track][index] = true;
                 }
             }

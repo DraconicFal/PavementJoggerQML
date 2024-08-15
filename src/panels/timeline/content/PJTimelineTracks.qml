@@ -46,7 +46,7 @@ Item {
             var exteriorWidth = 2;
             var interiorWidth = 1;
             var startPixel = verticalPixelScroll % trackHeight - trackHeight;
-            var n = Math.floor(canvas.height / trackHeight) + 2;
+            var n = PJGlobalTimeline.tracks.length + 2;
             for (var i = 0; i < n; i++) {
                 ctx.fillStyle = "#030303";
                 ctx.fillRect(0, startPixel-exteriorWidth/2, canvas.width, exteriorWidth);

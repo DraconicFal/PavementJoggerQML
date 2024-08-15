@@ -43,7 +43,10 @@ ApplicationWindow {
     /////////////////////////////////////////////////
     FocusScope {
         id: focusScope
-        anchors.fill: parent
+        anchors.top: menuBar.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
         focus: true
 
         property string name: "I am focus scope"
@@ -131,7 +134,7 @@ ApplicationWindow {
                 id: timeline
                 property int startHeight: implicitHeight
                 property int minimumHeight: 100
-                property int maximumHeight: 700
+                property int maximumHeight: Math.min(700, focusScope.height-fieldView.minimumHeight)
 
                 SplitView.minimumHeight: minimumHeight
                 SplitView.maximumHeight: maximumHeight

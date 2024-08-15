@@ -1,9 +1,26 @@
 import QtQuick
+import Qt5Compat.GraphicalEffects
 import PavementJogger
 
 Item {
     id: clipAttributes
     anchors.fill: parent
+
+
+    ////////////////
+    // ATTRIBUTES //
+    ////////////////
+
+    // Constantly update trackIndex.
+    readonly property var clips: PJGlobalTimeline.clips
+    onClipsChanged: {
+        trackIndex = getTrackIndex();
+    }
+
+    // Returns whether or not global clips array exists.
+    function getClipsExists() {
+        return typeof(clips) !== "undefined" && clips.length > 0;
+    }
 
     // Movement Name of this clip.
     property string movementName
@@ -14,9 +31,9 @@ Item {
     // Index representing this clip within its respective track
     property int trackIndex: getTrackIndex()
     function getTrackIndex(telemetry=false) {
-        if (!clipsExists) return -1;
-        for (var i=0; i<PJGlobalTimeline.clips[trackID].length; i++) {
-            if (Object.is(this, PJGlobalTimeline.clips[trackID][i])) {
+        if (!getClipsExists()) return -1;
+        for (var i=0; i<clips[trackID].length; i++) {
+            if (Object.is(this, clips[trackID][i])) {
                 if (telemetry) console.log(`Clip on track ${trackID} at tick time ${startTick} found trackIndex ${i}`);
                 return i
             }
@@ -37,27 +54,14 @@ Item {
     // The minimum amount of ticks that this clip lasts for.
     property double minDuration
 
-    // Whether or not global clips array exists.
-    property bool clipsExists: typeof(PJGlobalTimeline.clips) !== "undefined" && PJGlobalTimeline.clips.length > 0
-
     // Whether this clip is selected/highlighted.
     property bool selected: false
 
-    // Constantly update trackIndex.
-    readonly property var clipsArray: PJGlobalTimeline.clips
-    onClipsArrayChanged: {
-        trackIndex = getTrackIndex();
-    }
 
-    // Update global selection.
-    onSelectedChanged: {
-        console.log(`\nSelection array`);
-        for (var r=0; r<PJGlobalTimeline.selection.length; r++) {
-            console.log(`-------- ${PJGlobalTimeline.selection[r]}`);
-        }
-    }
 
-    // Visual/interactable component.
+    ///////////////////////////////////
+    // VISUALS/INTERACTION COMPONENT //
+    ///////////////////////////////////
     Rectangle {
         id: block
         clip: true
@@ -69,10 +73,54 @@ Item {
         readonly property bool roundedCorners: width>3*cornerRadius // For setting radius to zero when the clip is too thin visually
         visible: getStartPixel()<PJGlobalTimeline.trackPixelWidth && getEndPixel()>0
 
-        /// COLOR ///
-        color: PJGlobalTimeline.hsv2rgb(75*trackID, 0.5839, 0.6314)
-        border.width: getBorderWidth()
-        border.color: selected ? PJGlobalTimeline.hsv2rgb(75*trackID, 0.5839, 1) : "#030303"
+        /// LABEL ///
+        Rectangle {
+            id: label
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+
+            color: PJGlobalTimeline.hsv2rgb(75*trackID, 0.6, 0.615)
+            height: 1.5*text.font.pixelSize
+            radius: parent.radius
+
+            Text {
+                id: text
+                property double leftMargin: 5
+
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.verticalCenter: parent.verticalCenter
+                width: parent.width - font.pixelSize
+
+                font.pixelSize: 11
+                color: "white"
+                text: movementName
+                x: leftMargin
+
+                elide: Text.ElideRight
+            }
+
+            visible: false
+        }
+        OpacityMask {
+            anchors.fill: label
+            source: label
+            maskSource: block
+        }
+
+
+        /// FILL & BORDER ///
+        color: PJGlobalTimeline.hsv2rgb(75*trackID, 0.6, 0.5314)
+        Rectangle {
+            id: border
+            anchors.fill: parent
+            color: "transparent"
+
+            radius: parent.radius
+            border.width: parent.getBorderWidth()
+            border.color: selected ? PJGlobalTimeline.hsv2rgb(75*trackID, 0.5839, 1) : "#030303"
+        }
 
         // Returns the border width in pixels
         function getBorderWidth() {
@@ -152,6 +200,73 @@ Item {
                 return Math.min(4*block.cornerRadius, block.width/4);
         }
 
+        // Returns an array of the same shape as the global clips array, with
+        // each clip element being a tuple containing startTick and endTick.
+        function getClipPositions() {
+            var clipPositions = [];
+            for (var track=0; track<clips.length; track++) {
+                clipPositions.push([]);
+                for (var index=0; index<clips[track].length; index++) {
+                    var clip = clips[track][index];
+                    clipPositions[track].push([clip.startTick, clip.endTick]);
+                }
+            }
+            return clipPositions;
+        }
+
+        // Displaces the clip selection by the given deltaTicks
+        function displaceSelection(clipPositions, deltaStartTick, deltaEndTick) {
+            for (var track=0; track<clips.length; track++) {
+                for (var index=0; index<clips[track].length; index++) {
+                    if (PJGlobalTimeline.selection[track][index]) {
+                        clips[track][index].startTick = clipPositions[track][index][0] + deltaStartTick;
+                        clips[track][index].endTick = clipPositions[track][index][1] + deltaEndTick;
+                    }
+                }
+            }
+        }
+
+        // Attempts to select this clip.
+        function attemptSelection() {
+            // Selection with modifiers
+            if (PJGlobalKeyboard.ctrlPressed && !PJGlobalKeyboard.shiftPressed) {
+                PJGlobalTimeline.selection[trackID][trackIndex] = !PJGlobalTimeline.selection[trackID][trackIndex]
+            } else {
+                if (!PJGlobalTimeline.selection[trackID][trackIndex]) {
+                    PJGlobalTimeline.selection[trackID][trackIndex] = true;
+                    PJGlobalTimeline.timelinePressed = true;
+                }
+            }
+
+            // Multi-select condition
+            if (PJGlobalKeyboard.shiftPressed &&
+                    PJGlobalTimeline.timelinePressed) {
+                PJGlobalTimeline.updateSelectionBounds(); // only do Multiple Select if this clip was just selected
+                PJGlobalTimeline.performMultiSelect();
+            }
+
+            selected = PJGlobalTimeline.selection[trackID][trackIndex];
+        }
+
+        // Sets global pressed to false.
+        function unpress() {
+            PJGlobalTimeline.timelinePressed = false;
+            PJGlobalTimeline.selectionDragging = false;
+        }
+
+        // Deselection sensing for this clip.
+        property bool timelinePressed: PJGlobalTimeline.timelinePressed
+        onTimelinePressedChanged: {
+            if (!(leftHandle.pressed || centerArea.pressed || rightHandle.pressed) &&
+                    !PJGlobalKeyboard.shiftPressed &&
+                    !PJGlobalKeyboard.ctrlPressed &&
+                    !PJGlobalTimeline.selectionDragging &&
+                    timelinePressed) {
+                PJGlobalTimeline.selection[trackID][trackIndex] = false;
+            }
+            selected = PJGlobalTimeline.selection[trackID][trackIndex];
+        }
+
         // MouseArea on the left for resizing.
         MouseArea {
             id: leftHandle
@@ -182,28 +297,61 @@ Item {
 
             /// RESIZING ///
             property double clickTick
+            property var clipPositions
+
+            // Drag preparation
             onPressed: function(mouse) {
-                block.leftDragging = true;
-                clickTick = PJGlobalTimeline.pixelToTick(block.x + leftHandle.x + mouse.x, false);
+                clickTick = PJGlobalTimeline.pixelToTick(block.x + leftHandle.x + mouse.x, true);
+                clipPositions = block.getClipPositions();
+                block.attemptSelection();
             }
             onReleased: {
                 block.leftDragging = false;
                 if (!hovering)
                     block.setArrowCursor();
+                block.unpress();
             }
 
+            // Dragging
             onMouseXChanged: function(mouse) {
-                if (pressed) {
+                var mouseTick = PJGlobalTimeline.pixelToTick(block.x + leftHandle.x + mouse.x, true);
+                if (pressed && (mouseTick !== clickTick || block.leftDragging)) {
+                    block.leftDragging = true;
                     var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
-                    var maxTick;
-                    if (clipAttributes.endTick%bigTickSignificance == 0)
-                        maxTick = clipAttributes.endTick - bigTickSignificance;
-                    else
-                        maxTick = Math.floor(clipAttributes.endTick/bigTickSignificance)*bigTickSignificance;
-                    var mouseTick = PJGlobalTimeline.pixelToTick(block.x + leftHandle.x + mouse.x, true);
-                    clipAttributes.startTick = block.clamp(mouseTick, 0, maxTick);
+
+                    // Get bounded deltaTick
+                    var deltaTick = mouseTick - clickTick - clipPositions[trackID][trackIndex][0]%PJGlobalTimeline.bigTickSignificance;
+                    for (var track=0; track<clipPositions.length; track++) {
+                        for (var index=0; index<clipPositions[track].length; index++) {
+                            if (PJGlobalTimeline.selection[track][index]) {
+                                var startTick = clipPositions[track][index][0];
+                                var endTick = clipPositions[track][index][1];
+                                var minDuration = clips[track][index].minDuration;
+                                // Find minDeltaTick
+                                var minDeltaTick;
+                                if (index==0) {
+                                    minDeltaTick = -startTick;
+                                } else {
+                                    minDeltaTick = clips[track][index-1].endTick - startTick;
+                                }
+                                // Find maxDeltaTick
+                                var maxDeltaTick;
+                                if (endTick%bigTickSignificance == 0)
+                                    maxDeltaTick = Math.min(endTick - bigTickSignificance, endTick - minDuration) - startTick;
+                                else
+                                    maxDeltaTick = Math.min(Math.floor(endTick/bigTickSignificance)*bigTickSignificance, endTick - minDuration) - startTick;
+                                // Constrain deltaTick
+                                deltaTick = block.clamp(deltaTick, minDeltaTick, maxDeltaTick);
+                            }
+                        }
+                    }
+
+                    // Displace clip startTicks in selection by deltaTick
+                    block.displaceSelection(clipPositions, deltaTick, 0);
+
                 }
             }
+
         }
 
         // MouseArea on the right for resizing.
@@ -236,26 +384,58 @@ Item {
 
             /// RESIZING ///
             property double clickTick
+            property var clipPositions
+
+            // Drag preparation
             onPressed: function(mouse) {
-                block.rightDragging = true;
-                clickTick = PJGlobalTimeline.pixelToTick(block.x + leftHandle.x + mouse.x, false);
+                clickTick = PJGlobalTimeline.pixelToTick(block.x + rightHandle.x + mouse.x, true);
+                clipPositions = block.getClipPositions();
+                block.attemptSelection();
             }
             onReleased: {
                 block.rightDragging = false;
                 if (!hovering)
                     block.setArrowCursor();
+                block.unpress();
             }
 
+            // Dragging
             onMouseXChanged: function(mouse) {
-                if (pressed) {
+                var mouseTick = PJGlobalTimeline.pixelToTick(block.x + rightHandle.x + mouse.x, true);
+                if (pressed && (mouseTick !== clickTick || block.rightDragging)) {
+                    block.rightDragging = true;
                     var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
-                    var minTick;
-                    if (clipAttributes.startTick%bigTickSignificance == 0)
-                        minTick = clipAttributes.startTick + bigTickSignificance;
-                    else
-                        minTick = Math.ceil(clipAttributes.startTick/bigTickSignificance)*bigTickSignificance;
-                    var mouseTick = PJGlobalTimeline.pixelToTick(block.x + rightHandle.x + mouse.x, true);
-                    clipAttributes.endTick = block.clamp(mouseTick, minTick, Infinity);
+
+                    // Get bounded deltaTick
+                    var deltaTick = mouseTick - clickTick - clipPositions[trackID][trackIndex][1]%PJGlobalTimeline.bigTickSignificance;
+                    for (var track=0; track<clipPositions.length; track++) {
+                        for (var index=0; index<clipPositions[track].length; index++) {
+                            if (PJGlobalTimeline.selection[track][index]) {
+                                var startTick = clipPositions[track][index][0];
+                                var endTick = clipPositions[track][index][1];
+                                var minDuration = clips[track][index].minDuration;
+                                // Find minDeltaTick
+                                var minDeltaTick;
+                                if (startTick%bigTickSignificance == 0)
+                                    minDeltaTick = Math.max(startTick + bigTickSignificance, startTick + minDuration) - endTick;
+                                else
+                                    minDeltaTick = Math.max(Math.ceil(startTick/bigTickSignificance)*bigTickSignificance, startTick + minDuration) - endTick;
+                                // Find maxDeltaTick
+                                var maxDeltaTick;
+                                if (index==clips[track].length-1) {
+                                    maxDeltaTick = Infinity;
+                                } else {
+                                    maxDeltaTick = clips[track][index+1].startTick - endTick;
+                                }
+                                // Constrain deltaTick
+                                deltaTick = block.clamp(deltaTick, minDeltaTick, maxDeltaTick);
+                            }
+                        }
+                    }
+
+                    // Displace clip startTicks in selection by deltaTick
+                    block.displaceSelection(clipPositions, 0, deltaTick);
+
                 }
             }
         }
@@ -272,37 +452,64 @@ Item {
 
             /// SELECTION ///
             property double clickTick
-            property bool timelinePressed: PJGlobalTimeline.timelinePressed
-            onTimelinePressedChanged: {
-                if (!pressed && !PJGlobalKeyboard.shiftPressed && !PJGlobalKeyboard.ctrlPressed && timelinePressed)
-                    PJGlobalTimeline.selection[trackID][trackIndex] = false;
-                clipAttributes.selected = PJGlobalTimeline.selection[trackID][trackIndex];
-                console.log(`clip (${trackID},${trackIndex}): selected is ${clipAttributes.selected}`);
-            }
 
+            // Selection or Toggle
+            property var clipPositions
             onPressed: function(mouse) {
-                block.centerDragging = true;
-                PJGlobalTimeline.timelinePressed = true;
-                clickTick = PJGlobalTimeline.pixelToTick(block.x + centerArea.x + mouse.x, false);
-                if (PJGlobalKeyboard.ctrlPressed && !PJGlobalKeyboard.shiftPressed)
-                    PJGlobalTimeline.selection[trackID][trackIndex] = !PJGlobalTimeline.selection[trackID][trackIndex]
-                else
-                    PJGlobalTimeline.selection[trackID][trackIndex] = true;
-                if (PJGlobalKeyboard.shiftPressed && !clipAttributes.selected && PJGlobalTimeline.selection[trackID][trackIndex]) {
-                    PJGlobalTimeline.updateSelectionBounds(); // only do Multiple Select if this clip was just selected
-                    PJGlobalTimeline.performMultiSelect();
-                }
-                clipAttributes.selected = PJGlobalTimeline.selection[trackID][trackIndex];
-
+                clickTick = PJGlobalTimeline.pixelToTick(block.x + centerArea.x + mouse.x, true);
+                clipPositions = block.getClipPositions();
+                block.attemptSelection();
             }
             onReleased: {
                 block.centerDragging = false;
-                PJGlobalTimeline.timelinePressed = false;
+                block.unpress();
             }
 
+            // Dragging
+            onMouseXChanged: function(mouse) {
+                var mouseTick = PJGlobalTimeline.pixelToTick(block.x + centerArea.x + mouse.x, true);
+                if (pressed && (mouseTick !== clickTick || PJGlobalTimeline.selectionDragging)) {
+                    PJGlobalTimeline.selectionDragging = true;
+                    block.centerDragging = true;
+
+                    // Get bounded deltaTick
+                    var deltaTick = mouseTick - clickTick - clipPositions[trackID][trackIndex][0]%PJGlobalTimeline.bigTickSignificance;
+                    for (var track=0; track<clipPositions.length; track++) {
+                        for (var index=0; index<clipPositions[track].length; index++) {
+                            if (PJGlobalTimeline.selection[track][index]) {
+                                var startTick = clipPositions[track][index][0];
+                                var endTick = clipPositions[track][index][1];
+                                // Find minDeltaTick
+                                var minDeltaTick = -Infinity;
+                                if (index==0) {
+                                    minDeltaTick = -startTick;
+                                } else if (!PJGlobalTimeline.selection[track][index-1]) {
+                                    minDeltaTick = clips[track][index-1].endTick - startTick;
+                                }
+                                // Find maxDeltaTick
+                                var maxDeltaTick = Infinity;
+                                if (index==clips[track].length-1) {
+                                    maxDeltaTick = Infinity;
+                                } else if (!PJGlobalTimeline.selection[track][index+1]) {
+                                    maxDeltaTick = clips[track][index+1].startTick - endTick;
+                                }
+                                // Constrain deltaTick
+                                deltaTick = block.clamp(deltaTick, minDeltaTick, maxDeltaTick);
+                            }
+                        }
+                    }
+
+                    // Displace selection by deltaTick
+                    block.displaceSelection(clipPositions, deltaTick, deltaTick);
+
+                }
+
+            }
+
+            // Visual update for multi selection
             property bool visualSelectionUpdateNeeded: PJGlobalTimeline.visualSelectionUpdateNeeded
             onVisualSelectionUpdateNeededChanged: {
-                clipAttributes.selected = PJGlobalTimeline.selection[trackID][trackIndex];
+                selected = PJGlobalTimeline.selection[trackID][trackIndex];
             }
         }
 

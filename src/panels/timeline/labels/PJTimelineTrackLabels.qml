@@ -22,22 +22,35 @@ Item {
 
             // render horizontal lines
             var width = 1;
-            var fontSize = 12.5 + (trackHeight-30)/4
+            var fontSize = 12.5;
+            var sideMargin = fontSize;
             ctx.font = `${fontSize}px sans-serif`;
 
             var startPixel = verticalPixelScroll % trackHeight - trackHeight;
             var startIndex = Math.ceil(verticalPixelScroll / trackHeight)+1;
-            var n = Math.floor(canvas.height / trackHeight) + 3;
+            var n = names.length+1;
             for (var i = 0; i < n; i++) {
-                var yPixel = startPixel + i*trackHeight;
-                ctx.fillStyle = "#090909";
-                ctx.fillRect(0, yPixel-width/2, canvas.width, width);
+                // Render text
                 var nameIndex = i-startIndex;
+                var textWidth = ctx.measureText(`${names[nameIndex]}`).width;
                 if (0<=nameIndex && nameIndex<names.length) {
                     ctx.fillStyle = "#ffffff";
-                    ctx.fillText(`${names[nameIndex]}`, fontSize/2, Math.round(yPixel + (trackHeight+0.75*fontSize)/2));
+                    ctx.fillText(`${names[nameIndex]}`, sideMargin, Math.round(startPixel + 4/3*fontSize));
                 }
+                // Render color bar
+                var colorBarWidth = 4;
+                ctx.fillStyle = PJGlobalTimeline.hsv2rgb(75*(i-1), 0.6, 0.5314);
+                ctx.fillRect(0, startPixel, colorBarWidth, trackHeight);
+                // Render lines
+                ctx.fillStyle = "#090909";
+                ctx.fillRect(colorBarWidth-1, startPixel, width, trackHeight);
+                ctx.fillRect(0, startPixel-width/2, canvas.width, width);
+                ctx.fillRect(0, startPixel+2*fontSize-width/2, canvas.width, width);
+                ctx.fillRect(textWidth+2*sideMargin-width/2, startPixel, width, 2*fontSize);
+                startPixel += trackHeight;
             }
+            ctx.fillStyle = "#090909";
+            ctx.fillRect(0, startPixel-width/2, canvas.width, width);
         }
 
         onPaint: {
