@@ -2,6 +2,7 @@ import QtQuick
 import PavementJogger
 
 Item {
+    id: attributes
 
     // The number ID of the track this movement belongs on.
     property int trackID
@@ -139,12 +140,17 @@ Item {
     // Functions
     function startDrag() {
         if (dragArea.containsMouse) {
+            var ghostItem = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.ghostItem;
+            var focusScope = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent;
             var grabber = block.grabToImage(function(result) {
                 ghostItem.source = result.url;
                 ghostItem.visible = true;
                 var globalPosition = mapToItem(focusScope, dragArea.mouseX, dragArea.mouseY);
                 ghostItem.x = globalPosition.x - ghostItem.width / 2;
                 ghostItem.y = globalPosition.y - ghostItem.height / 2;
+                ghostItem.validTarget = false;
+                ghostItem.targetTrackID = trackID;
+                ghostItem.targetTick = -1;
             });
 
             dragArea.onPositionChanged.connect(moveGhost);
@@ -154,15 +160,38 @@ Item {
     }
 
     function moveGhost(mouse) {
+        var ghostItem = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.ghostItem;
+        var focusScope = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent;
         var globalPosition = mapToItem(focusScope, mouse.x, mouse.y);
         ghostItem.x = globalPosition.x - ghostItem.width / 2;
         ghostItem.y = globalPosition.y - ghostItem.height / 2;
     }
 
     function stopDrag() {
+        var ghostItem = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.ghostItem;
         ghostItem.visible = false;
         dragArea.onPositionChanged.disconnect(moveGhost);
         PJGlobalPalette.paletteDragging = false;
+        if (ghostItem.validTarget) {
+            // Create clip item
+            var clipComponent = Qt.createComponent("qrc:/components/src/panels/timeline/PJTimelineClip.qml");
+            if (clipComponent.status === Component.Ready) {
+                var clip = clipComponent.createObject(PJGlobalTimeline.timelineTracksItem, {"movementName": movementName, "trackID": ghostItem.targetTrackID, "trackIndex": 0, "startTick": ghostItem.targetTick, "endTick": ghostItem.targetTick+40, "minDuration": 0});
+                if (clip === null) {
+                    console.exception("Error creating clip item");
+                    return;
+                }
+                while (PJGlobalTimeline.clips.length<=trackID) {
+                    PJGlobalTimeline.clips.push([]);
+                }
+                PJGlobalTimeline.clips[trackID].push(clip);
+                var new_clips = PJGlobalTimeline.clips;
+                PJGlobalTimeline.clips = new_clips;
+            } else {
+                console.exception("Error loading clipComponent:", clipComponent.errorString());
+                return;
+            }
+        }
     }
 
 }

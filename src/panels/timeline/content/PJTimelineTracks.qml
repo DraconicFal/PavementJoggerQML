@@ -82,6 +82,8 @@ Item {
             }
         }
 
+        Component.onCompleted: PJGlobalTimeline.timelineTracksItem = canvas
+
     }
 
 }

@@ -142,12 +142,64 @@ ApplicationWindow {
         }
 
         /// PALETTE DRAGGING GHOST ITEM ///
+        property alias ghostItem: ghostItem
         Image {
             id: ghostItem
             visible: false
             fillMode: Image.PreserveAspectFit
             opacity: 0.75
             scale: 0.75
+
+            // Ghost item information
+            property bool validTarget: false
+            property int targetTrackID: -1
+            property int targetTick: -1
+
+            onXChanged: cursorArea.cursorShape = cursorArea.getCursorShape()
+            onYChanged: cursorArea.cursorShape = cursorArea.getCursorShape()
+
+            MouseArea {
+                id: cursorArea
+                anchors.fill: parent
+                cursorShape: getCursorShape()
+
+                // Detect whether or not there is a valid space to place the clip
+                function getCursorShape() {
+                    var tracks = timeline.content.tracks;
+                    var timelinePosition = mapToItem(tracks, mouseX+ghostItem.width/2, mouseY+ghostItem.height/2);
+
+                    // Check if cursor is within timeline track bounds
+                    if (timelinePosition.x<0 || tracks.width<timelinePosition.x ||
+                            timelinePosition.y<0 || tracks.height<timelinePosition.y) {
+                        ghostItem.validTarget = false;
+                        ghostItem.targetTick = -1;
+                        return Qt.ForbiddenCursor;
+                    }
+
+                    // Determine the target track
+                    var verticalPixelScroll = PJGlobalTimeline.verticalPixelScroll;
+                    var trackHeight = PJGlobalTimeline.trackHeight;
+
+                    var startPixel = verticalPixelScroll % trackHeight - trackHeight;
+                    var startIndex = Math.ceil(verticalPixelScroll / trackHeight)+1;
+                    if (trackHeight*(ghostItem.targetTrackID+startIndex-1)<=timelinePosition.y && timelinePosition.y<trackHeight*(ghostItem.targetTrackID+startIndex)) {
+
+
+                        //TODO: Test to see if there is a valid space to insert the new clip
+
+
+                        ghostItem.validTarget = true;
+                        ghostItem.targetTick = PJGlobalTimeline.pixelToTick(timelinePosition.x, true);
+                        return Qt.DragMoveCursor;
+                    }
+
+                    ghostItem.validTarget = false;
+                    ghostItem.targetTick = -1;
+                    return Qt.ForbiddenCursor;
+                }
+
+            }
+
         }
 
     }

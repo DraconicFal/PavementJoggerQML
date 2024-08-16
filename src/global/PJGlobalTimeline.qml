@@ -10,6 +10,9 @@ QtObject {
     // TRACK VALUES //
     //////////////////
 
+    // Reference to the "tracks" QtQuickItem
+    property var timelineTracksItem
+
     // Conversion between seconds and ticks.
     readonly property int ticksPerSecond: 20
     // Initial secondsPerPixel value.
@@ -18,6 +21,8 @@ QtObject {
     property double secondsPerPixel: 0.04
     // Conversion between ticks and onscreen, accounting for stretch.
     property double ticksPerPixel: ticksPerSecond * secondsPerPixel * bigTickSignificance
+    // Whether or not the ZoomSlider is being modified
+    property bool zoomSliderDragging: false
 
     // Minimum spacing between ticks.
     readonly property double minSpacing: 10

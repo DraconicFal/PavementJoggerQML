@@ -14,6 +14,7 @@ Item {
         onFocusChanged: {
             if (focus) focus = false;
         }
+        z: 0
 
         from: -1
         value: 3
@@ -56,5 +57,10 @@ Item {
             PJGlobalTimeline.secondsPerPixel = Math.pow(2, value) / 200;
             zoomSlider.repaintTimeline();
         }
+
+        onPressedChanged:  {
+            PJGlobalTimeline.zoomSliderDragging = pressed;
+        }
     }
+
 }

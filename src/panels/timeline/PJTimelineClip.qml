@@ -126,6 +126,7 @@ Item {
 
         // Movement Animation
         Behavior on x {
+            enabled: !PJGlobalTimeline.zoomSliderDragging
             PropertyAnimation {
                 duration: 150
                 easing: Easing.OutQuad
