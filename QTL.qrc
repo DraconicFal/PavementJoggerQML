@@ -4,8 +4,9 @@
         <file>assets/STEPHEN.jpg</file>
         <file>assets/DRIVE.png</file>
         <file>assets/centerstage_field.png</file>
+        <file>assets/double-arrow.png</file>
     </qresource>
     <qresource prefix="/components">
-        <file>src/panels/PJClip.qml</file>
+        <file>src/panels/timeline/PJTimelineClip.qml</file>
     </qresource>
 </RCC>

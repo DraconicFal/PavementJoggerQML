@@ -28,7 +28,6 @@ Item {
                 filteredClips.push([]);
                 for (var index=0; index<clips[track].length; index++) {
                     if (selection[track][index]) {
-                        console.log(`Deleting clip (${track},${index})`);
                         clips[track][index].destroy();
                     } else {
                         filteredClips[track].push(clips[track][index]);

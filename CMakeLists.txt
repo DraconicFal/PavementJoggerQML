@@ -23,7 +23,6 @@ set(plain_qml_files
     src/PJKeybindHandler.qml
 
     #-# Panels #-#
-    src/panels/PJClip.qml
 
     ## Menu Bar files ##
     src/panels/menubar/PJMenuBar.qml
@@ -34,13 +33,18 @@ set(plain_qml_files
 
     ## Palette panel files ##
     src/panels/palette/PJPalette.qml
-    src/panels/palette/prefabs/DraggableObj.qml
+    src/panels/palette/PJPaletteFolder.qml
+    src/panels/palette/PJPaletteFolderItems.qml
+    src/panels/palette/PJPaletteMovement.qml
+
+    src/panels/palette/prefabs/DraggableObj.qml # is this needed
 
     ## Properties panel files ##
     src/panels/properties/PJProperties.qml
 
     ## Timeline panel files ##
     src/panels/timeline/PJTimeline.qml
+    src/panels/timeline/PJTimelineClip.qml
     src/panels/timeline/PJTimelineZoomSlider.qml
     src/panels/timeline/PJTimelineScrollArea.qml
     # Labels
@@ -56,9 +60,13 @@ set(plain_qml_files
 )
 
 set(qml_singletons
-    src/global/PJGlobalKeyboard.qml
-    src/global/PJGlobalTimeline.qml
+    ## System ##
     src/global/PJGlobalProject.qml
+    src/global/PJGlobalKeyboard.qml
+
+    ## Panels ##
+    src/global/PJGlobalPalette.qml
+    src/global/PJGlobalTimeline.qml
 )
 
 set_source_files_properties(${qml_singletons}
