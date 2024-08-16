@@ -6,7 +6,6 @@ import "panels/menubar"
 import "panels/palette"
 import "panels/properties"
 import "panels/timeline"
-import "panels/palette/prefabs"
 
 ApplicationWindow {
     id: mainWindow
@@ -54,7 +53,6 @@ ApplicationWindow {
         anchors.right: parent.right
         focus: true
 
-
         /////////////////////
         // KEYBIND HANDLER //
         /////////////////////
@@ -67,6 +65,7 @@ ApplicationWindow {
         // SPLITVIEW //
         ///////////////
         SplitView {
+            id: containerSplitView
             anchors.fill: parent
             orientation: Qt.Vertical
             handle: Rectangle {
@@ -94,18 +93,6 @@ ApplicationWindow {
                     SplitView.minimumWidth: minimumWidth
                     SplitView.maximumWidth: maximumWidth
                     implicitWidth: (minimumWidth + maximumWidth) / 2
-
-                    // Button {
-                    //     id: control
-                    //     anchors.centerIn: parent
-                    //     function createNewDraggableObj() {
-                    //         var component = Qt.createComponent("panels/palette/prefabs/DraggableObj.qml");
-                    //         component.createObject(timeline.content.tracks, {"x": 0, "y": 0});
-                    //     }
-                    //     width: parent.width-PJGlobalTimeline.trackHeight
-                    //     height: PJGlobalTimeline.trackHeight
-                    //     onClicked: createNewDraggableObj()
-                    // }
                 }
 
                 ////////////////
@@ -152,6 +139,15 @@ ApplicationWindow {
 
             }
 
+        }
+
+        /// PALETTE DRAGGING GHOST ITEM ///
+        Image {
+            id: ghostItem
+            visible: false
+            fillMode: Image.PreserveAspectFit
+            opacity: 0.75
+            scale: 0.75
         }
 
     }

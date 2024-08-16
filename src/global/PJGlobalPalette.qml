@@ -9,5 +9,8 @@ Item {
     // List containing lists representing the subsystems of the robot, which contain draggable movements onto the timeline.
     property var movements: [[]]
 
+    // Whether or not an item is being dragged from the Palette.
+    property bool paletteDragging: false
+
 
 }

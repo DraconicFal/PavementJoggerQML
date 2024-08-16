@@ -81,22 +81,88 @@ Item {
             }
         }
 
-        /// DETECT HOVERING ///
+        /// MOUSE INTERACTION ///
         MouseArea {
-            id: mouseArea
+            id: dragArea
             anchors.fill: parent
             hoverEnabled: true
 
+            // Hover detection
+            property bool hovering: false
             onEntered: {
+                hovering = true;
                 border.border.width = 2;
                 border.border.color = PJGlobalTimeline.hsv2rgb(75*trackID, 0.5839, 1);
             }
             onExited: {
-                border.border.width = 0.5;
-                border.border.color ="#030303";
+                hovering = false;
+                if (!dragging) {
+                    border.border.width = 0.5;
+                    border.border.color ="#030303";
+                }
+            }
+
+            // Drag detection
+            property bool dragging: false
+            property double clickX
+            property double clickY
+            onPressed: function(mouse) {
+                clickX = mouse.x;
+                clickY = mouse.y;
+            }
+            onPositionChanged: function(mouse) {
+                if ((mouse.x!==clickX || mouse.y!==clickY) && pressed && !dragging) {
+                    startDrag();
+                    dragging = true;
+                }
+            }
+            onReleased: {
+                if (dragging) {
+                    stopDrag();
+                    dragging = false;
+                }
+                if (!hovering) {
+                    border.border.width = 0.5;
+                    border.border.color ="#030303";
+                }
             }
         }
 
+    }
+
+
+
+    ////////////////
+    // GHOST ITEM //
+    ////////////////
+
+    // Functions
+    function startDrag() {
+        if (dragArea.containsMouse) {
+            var grabber = block.grabToImage(function(result) {
+                ghostItem.source = result.url;
+                ghostItem.visible = true;
+                var globalPosition = mapToItem(focusScope, dragArea.mouseX, dragArea.mouseY);
+                ghostItem.x = globalPosition.x - ghostItem.width / 2;
+                ghostItem.y = globalPosition.y - ghostItem.height / 2;
+            });
+
+            dragArea.onPositionChanged.connect(moveGhost);
+            PJGlobalPalette.paletteDragging = true;
+
+        }
+    }
+
+    function moveGhost(mouse) {
+        var globalPosition = mapToItem(focusScope, mouse.x, mouse.y);
+        ghostItem.x = globalPosition.x - ghostItem.width / 2;
+        ghostItem.y = globalPosition.y - ghostItem.height / 2;
+    }
+
+    function stopDrag() {
+        ghostItem.visible = false;
+        dragArea.onPositionChanged.disconnect(moveGhost);
+        PJGlobalPalette.paletteDragging = false;
     }
 
 }

@@ -124,6 +124,14 @@ Item {
         x: getXPosition()
         y: getYPosition()
 
+        // Movement Animation
+        Behavior on x {
+            PropertyAnimation {
+                duration: 150
+                easing: Easing.OutQuad
+            }
+        }
+
         // Returns the screen X position of this clip, in pixels.
         function getXPosition() {
             return Math.max(-radius, getStartPixel());
@@ -289,18 +297,18 @@ Item {
 
             /// CURSOR ///
             onEntered: {
-                if (!(block.rightDragging || block.centerDragging || PJGlobalTimeline.timelinePressed)) {
+                if (!(block.rightDragging || block.centerDragging || PJGlobalTimeline.timelinePressed || PJGlobalPalette.paletteDragging)) {
                     hovering = true;
                     block.setSplitCursor();
                 }
             }
             onPositionChanged: {
-                if (hovering && !PJGlobalTimeline.timelinePressed) {
+                if (hovering && !(PJGlobalTimeline.timelinePressed || PJGlobalPalette.paletteDragging)) {
                     block.setSplitCursor();
                 }
             }
             onExited: {
-                if (!(block.rightDragging || block.centerDragging || PJGlobalTimeline.timelinePressed)) {
+                if (!(block.rightDragging || block.centerDragging || PJGlobalTimeline.timelinePressed || PJGlobalPalette.paletteDragging)) {
                     hovering = false;
                     if (!pressed)
                         block.setArrowCursor();
@@ -327,7 +335,7 @@ Item {
             // Dragging
             onMouseXChanged: function(mouse) {
                 var mouseX = block.x + leftHandle.x + mouse.x;
-                var mouseTick = PJGlobalTimeline.pixelToTick(mouseX, true); // TODO
+                var mouseTick = PJGlobalTimeline.pixelToTick(mouseX, true);
                 if (pressed && (mouseTick !== clickTick || block.leftDragging)) {
                     block.leftDragging = true;
                     var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
@@ -382,7 +390,7 @@ Item {
 
             /// CURSOR ///
             onEntered: {
-                if (!(block.leftDragging || block.centerDragging || PJGlobalTimeline.timelinePressed)) {
+                if (!(block.leftDragging || block.centerDragging || PJGlobalTimeline.timelinePressed || PJGlobalPalette.paletteDragging)) {
                     hovering = true;
                     block.setSplitCursor();
                 }
@@ -393,7 +401,7 @@ Item {
                 }
             }
             onExited: {
-                if (!(block.leftDragging || block.centerDragging || PJGlobalTimeline.timelinePressed)) {
+                if (!(block.leftDragging || block.centerDragging || PJGlobalTimeline.timelinePressed || PJGlobalPalette.paletteDragging)) {
                     hovering = false;
                     if (!pressed)
                         block.setArrowCursor();

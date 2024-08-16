@@ -37,8 +37,6 @@ set(plain_qml_files
     src/panels/palette/PJPaletteFolderItems.qml
     src/panels/palette/PJPaletteMovement.qml
 
-    src/panels/palette/prefabs/DraggableObj.qml # is this needed
-
     ## Properties panel files ##
     src/panels/properties/PJProperties.qml
 
