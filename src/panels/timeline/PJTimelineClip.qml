@@ -2,7 +2,7 @@ import QtQuick
 import PavementJogger
 
 Item {
-    id: clipAttributes
+    id: attributes
     anchors.fill: parent
 
 
@@ -86,7 +86,7 @@ Item {
             Text {
                 id: text
                 anchors.verticalCenter: parent.verticalCenter
-                width: parent.width - font.pixelSize
+                width: parent.width - text.font.pixelSize
 
                 property double leftMargin: 5
                 x: leftMargin
@@ -131,16 +131,15 @@ Item {
         // Returns the screen Y position of this clip, in pixels.
         function getYPosition() {
             var verticalPixelScroll = PJGlobalTimeline.verticalPixelScroll;
-            // Plus 1 to account for horizontal track separator lines
-            return verticalPixelScroll + parent.trackID * PJGlobalTimeline.trackHeight + 1;
+            return verticalPixelScroll + parent.trackID * PJGlobalTimeline.trackHeight + 1; // Plus 1 to account for horizontal track separator lines.
         }
 
         /// SCALING ///
         width: getWidth()
-        height: PJGlobalTimeline.trackHeight - 2 // Minus 2 to for same reason as in getYPosition()
+        height: PJGlobalTimeline.trackHeight - 2 // Minus 2 to account for track separator lines.
         radius: roundedCorners ? cornerRadius : 0
 
-        // Returns the pixel width of this clip, bounded within the ends of the screen (in order to reduce lag)
+        // Returns the pixel width of this clip, bounded within the ends of the screen (in order to reduce lag).
         function getWidth() {
             var boundedStartPixel = Math.max(-cornerRadius, getStartPixel());
             var boundedEndPixel = Math.min(PJGlobalTimeline.trackPixelWidth+cornerRadius, getEndPixel());
@@ -166,13 +165,13 @@ Item {
 
         // Sets the cursor shape to SplitHCursor.
         function setSplitCursor() {
-            var timeline = clipAttributes.parent.parent.parent.parent.parent.parent;
+            var timeline = attributes.parent.parent.parent.parent.parent.parent;
             timeline.scrollArea.cursorShape = Qt.SplitHCursor;
         }
 
         // Sets the cursor shape to ArrowCursor.
         function setArrowCursor() {
-            var timeline = clipAttributes.parent.parent.parent.parent.parent.parent;
+            var timeline = attributes.parent.parent.parent.parent.parent.parent;
             timeline.scrollArea.cursorShape = Qt.ArrowCursor;
         }
 
@@ -290,13 +289,18 @@ Item {
 
             /// CURSOR ///
             onEntered: {
-                if (!(block.rightDragging || block.centerDragging)) {
+                if (!(block.rightDragging || block.centerDragging || PJGlobalTimeline.timelinePressed)) {
                     hovering = true;
                     block.setSplitCursor();
                 }
             }
+            onPositionChanged: {
+                if (hovering && !PJGlobalTimeline.timelinePressed) {
+                    block.setSplitCursor();
+                }
+            }
             onExited: {
-                if (!(block.rightDragging || block.centerDragging)) {
+                if (!(block.rightDragging || block.centerDragging || PJGlobalTimeline.timelinePressed)) {
                     hovering = false;
                     if (!pressed)
                         block.setArrowCursor();
@@ -378,13 +382,18 @@ Item {
 
             /// CURSOR ///
             onEntered: {
-                if (!(block.leftDragging || block.centerDragging)) {
+                if (!(block.leftDragging || block.centerDragging || PJGlobalTimeline.timelinePressed)) {
                     hovering = true;
                     block.setSplitCursor();
                 }
             }
+            onPositionChanged: {
+                if (hovering) {
+                    block.setSplitCursor();
+                }
+            }
             onExited: {
-                if (!(block.leftDragging || block.centerDragging)) {
+                if (!(block.leftDragging || block.centerDragging || PJGlobalTimeline.timelinePressed)) {
                     hovering = false;
                     if (!pressed)
                         block.setArrowCursor();

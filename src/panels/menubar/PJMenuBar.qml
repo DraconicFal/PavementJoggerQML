@@ -22,7 +22,7 @@ MenuBar {
             onTriggered: {
                 console.log(`Current clips ${PJGlobalTimeline.clips}`);
                 console.log("Reloading project!")
-                var newClips = projectXmlHandler.getClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips);
+                var newClips = projectXmlHandler.getTimelineClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips);
                 console.log(`Replacing global clips!`)
                 PJGlobalTimeline.clips = newClips;
                 console.log(`Clips after reading ${PJGlobalTimeline.clips}`);

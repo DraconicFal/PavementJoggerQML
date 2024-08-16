@@ -27,8 +27,8 @@ ApplicationWindow {
 
     // Read in project file on completion
     Component.onCompleted: {
-        PJGlobalTimeline.tracks = projectXmlHandler.getTrackNames(PJGlobalProject.projectPath);
-        PJGlobalTimeline.clips = projectXmlHandler.getClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips, true);
+        PJGlobalTimeline.tracks = projectXmlHandler.getTimelineTrackNames(PJGlobalProject.projectPath);
+        PJGlobalTimeline.clips = projectXmlHandler.getTimelineClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips, true);
     }
 
     //////////////

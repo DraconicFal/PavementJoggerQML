@@ -6,7 +6,41 @@ PJProjectXmlHandler::PJProjectXmlHandler(QObject *parent,  QQmlApplicationEngine
     this->engine = engine;
 }
 
-QStringList PJProjectXmlHandler::getTrackNames(QString projectPath)
+
+
+/////////////////////
+// PALETTE METHODS //
+/////////////////////
+QList<QList<QQuickItem*>> PJProjectXmlHandler::getPaletteMovements(QString projectPath, QList<QList<QQuickItem*>> currentMovements)
+{
+    // Open file to be read
+    QFile file(projectPath);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qCritical() << "cpp: Could not read file!";
+        qCritical() << file.errorString();
+        return QList<QList<QQuickItem*>>();
+    }
+    QByteArray data = file.readAll();
+    file.close();
+    QXmlStreamReader stream(data);
+
+    // Parse through file
+    // TODO
+    return QList<QList<QQuickItem*>>();
+
+}
+
+void PJProjectXmlHandler::writePaletteMovements(QString projectPath, QList<QList<QQuickItem*>> movements)
+{
+
+}
+
+
+
+//////////////////////
+// TIMELINE METHODS //
+//////////////////////
+QStringList PJProjectXmlHandler::getTimelineTrackNames(QString projectPath)
 {
     // Open file to be read
     QFile file(projectPath);
@@ -57,50 +91,50 @@ QStringList PJProjectXmlHandler::getTrackNames(QString projectPath)
 
 }
 
-void PJProjectXmlHandler::writeTrackNames(QString projectPath, QStringList trackNames)
+void PJProjectXmlHandler::writeTimelineTrackNames(QString projectPath, QStringList trackNames)
 {
 
 }
 
-QList<QList<QQuickItem *>> PJProjectXmlHandler::getClips(QString projectPath, QList<QList<QQuickItem *>> currentClips, bool telemetry)
+QList<QList<QQuickItem*>> PJProjectXmlHandler::getTimelineClips(QString projectPath, QList<QList<QQuickItem*>> currentClips, bool telemetry)
 {
     // Deallocate clips from heap
-    for (QList<QQuickItem *> &itemList : currentClips) {
+    for (QList<QQuickItem*> &itemList : currentClips) {
         for (QQuickItem *item : itemList) {
             if (item)
                 delete item;
             else
-                qCritical() << "cpp: Tried to clear a dangling pointer from getClips()!";
+                qCritical() << "cpp: Tried to clear a dangling pointer from getTimelineClips()!";
         }
     }
-    if (telemetry) qInfo() << "cpp: getClips() - Deallocated all of currentClips";
+    if (telemetry) qInfo() << "cpp: getTimelineClips() - Deallocated all of currentClips";
 
     // Open file to be read
     QFile file(projectPath);
     if (!file.open(QIODevice::ReadOnly)) {
         qCritical() << "cpp: Could not read file!";
         qCritical() << file.errorString();
-        return QList<QList<QQuickItem *>>();
+        return QList<QList<QQuickItem*>>();
     }
     QByteArray data = file.readAll();
     file.close();
     QXmlStreamReader stream(data);
-    if (telemetry) qInfo() << "cpp: getClips() - Opened XML file";
+    if (telemetry) qInfo() << "cpp: getTimelineClips() - Opened XML file";
 
     // Find parent item for clips
     if (engine->rootObjects().length()==0) {
         qCritical() << "cpp: Length of engine->rootObjects() is zero!";
-        return QList<QList<QQuickItem *>>();
+        return QList<QList<QQuickItem*>>();
     }
     QQuickItem *timelineTracks = engine->rootObjects().at(0)->findChild<QQuickItem*>("timelineTracks");
-    if (telemetry) qInfo() << "cpp: getClips() - Found timelineTracks parent item" << timelineTracks;
+    if (telemetry) qInfo() << "cpp: getTimelineClips() - Found timelineTracks parent item" << timelineTracks;
 
     // Create clip component
-    QQmlComponent clipComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/PJClip.qml")));
-    if (telemetry) qInfo() << "cpp: getClips() - Created clipComponent, isError: " << clipComponent.isError();
+    QQmlComponent clipComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/timeline/PJTimelineClip.qml")));
+    if (telemetry) qInfo() << "cpp: getTimelineClips() - Created clipComponent, isError: " << clipComponent.isError();
 
     // Parse through XML file
-    QList<QList<QQuickItem *>> clips{};
+    QList<QList<QQuickItem*>> clips{};
     int trackNumber = -1;
     int clipCount = 0;
     while(!stream.atEnd()) {
@@ -129,7 +163,7 @@ QList<QList<QQuickItem *>> PJProjectXmlHandler::getClips(QString projectPath, QL
             // Add a new track
             if (stream.name().toString() == "track") {
                 trackNumber++;
-                clips.append(QList<QQuickItem *>());
+                clips.append(QList<QQuickItem*>());
                 if (telemetry) qInfo() << "cpp: Read track number" << trackNumber;
                 break;
             }
@@ -138,8 +172,8 @@ QList<QList<QQuickItem *>> PJProjectXmlHandler::getClips(QString projectPath, QL
             if (stream.name().toString() == "clip") {
                 // Error handling
                 if (trackNumber == -1) {
-                    qCritical() << "cpp: Tried to read a trackless clip in getClips()! Fix your project file!";
-                    return QList<QList<QQuickItem *>>();
+                    qCritical() << "cpp: Tried to read a trackless clip in getTimelineClips()! Fix your project file!";
+                    return QList<QList<QQuickItem*>>();
                 }
 
                 // Get property data
@@ -173,7 +207,7 @@ QList<QList<QQuickItem *>> PJProjectXmlHandler::getClips(QString projectPath, QL
                     clips[trackNumber].append(clipItem);
                 }
                 else {
-                    qCritical() << "cpp: Failed to load PJClip.qml from getClips()!";
+                    qCritical() << "cpp: Failed to load PJClip.qml from getTimelineClips()!";
                     qCritical() << clipComponent.errorString();
                 }
 
@@ -185,5 +219,10 @@ QList<QList<QQuickItem *>> PJProjectXmlHandler::getClips(QString projectPath, QL
     }
 
     return clips;
+
+}
+
+void PJProjectXmlHandler::writeTimelineClips(QString projectPath, QList<QList<QQuickItem*>> clips)
+{
 
 }

@@ -23,10 +23,16 @@ private:
 signals:
 
 public slots:
-    QStringList getTrackNames(QString projectPath);
-    void writeTrackNames(QString projectPath, QStringList trackNames);
+    /// Palette Methods ///
+    QList<QList<QQuickItem*>> getPaletteMovements(QString projectPath, QList<QList<QQuickItem*>> currentMovements);
+    void writePaletteMovements(QString projectPath, QList<QList<QQuickItem*>> movements);
 
-    QList<QList<QQuickItem *>> getClips(QString projectPath, QList<QList<QQuickItem *>> currentClips, bool telemetry=false);
+    /// Timeline Methods ///
+    QStringList getTimelineTrackNames(QString projectPath);
+    void writeTimelineTrackNames(QString projectPath, QStringList trackNames);
+
+    QList<QList<QQuickItem*>> getTimelineClips(QString projectPath, QList<QList<QQuickItem*>> currentClips, bool telemetry=false);
+    void writeTimelineClips(QString projectPath, QList<QList<QQuickItem*>> clips);
 };
 
 #endif // PJPROJECTXMLHANDLER_H

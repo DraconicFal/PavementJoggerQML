@@ -119,7 +119,7 @@ QtObject {
     // Tracks is a list of strings, representing the name of each track.
     property var tracks: []
 
-    // Clips is a 2D list, where each sublist represents a track and contains PJClip's.
+    // Clips is a 2D list, where each sublist represents a track and contains PJTimelineClip's.
     property var clips: []
 
     // Same shape array as Clips, contains booleans for whether or not the corresponding clip is selected.
