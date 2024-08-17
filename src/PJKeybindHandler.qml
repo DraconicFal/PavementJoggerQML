@@ -55,6 +55,7 @@ Item {
                         deltaTick += clips[track][index].startTick - clips[track][index].endTick;
                         clips[track][index].destroy();
                     } else {
+                        if (deltaTick!==0) clips[track][index].block.behaviorEnabled = true;
                         clips[track][index].startTick += deltaTick;
                         clips[track][index].endTick += deltaTick;
                         filteredClips[track].push(clips[track][index]);

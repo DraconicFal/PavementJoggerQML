@@ -5,6 +5,7 @@ Item {
     id: attributes
     anchors.fill: parent
 
+    property alias block: block
 
     ////////////////
     // ATTRIBUTES //
@@ -138,17 +139,16 @@ Item {
         y: getYPosition()
 
         // Movement Animation
+        property bool behaviorEnabled: false
         Behavior on x {
-            id: behaviorX
-            enabled: !(PJGlobalTimeline.zoomSliderDragging ||
-                       PJGlobalTimeline.selectionDragging ||
-                       block.leftDragging ||
-                       block.rightDragging)
+            enabled: block.behaviorEnabled
             PropertyAnimation {
+                id: animationX
                 duration: 150
                 easing.type: Easing.OutQuad
             }
         }
+        onXChanged: if (block.behaviorEnabled && x===getXPosition()) block.behaviorEnabled = false;
 
         // Returns the screen X position of this clip, in pixels.
         function getXPosition() {
@@ -360,6 +360,7 @@ Item {
                 var mouseX = block.x + leftHandle.x + mouse.x;
                 var mouseTick = PJGlobalTimeline.pixelToTick(mouseX, true);
                 if (pressed && (mouseTick !== clickTick || block.leftDragging)) {
+                    PJGlobalTimeline.selectionDragging = true;
                     block.leftDragging = true;
                     var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
 
@@ -454,6 +455,7 @@ Item {
             onMouseXChanged: function(mouse) {
                 var mouseTick = PJGlobalTimeline.pixelToTick(block.x + rightHandle.x + mouse.x, true);
                 if (pressed && (mouseTick !== clickTick || block.rightDragging)) {
+                    PJGlobalTimeline.selectionDragging = true;
                     block.rightDragging = true;
                     var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
 
