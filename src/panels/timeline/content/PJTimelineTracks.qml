@@ -15,6 +15,9 @@ Item {
         objectName: "timelineTracks"
         anchors.fill: parent
 
+        // Used in "New Project" menuBar item
+        property alias tracks: tracks
+
         function drawVerticalBars(ctx) {
             // calculate the start positions of the ruler
             var bigTickSignificance = PJGlobalTimeline.bigTickSignificance;
@@ -83,6 +86,8 @@ Item {
         }
 
         Component.onCompleted: PJGlobalTimeline.timelineTracksItem = canvas
+
+        PJTimelineShadowItem {}
 
     }
 

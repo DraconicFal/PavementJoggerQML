@@ -140,8 +140,8 @@ Item {
     // Functions
     function startDrag() {
         if (dragArea.containsMouse) {
-            var ghostItem = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.ghostItem;
-            var focusScope = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent;
+            var ghostItem = PJGlobalPalette.ghostItem;
+            var focusScope = PJGlobalPalette.focusScope;
             var grabber = block.grabToImage(function(result) {
                 ghostItem.source = result.url;
                 ghostItem.visible = true;
@@ -160,38 +160,75 @@ Item {
     }
 
     function moveGhost(mouse) {
-        var ghostItem = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.ghostItem;
-        var focusScope = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent;
+        var ghostItem = PJGlobalPalette.ghostItem;
+        var focusScope = PJGlobalPalette.focusScope;
         var globalPosition = mapToItem(focusScope, mouse.x, mouse.y);
         ghostItem.x = globalPosition.x - ghostItem.width / 2;
         ghostItem.y = globalPosition.y - ghostItem.height / 2;
     }
 
     function stopDrag() {
-        var ghostItem = attributes.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.ghostItem;
+        // Disable ghost item
+        var ghostItem = PJGlobalPalette.ghostItem;
         ghostItem.visible = false;
         dragArea.onPositionChanged.disconnect(moveGhost);
         PJGlobalPalette.paletteDragging = false;
-        if (ghostItem.validTarget) {
-            // Create clip item
-            var clipComponent = Qt.createComponent("qrc:/components/src/panels/timeline/PJTimelineClip.qml");
-            if (clipComponent.status === Component.Ready) {
-                var clip = clipComponent.createObject(PJGlobalTimeline.timelineTracksItem, {"movementName": movementName, "trackID": ghostItem.targetTrackID, "trackIndex": 0, "startTick": ghostItem.targetTick, "endTick": ghostItem.targetTick+40, "minDuration": 0});
-                if (clip === null) {
-                    console.exception("Error creating clip item");
-                    return;
-                }
-                while (PJGlobalTimeline.clips.length<=trackID) {
-                    PJGlobalTimeline.clips.push([]);
-                }
-                PJGlobalTimeline.clips[trackID].push(clip);
-                var new_clips = PJGlobalTimeline.clips;
-                PJGlobalTimeline.clips = new_clips;
-            } else {
-                console.exception("Error loading clipComponent:", clipComponent.errorString());
-                return;
-            }
+        PJGlobalPalette.shadowItem.hide();
+
+        // Create clip item if valid target found
+        if (!ghostItem.validTarget) return;
+
+        // Create clip component
+        var clipComponent = Qt.createComponent("qrc:/components/src/panels/timeline/PJTimelineClip.qml");
+        if (clipComponent.status !== Component.Ready) {
+            console.exception("Error loading clipComponent:", clipComponent.errorString());
+            return;
         }
+
+        // Create clip item
+        var clip = clipComponent.createObject(PJGlobalTimeline.timelineTracksItem, {
+            "movementName": movementName,
+            "trackID": ghostItem.targetTrackID,
+            "trackIndex": ghostItem.targetIndex,
+            "startTick": ghostItem.targetStartTick,
+            "endTick": ghostItem.targetEndTick,
+            "minDuration": 0
+        });
+        if (clip === null) {
+            console.exception("Error creating clip item from Palette");
+            return;
+        }
+
+
+        console.log(`\nInserting a clip for ${movementName} at index ${ghostItem.targetIndex}!`);
+        console.log(`---- Track ${ghostItem.targetTrackID}: (${ghostItem.targetStartTick},${ghostItem.targetEndTick})`);
+        console.log(`Old clips array`);
+        for (var i=0; i<PJGlobalTimeline.clips.length; i++) {
+            var track = PJGlobalTimeline.clips[i];
+            var names = "";
+            for (var j=0; j<track.length; j++) {
+                names += `(${track[j].startTick},${track[j].endTick}); `;
+            }
+            console.log(`---- Track ${i}: ${names}`);
+        }
+
+        // Insert clip if valid
+        PJGlobalTimeline.clips[trackID].splice(ghostItem.targetIndex, 0, clip);
+
+        // Update for calling clipsChanged signal
+        var new_clips = PJGlobalTimeline.clips;
+        PJGlobalTimeline.clips = new_clips;
+
+        console.log(`New clips array`);
+        for (i=0; i<PJGlobalTimeline.clips.length; i++) {
+            track = PJGlobalTimeline.clips[i];
+            names = "";
+            for (j=0; j<track.length; j++) {
+                names += `(${track[j].startTick},${track[j].endTick}); `;
+            }
+            console.log(`---- Track ${i}: ${names}`);
+        }
+
     }
 
 }

@@ -1,9 +1,44 @@
+import QtCore
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Dialogs
 import PavementJogger
 
 MenuBar {
     id: menuBar
+
+    FileDialog {
+        id: fileDialog
+        nameFilters: ["XML files (*.xml), PavementJogger Project files (*.pvjg)"]
+        currentFolder: StandardPaths.standardLocations(StandardPaths.DocumentsLocation)[0]
+        onAccepted: {
+            PJGlobalProject.projectPath = selectedFile;
+            menuBar.openProjectPath();
+        }
+    }
+
+    function openProjectPath() {
+        // Load Timeline
+        console.log(`Loading tracks`);
+        PJGlobalTimeline.tracks = projectXmlHandler.getTimelineTrackNames(PJGlobalProject.projectPath);
+        console.log(`Tracks ${PJGlobalTimeline.tracks}`);
+        console.log(`Current clips ${PJGlobalTimeline.clips}`);
+        console.log("Reloading project!");
+        var newClips = projectXmlHandler.getTimelineClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips);
+        console.log(`Replacing global clips!`);
+        PJGlobalTimeline.clips = newClips;
+        console.log(`Clips after reading ${PJGlobalTimeline.clips}`);
+        for (var i=0; i<PJGlobalTimeline.clips.length; i++) {
+            var track = PJGlobalTimeline.clips[i];
+            var names = "";
+            var prop = "movementName";
+            for (var j=0; j<track.length; j++) {
+                names += track[j][prop] + ", ";
+            }
+            console.log(`-------- Track ${i} ${prop}'s: ${names}`);
+        }
+        PJGlobalTimeline.timelineTracksItem.tracks.repaintTimeline();
+    }
 
     Menu { //File
         title: qsTr("File")
@@ -11,31 +46,39 @@ MenuBar {
 
         Action {
             text: qsTr("New Project...")
+            onTriggered: {
+                // ADD SAVE CHECKING
+
+                //////////////////////////////////////////////////
+                // Honestly just read in a blank .pvjg template //
+                //////////////////////////////////////////////////
+
+                // Reset Palette
+
+                // Reset Timeline
+                var clips = PJGlobalTimeline.clips;
+                for (var track=0; track<clips.length; track++) {
+                    for (var index=0; index<clips[track].length; index++) {
+                        clips[track][index].destroy();
+                    }
+                }
+                PJGlobalProject.projectPath = "";
+                PJGlobalTimeline.tracks = [];
+                PJGlobalTimeline.clips = [];
+                PJGlobalTimeline.timelineTracksItem.tracks.repaintTimeline();
+            }
         }
-        Action { text: qsTr("Open Project...") }
+        Action {
+            text: qsTr("Open Project...")
+            onTriggered: fileDialog.open()
+        }
         Action { text: qsTr("Exit") }
         Action { text: qsTr("SUSSY AMONGUS") }
         Action { text: qsTr("SUSSY SUS AMOGUS") }
         MenuSeparator {}
         Action {
             text: "[Temporary] Reload Project from XML"
-            onTriggered: {
-                console.log(`Current clips ${PJGlobalTimeline.clips}`);
-                console.log("Reloading project!")
-                var newClips = projectXmlHandler.getTimelineClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips);
-                console.log(`Replacing global clips!`)
-                PJGlobalTimeline.clips = newClips;
-                console.log(`Clips after reading ${PJGlobalTimeline.clips}`);
-                for (var i=0; i<PJGlobalTimeline.clips.length; i++) {
-                    var track = PJGlobalTimeline.clips[i];
-                    var names = "";
-                    var prop = "movementName";
-                    for (var j=0; j<track.length; j++) {
-                        names += track[j][prop] + ", ";
-                    }
-                    console.log(`-------- Track ${i} ${prop}'s: ${names}`);
-                }
-            }
+            onTriggered: menuBar.openProjectPath()
         }
 
         delegate: ItemDelegate {

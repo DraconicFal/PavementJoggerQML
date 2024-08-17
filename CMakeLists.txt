@@ -33,6 +33,7 @@ set(plain_qml_files
 
     ## Palette panel files ##
     src/panels/palette/PJPalette.qml
+    src/panels/palette/PJPaletteGhostItem.qml
     src/panels/palette/PJPaletteFolder.qml
     src/panels/palette/PJPaletteFolderItems.qml
     src/panels/palette/PJPaletteMovement.qml
@@ -54,6 +55,7 @@ set(plain_qml_files
     src/panels/timeline/content/PJTimelineRuler.qml
     src/panels/timeline/content/PJTimelineScrubber.qml
     src/panels/timeline/content/PJTimelineTracks.qml
+    src/panels/timeline/content/PJTimelineShadowItem.qml
 
 )
 

@@ -7,58 +7,78 @@ Item {
 
     signal repaintTimeline()
 
-    Slider {
-        id: slider
-        width: parent.width
+    Item {
+        id: customSlider
         anchors.verticalCenter: parent.verticalCenter
-        onFocusChanged: {
-            if (focus) focus = false;
-        }
-        z: 0
+        width: parent.width
+        height: 30
+        property real from: -1
+        property real to: 6
+        property real value: 3
+        property bool pressed: false
 
-        from: -1
-        value: 3
-        to: 6
+        signal valueUpdated(real value)
 
-        background: Rectangle {
-            x: slider.leftPadding
-            y: slider.topPadding + slider.availableHeight / 2 - height / 2
-            implicitHeight: 4
-            width: slider.availableWidth
-            height: implicitHeight
-            radius: height/2
+        Rectangle {
+            id: background
+            anchors.verticalCenter: parent.verticalCenter
+            x: 0
+            y: height / 2 - 2
+            width: parent.width
+            height: 4
+            radius: height / 2
             color: "#141414"
-
             border.color: "#2c2c34"
             border.width: 0.5
         }
 
-        handle: Rectangle {
-            x: slider.leftPadding + slider.visualPosition * (slider.availableWidth - width)
-            y: slider.topPadding + slider.availableHeight / 2 - height / 2
-            implicitWidth: 11
-            implicitHeight: width
-            radius: width/2
+        Rectangle {
+            id: handle
+            anchors.verticalCenter: parent.verticalCenter
+            x: (customSlider.value - customSlider.from) / (customSlider.to - customSlider.from) * (background.width - handle.width)
+            y: background.y - handle.height / 2 + background.height / 2
+            width: 11
+            height: 11
+            radius: width / 2
             color: "#878787"
-
             border.color: "#1c1c1f"
             border.width: 1
 
             Rectangle {
                 anchors.centerIn: parent
-                implicitWidth: 5
-                implicitHeight: width
-                radius: width/2
-                color: slider.pressed ? "#5c5c5c" : "#878787"
+                width: 5
+                height: 5
+                radius: width / 2
+                color: customSlider.pressed ? "#5c5c5c" : "#878787"
+            }
+
+            MouseArea {
+                id: handleArea
+                anchors.fill: parent
+                onPressed: {
+                    customSlider.pressed = true;
+                }
+                onReleased: {
+                    customSlider.pressed = false;
+                }
+                onPositionChanged: function(mouse) {
+                    if (pressed) {
+                        var mappedPosition = mapToItem(background, mouse.x, mouse.y);
+                        var newValue = customSlider.from + (mappedPosition.x / background.width) * (customSlider.to - customSlider.from);
+
+                        customSlider.value = Math.min(customSlider.to, Math.max(customSlider.from, newValue));
+                        customSlider.valueUpdated(customSlider.value);
+                    }
+                }
             }
         }
 
-        onValueChanged: {
+        onValueUpdated: {
             PJGlobalTimeline.secondsPerPixel = Math.pow(2, value) / 200;
             zoomSlider.repaintTimeline();
         }
 
-        onPressedChanged:  {
+        onPressedChanged: {
             PJGlobalTimeline.zoomSliderDragging = pressed;
         }
     }

@@ -43,7 +43,9 @@ void PJProjectXmlHandler::writePaletteMovements(QString projectPath, QList<QList
 QStringList PJProjectXmlHandler::getTimelineTrackNames(QString projectPath)
 {
     // Open file to be read
-    QFile file(projectPath);
+    QUrl fileUrl(projectPath);
+    QString filePath = fileUrl.toLocalFile();
+    QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
         qCritical() << "cpp: Could not read file!";
         qCritical() << file.errorString();
@@ -110,7 +112,9 @@ QList<QList<QQuickItem*>> PJProjectXmlHandler::getTimelineClips(QString projectP
     if (telemetry) qInfo() << "cpp: getTimelineClips() - Deallocated all of currentClips";
 
     // Open file to be read
-    QFile file(projectPath);
+    QUrl fileUrl(projectPath);
+    QString filePath = fileUrl.toLocalFile();
+    QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
         qCritical() << "cpp: Could not read file!";
         qCritical() << file.errorString();

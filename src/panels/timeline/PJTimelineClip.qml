@@ -72,6 +72,17 @@ Item {
         readonly property bool roundedCorners: width>3*cornerRadius // For setting radius to zero when the clip is too thin visually
         visible: getStartPixel()<PJGlobalTimeline.trackPixelWidth && getEndPixel()>0
 
+
+        ////////////TEMPORARY REMOVE LATER//////////////
+        Text {
+            anchors.centerIn: parent
+            text: `${trackIndex}`
+            color: "white"
+            font.pixelSize: 20
+        }
+
+
+
         /// LABEL ///
         Rectangle {
             id: label
@@ -99,6 +110,7 @@ Item {
         }
 
 
+
         /// FILL & BORDER ///
         color: PJGlobalTimeline.hsv2rgb(75*trackID, 0.6, 0.5314)
         Rectangle {
@@ -120,16 +132,21 @@ Item {
         }
 
 
+
         /// TRANSLATION ///
         x: getXPosition()
         y: getYPosition()
 
         // Movement Animation
         Behavior on x {
-            enabled: !PJGlobalTimeline.zoomSliderDragging
+            id: behaviorX
+            enabled: !(PJGlobalTimeline.zoomSliderDragging ||
+                       PJGlobalTimeline.selectionDragging ||
+                       block.leftDragging ||
+                       block.rightDragging)
             PropertyAnimation {
                 duration: 150
-                easing: Easing.OutQuad
+                easing.type: Easing.OutQuad
             }
         }
 
@@ -142,6 +159,8 @@ Item {
             var verticalPixelScroll = PJGlobalTimeline.verticalPixelScroll;
             return verticalPixelScroll + parent.trackID * PJGlobalTimeline.trackHeight + 1; // Plus 1 to account for horizontal track separator lines.
         }
+
+
 
         /// SCALING ///
         width: getWidth()
@@ -162,6 +181,7 @@ Item {
         function getEndPixel() {
             return PJGlobalTimeline.bigTickSignificance * parent.endTick/PJGlobalTimeline.ticksPerPixel - PJGlobalTimeline.leftPixelCutoff;
         }
+
 
 
         /////////////////
@@ -283,6 +303,8 @@ Item {
             }
         }
 
+
+
         // MouseArea on the left for resizing.
         MouseArea {
             id: leftHandle
@@ -376,6 +398,8 @@ Item {
 
         }
 
+
+
         // MouseArea on the right for resizing.
         MouseArea {
             id: rightHandle
@@ -466,6 +490,8 @@ Item {
                 }
             }
         }
+
+
 
         // MouseArea used for selection and translation.
         MouseArea {
