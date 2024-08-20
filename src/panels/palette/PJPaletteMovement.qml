@@ -14,7 +14,6 @@ Item {
     /////////////
     // VISUALS //
     /////////////
-    width: parent.width
     height: PJGlobalPalette.folderItemHeight
 
     Rectangle {

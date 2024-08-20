@@ -36,8 +36,8 @@ Image {
 
         function updateCursor() {
 
-            // INVALID if there are not enough tracks in the timeline
-            if (PJGlobalTimeline.clips.length < targetTrackID) {
+            // INVALID if there are not enough tracks in the timeline or tracks does not exist
+            if (PJGlobalTimeline.clips.length < targetTrackID || typeof(PJGlobalTimeline.clips[targetTrackID])==="undefined") {
                 ghostItem.validTarget = false;
                 ghostItem.targetIndex = -1;
                 ghostItem.targetStartTick = -1;

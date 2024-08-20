@@ -13,31 +13,23 @@ MenuBar {
         currentFolder: StandardPaths.standardLocations(StandardPaths.DocumentsLocation)[0]
         onAccepted: {
             PJGlobalProject.projectPath = selectedFile;
-            menuBar.openProjectPath();
+            menuBar.openProjectPath(PJGlobalProject.projectPath);
         }
     }
 
-    function openProjectPath() {
-        // Load Timeline
-        console.log(`Loading tracks`);
-        PJGlobalTimeline.tracks = projectXmlHandler.getTimelineTrackNames(PJGlobalProject.projectPath);
-        console.log(`Tracks ${PJGlobalTimeline.tracks}`);
-        console.log(`Current clips ${PJGlobalTimeline.clips}`);
-        console.log("Reloading project!");
-        var newClips = projectXmlHandler.getTimelineClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips);
-        console.log(`Replacing global clips!`);
+    function openProjectPath(projectPath) {
+        /// TIMELINE ///
+        // Load tracks
+        PJGlobalTimeline.tracks = projectXmlHandler.getTimelineTrackNames(projectPath);
+        // Load clips
+        var newClips = projectXmlHandler.getTimelineClips(projectPath, PJGlobalTimeline.clips);
         PJGlobalTimeline.clips = newClips;
-        console.log(`Clips after reading ${PJGlobalTimeline.clips}`);
-        for (var i=0; i<PJGlobalTimeline.clips.length; i++) {
-            var track = PJGlobalTimeline.clips[i];
-            var names = "";
-            var prop = "movementName";
-            for (var j=0; j<track.length; j++) {
-                names += track[j][prop] + ", ";
-            }
-            console.log(`-------- Track ${i} ${prop}'s: ${names}`);
-        }
+        // Repaint canvases
         PJGlobalTimeline.timelineTracksItem.tracks.repaintTimeline();
+
+        /// PALETTE ///
+        // Load folders
+        PJGlobalPalette.folders = projectXmlHandler.getPaletteFolders(projectPath, PJGlobalPalette.folders);
     }
 
     Menu { //File
@@ -54,6 +46,14 @@ MenuBar {
                 //////////////////////////////////////////////////
 
                 // Reset Palette
+                var folders = PJGlobalPalette.folders;
+                for (var folder=0; folder<folders.length; folder++) {
+                    for (var movement=0; movement<folders[folder].movements; movement++) {
+                        folders[folder].movements[movement].destroy();
+                    }
+                    folders[folder].destroy();
+                }
+                PJGlobalPalette.folders = [];
 
                 // Reset Timeline
                 var clips = PJGlobalTimeline.clips;
@@ -78,7 +78,7 @@ MenuBar {
         MenuSeparator {}
         Action {
             text: "[Temporary] Reload Project from XML"
-            onTriggered: menuBar.openProjectPath()
+            onTriggered: menuBar.openProjectPath(PJGlobalProject.projectPath)
         }
 
         delegate: ItemDelegate {

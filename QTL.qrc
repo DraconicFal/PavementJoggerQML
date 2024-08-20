@@ -8,5 +8,8 @@
     </qresource>
     <qresource prefix="/components">
         <file>src/panels/timeline/PJTimelineClip.qml</file>
+        <file>src/panels/palette/PJPaletteFolder.qml</file>
+        <file>src/panels/palette/PJPaletteFolderItems.qml</file>
+        <file>src/panels/palette/PJPaletteMovement.qml</file>
     </qresource>
 </RCC>

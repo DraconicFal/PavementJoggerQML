@@ -3,27 +3,26 @@ import PavementJogger
 
 Item {
     id: folder
-    width: parent.width
     height: background.height + separatorThickness
     clip: true
 
     // The number ID of the track that this folder represents.
     property int trackID: -1
 
-    // Subsystem name for this folder.
-    property string subsystemName: ""
+    // Robot subsystem that this folder represents.
+    property string folderName: ""
 
     // Contains all the movements within this folder.
-    property int movementCount: 0
+    property var movements: []
 
-    // Customizable folderItems area.
-    property Item folderItems: contentPlaceholder
+    // Visual display component.
+    property var folderItems
 
     // Property to track the expanded/collapsed state.
     property bool expanded: false
     onExpandedChanged: {
         if (expanded) {
-            var itemsHeight = movementCount * PJGlobalPalette.folderItemHeight;
+            var itemsHeight = movements.length * PJGlobalPalette.folderItemHeight;
             background.height = titleButton.height + itemsHeight;
             separator.opacity = 1;
         } else {
@@ -121,7 +120,7 @@ Item {
                 // Visual
                 font.pixelSize: 13
                 color: "#cccccc"
-                text: subsystemName
+                text: folderName
                 elide: Text.ElideRight
             }
         }
@@ -152,16 +151,17 @@ Item {
     // ITEMS //
     ///////////
 
-    // Default content, which can be overridden.
-    PJPaletteFolderItems {
-        id: contentPlaceholder
-        z: 0
-        visible: false
-    }
-
     // Dynamically load the folderItems if set.
     Component.onCompleted: {
-        if (folder.folderItems !== contentPlaceholder) {
+        if (typeof(folder.folderItems) !== "undefined") {
+            folder.folderItems.parent = background;
+            folder.folderItems.anchors.top = titleButton.bottom;
+            folder.folderItems.width = folder.width;
+        }
+    }
+
+    onFolderItemsChanged: {
+        if (typeof(folder.folderItems) !== "undefined") {
             folder.folderItems.parent = background;
             folder.folderItems.anchors.top = titleButton.bottom;
             folder.folderItems.width = folder.width;

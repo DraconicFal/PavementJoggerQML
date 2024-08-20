@@ -74,15 +74,6 @@ Item {
         visible: getStartPixel()<PJGlobalTimeline.trackPixelWidth && getEndPixel()>0
 
 
-        ////////////TEMPORARY REMOVE LATER//////////////
-        Text {
-            anchors.centerIn: parent
-            text: `${trackIndex}`
-            color: "white"
-            font.pixelSize: 20
-        }
-
-
 
         /// LABEL ///
         Rectangle {

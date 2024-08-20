@@ -6,17 +6,18 @@
     <!--Palette Items-->
     <palette>
 
-        <subsystem name="Translation">
-            <movement movementName="LinearTranslation" />
-        </subsystem>
+        <folder name="Translation">
+            <movement name="LinearTranslation" />
+            <movement name="CRSplineTranslation" />
+        </folder>
 
-        <subsystem name="Rotation">
-            <movement movementName="LinearRotation" />
-        </subsystem>
+        <folder name="Rotation">
+            <movement name="LinearRotation" />
+        </folder>
 
-        <subsystem name="Lift">
-            <movement movementName="LinearLift" />
-        </subsystem>
+        <folder name="Lift">
+            <movement name="LinearLift" />
+        </folder>
 
     </palette>
 

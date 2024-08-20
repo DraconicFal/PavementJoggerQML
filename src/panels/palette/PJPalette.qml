@@ -41,51 +41,55 @@ Item {
 
 
             //TODO: TEST FOLDERS REMOVE LATER
-            PJPaletteFolder {
-                trackID: 0
-                subsystemName: "Translation"
-                movementCount: 2
+            // PJPaletteFolder {
+            //     trackID: 0
+            //     folderName: "Translation"
+            //     movements: [linearTranslation, crSplineTranslation]
 
-                folderItems: PJPaletteFolderItems {
-                    PJPaletteMovement {
-                        trackID: 0
-                        movementName: "LinearTranslation"
-                    }
+            //     column: PJPaletteFolderItems {
+            //         PJPaletteMovement {
+            //             id: linearTranslation
+            //             trackID: 0
+            //             movementName: "LinearTranslation"
+            //         }
 
-                    PJPaletteMovement {
-                        trackID: 0
-                        movementName: "CRSplineTranslation"
-                    }
-                }
-            }
-
-
-            PJPaletteFolder {
-                trackID: 1
-                subsystemName: "Rotation"
-                movementCount: 1
-
-                folderItems: PJPaletteFolderItems {
-                    PJPaletteMovement {
-                        trackID: 1
-                        movementName: "LinearRotation"
-                    }
-                }
-            }
+            //         PJPaletteMovement {
+            //             id: crSplineTranslation
+            //             trackID: 0
+            //             movementName: "CRSplineTranslation"
+            //         }
+            //     }
+            // }
 
 
-            PJPaletteFolder {
-                trackID: 2
-                subsystemName: "Lift"
-                movementCount: 1
+            // PJPaletteFolder {
+            //     trackID: 1
+            //     folderName: "Rotation"
+            //     movements: [linearRotation]
 
-                folderItems: PJPaletteFolderItems {
-                    PJPaletteMovement {
-                        trackID: 2
-                        movementName: "LinearLift"
-                    }
-                }
-            }
+            //     column: PJPaletteFolderItems {
+            //         PJPaletteMovement {
+            //             id: linearRotation
+            //             trackID: 1
+            //             movementName: "LinearRotation"
+            //         }
+            //     }
+            // }
+
+
+            // PJPaletteFolder {
+            //     trackID: 2
+            //     folderName: "Lift"
+            //     movements: [linearLift]
+
+            //     column: PJPaletteFolderItems {
+            //         PJPaletteMovement {
+            //             id: linearLift
+            //             trackID: 2
+            //             movementName: "LinearLift"
+            //         }
+            //     }
+            // }
 
 
         }

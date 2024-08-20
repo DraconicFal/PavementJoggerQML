@@ -11,26 +11,191 @@ PJProjectXmlHandler::PJProjectXmlHandler(QObject *parent,  QQmlApplicationEngine
 /////////////////////
 // PALETTE METHODS //
 /////////////////////
-QList<QList<QQuickItem*>> PJProjectXmlHandler::getPaletteMovements(QString projectPath, QList<QList<QQuickItem*>> currentMovements)
+QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, QList<QQuickItem*> currentFolders, bool telemetry)
 {
+    // Deallocate clips from heap
+    for (QQuickItem* &folder : currentFolders) {
+        if (!folder) {
+            qCritical() << "cpp: Tried to clear a dangling folder pointer!";
+            continue;
+        }
+        // Iterate through each folder to delete the movements
+        QList<QVariant> movements = folder->property("movements").toList();
+
+        foreach (const QVariant &movement, movements) {
+            QObject *item = movement.value<QObject*>();
+            if (item)
+                delete item;
+            else
+                qCritical() << "cpp: Tried to clear a dangling pointer from getPaletteMovements()!";
+        }
+    }
+    if (telemetry) qInfo() << "cpp: getPaletteMovements() - Deallocated all of currentClips";
+
     // Open file to be read
-    QFile file(projectPath);
+    QUrl fileUrl(projectPath);
+    QString filePath = fileUrl.toLocalFile();
+    QFile file(filePath);
     if (!file.open(QIODevice::ReadOnly)) {
         qCritical() << "cpp: Could not read file!";
         qCritical() << file.errorString();
-        return QList<QList<QQuickItem*>>();
+        return QList<QQuickItem*>();
     }
     QByteArray data = file.readAll();
     file.close();
     QXmlStreamReader stream(data);
+    if (telemetry) qInfo() << "cpp: getPaletteMovements() - Opened XML file";
 
-    // Parse through file
-    // TODO
-    return QList<QList<QQuickItem*>>();
+    // Find parent item for folders
+    if (engine->rootObjects().length()==0) {
+        qCritical() << "cpp: Length of engine->rootObjects() is zero!";
+        return QList<QQuickItem*>();
+    }
+    QQuickItem *paletteFolders = engine->rootObjects().at(0)->findChild<QQuickItem*>("paletteFolders");
+    if (telemetry) qInfo() << "cpp: getPaletteMovements() - Found paletteFolders parent item" << paletteFolders;
+
+    // Create Folder, FolderItems, and Movement component
+    QQmlComponent folderComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/palette/PJPaletteFolder.qml")));
+    if (telemetry) qInfo() << "cpp: getPaletteMovements() - Created folderComponent, isError: " << folderComponent.isError();
+
+    QQmlComponent folderItemsComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/palette/PJPaletteFolderItems.qml")));
+    if (telemetry) qInfo() << "cpp: getPaletteMovements() - Created folderItemsComponent, isError: " << folderItemsComponent.isError();
+
+    QQmlComponent movementComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/palette/PJPaletteMovement.qml")));
+    if (telemetry) qInfo() << "cpp: getPaletteMovements() - Created movementComponent, isError: " << movementComponent.isError();
+
+    // Parse through XML file
+    QList<QQuickItem*> folders{};
+    int folderNumber = -1;
+    while(!stream.atEnd()) {
+        QXmlStreamReader::TokenType token = stream.readNext();
+        switch (token) {
+        case QXmlStreamReader::Comment:
+            break;
+        case QXmlStreamReader::DTD:
+            break;
+        case QXmlStreamReader::Characters:
+            break;
+        case QXmlStreamReader::ProcessingInstruction:
+            break;
+        case QXmlStreamReader::EntityReference:
+            break;
+        case QXmlStreamReader::NoToken:
+            break;
+        case QXmlStreamReader::Invalid:
+            break;
+        case QXmlStreamReader::StartDocument:
+            break;
+        case QXmlStreamReader::EndDocument:
+            break;
+        case QXmlStreamReader::StartElement:
+
+            /// Start a new folder ///
+            if (stream.name().toString() == "folder") {
+                folderNumber++;
+                QString folderName = stream.attributes().value("name").toString();
+
+                // Create Folder item
+                QObject *folderObject = folderComponent.create();
+                if (!folderObject) {
+                    qCritical() << "cpp: Failed to load PJPaletteFolder.qml from getPaletteMovements()!";
+                    qCritical() << folderComponent.errorString();
+                    return QList<QQuickItem*>();
+                }
+                QQuickItem *folderItem = qobject_cast<QQuickItem*>(folderObject);
+                engine->setObjectOwnership(folderItem, QQmlEngine::JavaScriptOwnership);
+
+                // Create FolderItems item
+                QObject *folderItemsObject = folderItemsComponent.create();
+                if (!folderItemsObject) {
+                    qCritical() << "cpp: Failed to load PJPaletteFolderItems.qml from getPaletteMovements()!";
+                    qCritical() << folderItemsComponent.errorString();
+                    return QList<QQuickItem*>();
+                }
+                QQuickItem *folderItemsItem = qobject_cast<QQuickItem*>(folderItemsObject);
+                engine->setObjectOwnership(folderItemsItem, QQmlEngine::JavaScriptOwnership);
+
+                // Set Folder properties
+                folderItem->setParentItem(paletteFolders);
+                folderItem->setWidth(paletteFolders->width());
+                folderItem->setProperty("trackID", folderNumber);
+                folderItem->setProperty("folderName", folderName);
+                folderItem->setProperty("folderItems", QVariant::fromValue(folderItemsItem));
+                QObject::connect(paletteFolders, &QQuickItem::widthChanged, folderItem, [folderItem, paletteFolders]() {
+                    folderItem->setWidth(paletteFolders->width());
+                });
+
+                // Set FolderItems parent
+                folderItemsItem->setParentItem(folderItem);
+
+                // Append to list
+                folders.append(folderItem);
+                if (telemetry) qInfo() << "cpp: Read folder number" << folderNumber;
+                break;
+            }
+
+
+            /// Create new movement and append to current folder ///
+            if (stream.name().toString() == "movement") {
+                // Error handling
+                if (folderNumber == -1) {
+                    qCritical() << "cpp: Tried to read a folderless movement in getPaletteMovements()! Fix your project file!";
+                    return QList<QQuickItem*>();
+                }
+                QQuickItem *currentFolder = folders[folderNumber];
+
+                // Get property data
+                QString name = stream.attributes().value("name").toString();
+                // TODO: States list
+
+                if (telemetry) {
+                    qInfo() << "cpp: Read new movement";
+                    qInfo() << "........movementName =" << name;
+                }
+
+                // Create Movement item
+                QObject *movementObject = movementComponent.create();
+                if (!movementObject) {
+                    qCritical() << "cpp: Failed to load PJPaletteMovement.qml from getPaletteMovements()!";
+                    qCritical() << movementComponent.errorString();
+                    return QList<QQuickItem*>();
+                }
+                QQuickItem *movementItem = qobject_cast<QQuickItem*>(movementObject);
+                engine->setObjectOwnership(movementItem, QQmlEngine::JavaScriptOwnership);
+
+                // Set properties
+                movementItem->setProperty("trackID", folderNumber);
+                movementItem->setProperty("movementName", name);
+
+                // Update Folder movements
+                QList<QVariant> currentMovements = currentFolder->property("movements").toList();
+                currentMovements.append(QVariant::fromValue(movementItem));
+                currentFolder->setProperty("movements", QVariant::fromValue(currentMovements));
+
+                // Attach movement to FolderItems
+                QQuickItem *currentFolderItems = currentFolder->property("folderItems").value<QQuickItem*>();
+                movementItem->setParentItem(currentFolderItems);
+                movementItem->setWidth(currentFolderItems->width());
+                QObject::connect(currentFolderItems, &QQuickItem::widthChanged, movementItem, [movementItem, currentFolderItems]() {
+                    movementItem->setWidth(currentFolderItems->width());
+                });
+            }
+            break;
+        case QXmlStreamReader::EndElement:
+            if (stream.name().toString() == "folder") {
+                QQuickItem *currentFolder = folders[folderNumber];
+                QList<QVariant> currentMovements = currentFolder->property("movements").toList();
+                qInfo() << "Folder num" << folderNumber << ":" << currentMovements;
+            }
+            break;
+        }
+    }
+
+    return folders;
 
 }
 
-void PJProjectXmlHandler::writePaletteMovements(QString projectPath, QList<QList<QQuickItem*>> movements)
+void PJProjectXmlHandler::writePaletteFolders(QString projectPath, QList<QQuickItem*> folders)
 {
 
 }
