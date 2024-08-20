@@ -18,9 +18,9 @@ We (team 12331) aim to release Version 1.0 of this project no later than 10/01/2
 - 08/14/2024: Clip resizing/sliding/dragging implementation in timeline
 - 08/15/2024: Clip deletion implementation using bksp or del
 - 08/16/2024: Clip creation implementation via Palette
+- 08/19/2024: Read Palette from XML implementation
 
 TODO: 
-- Read Palette from XML implementation
 - Subsystem creation implementation
 - Movement creation implementation
 - Subsystem deletion implementation

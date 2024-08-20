@@ -7,6 +7,13 @@ import PavementJogger
 MenuBar {
     id: menuBar
 
+
+
+    ///////////////
+    // FILE MENU //
+    ///////////////
+
+    // Open file selector
     FileDialog {
         id: fileDialog
         nameFilters: ["XML files (*.xml), PavementJogger Project files (*.pvjg)"]
@@ -17,6 +24,22 @@ MenuBar {
         }
     }
 
+    // Exit confirmation
+    MessageDialog {
+        id: exitConfirmationDialog
+        title: "Confirm Exit"
+        text: "Are you sure you want to exit?"
+        buttons: MessageDialog.Yes | MessageDialog.Cancel
+        onButtonClicked: function (button, role) {
+            switch (button) {
+            case MessageDialog.Yes:
+                Qt.quit();
+                break;
+            }
+        }
+    }
+
+    // Replace all the current contents with the chosen project file
     function openProjectPath(projectPath) {
         /// TIMELINE ///
         // Load tracks
@@ -72,13 +95,10 @@ MenuBar {
             text: qsTr("Open Project...")
             onTriggered: fileDialog.open()
         }
-        Action { text: qsTr("Exit") }
-        Action { text: qsTr("SUSSY AMONGUS") }
-        Action { text: qsTr("SUSSY SUS AMOGUS") }
-        MenuSeparator {}
+        PJMenuBarSeparator {}
         Action {
-            text: "[Temporary] Reload Project from XML"
-            onTriggered: menuBar.openProjectPath(PJGlobalProject.projectPath)
+            text: qsTr("Exit")
+            onTriggered: exitConfirmationDialog.open()
         }
 
         delegate: ItemDelegate {
@@ -97,6 +117,7 @@ MenuBar {
                 }
             }
         }
+
     }
 
     Menu { //Edit

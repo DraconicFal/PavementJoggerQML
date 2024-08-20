@@ -26,6 +26,7 @@ set(plain_qml_files
 
     ## Menu Bar files ##
     src/panels/menubar/PJMenuBar.qml
+    src/panels/menubar/PJMenuBarSeparator.qml
 
     ## Field View panel files ##
     src/panels/fieldview/PJFieldView.qml
