@@ -9,7 +9,7 @@ Item {
     Image {
         id: testImage
         anchors.fill: parent
-        source: "qrc:/Images/assets/centerstage_field.png"
+        source: "qrc:/Images/src/assets/centerstage_field.png"
         fillMode: Image.PreserveAspectFit
 
         // Save original image width

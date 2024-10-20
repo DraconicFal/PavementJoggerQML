@@ -3,7 +3,7 @@
 
 PJ is developed using Qt Markdown Language and runs on Qt version 6. The basic premise of the application is a clip positioning and trimming software, aesthetically similar to video editing software such as [DaVinci Resolve](https://www.blackmagicdesign.com/products/davinciresolve/edit).
 
-We (team 12331) aim to release Version 1.0 of this project no later than 10/01/2024.
+NOTE: We have put this project aside due to time constraints.
 
 
 ## PavementJogger Changelog

@@ -23,8 +23,8 @@ Item {
 
         /// POSITIONING ///
         property double visualMargin: 3
-        width: parent.width - 2*visualMargin
-        height: parent.height - 2*visualMargin
+        width: attributes.width - 2*visualMargin
+        height: attributes.height - 2*visualMargin
         x: visualMargin
         y: visualMargin
 
@@ -177,56 +177,66 @@ Item {
         // Create clip item if valid target found
         if (!ghostItem.validTarget) return;
 
-        // Create clip component
-        var clipComponent = Qt.createComponent("qrc:/components/src/panels/timeline/PJTimelineClip.qml");
-        if (clipComponent.status !== Component.Ready) {
-            console.exception("Error loading clipComponent:", clipComponent.errorString());
-            return;
-        }
 
-        // Create clip item
-        var clip = clipComponent.createObject(PJGlobalTimeline.timelineTracksItem, {
-            "movementName": movementName,
-            "trackID": ghostItem.targetTrackID,
-            "trackIndex": ghostItem.targetIndex,
-            "startTick": ghostItem.targetStartTick,
-            "endTick": ghostItem.targetEndTick,
-            "minDuration": 0
-        });
-        if (clip === null) {
-            console.exception("Error creating clip item from Palette");
-            return;
-        }
+        ///// PORT TO C++ /////
+        commandBackend.addClip(
+                    movementName,
+                    ghostItem.targetTrackID,
+                    ghostItem.targetIndex,
+                    ghostItem.targetStartTick,
+                    ghostItem.targetEndTick,
+                    0);
+
+        // // Create clip component
+        // var clipComponent = Qt.createComponent("qrc:/components/src/qml/panels/timeline/PJTimelineClip.qml");
+        // if (clipComponent.status !== Component.Ready) {
+        //     console.exception("Error loading clipComponent:", clipComponent.errorString());
+        //     return;
+        // }
+
+        // // Create clip item
+        // var clip = clipComponent.createObject(PJGlobalTimeline.timelineTracksItem, {
+        //     "movementName": movementName,
+        //     "trackID": ghostItem.targetTrackID,
+        //     "trackIndex": ghostItem.targetIndex,
+        //     "startTick": ghostItem.targetStartTick,
+        //     "endTick": ghostItem.targetEndTick,
+        //     "minDuration": 0
+        // });
+        // if (clip === null) {
+        //     console.exception("Error creating clip item from Palette");
+        //     return;
+        // }
 
 
-        console.log(`\nInserting a clip for ${movementName} at index ${ghostItem.targetIndex}!`);
-        console.log(`---- Track ${ghostItem.targetTrackID}: (${ghostItem.targetStartTick},${ghostItem.targetEndTick})`);
-        console.log(`Old clips array`);
-        for (var i=0; i<PJGlobalTimeline.clips.length; i++) {
-            var track = PJGlobalTimeline.clips[i];
-            var names = "";
-            for (var j=0; j<track.length; j++) {
-                names += `(${track[j].startTick},${track[j].endTick}); `;
-            }
-            console.log(`---- Track ${i}: ${names}`);
-        }
+        // console.log(`\nInserting a clip for ${movementName} at index ${ghostItem.targetIndex}!`);
+        // console.log(`---- Track ${ghostItem.targetTrackID}: (${ghostItem.targetStartTick},${ghostItem.targetEndTick})`);
+        // console.log(`Old clips array`);
+        // for (var i=0; i<PJGlobalTimeline.clips.length; i++) {
+        //     var track = PJGlobalTimeline.clips[i];
+        //     var names = "";
+        //     for (var j=0; j<track.length; j++) {
+        //         names += `(${track[j].startTick},${track[j].endTick}); `;
+        //     }
+        //     console.log(`---- Track ${i}: ${names}`);
+        // }
 
-        // Insert clip if valid
-        PJGlobalTimeline.clips[trackID].splice(ghostItem.targetIndex, 0, clip);
+        // // Insert clip if valid
+        // PJGlobalTimeline.clips[trackID].splice(ghostItem.targetIndex, 0, clip);
 
-        // Update for calling clipsChanged signal
-        var new_clips = PJGlobalTimeline.clips;
-        PJGlobalTimeline.clips = new_clips;
+        // // Update for calling clipsChanged signal
+        // var new_clips = PJGlobalTimeline.clips;
+        // PJGlobalTimeline.clips = new_clips;
 
-        console.log(`New clips array`);
-        for (i=0; i<PJGlobalTimeline.clips.length; i++) {
-            track = PJGlobalTimeline.clips[i];
-            names = "";
-            for (j=0; j<track.length; j++) {
-                names += `(${track[j].startTick},${track[j].endTick}); `;
-            }
-            console.log(`---- Track ${i}: ${names}`);
-        }
+        // console.log(`New clips array`);
+        // for (i=0; i<PJGlobalTimeline.clips.length; i++) {
+        //     track = PJGlobalTimeline.clips[i];
+        //     names = "";
+        //     for (j=0; j<track.length; j++) {
+        //         names += `(${track[j].startTick},${track[j].endTick}); `;
+        //     }
+        //     console.log(`---- Track ${i}: ${names}`);
+        // }
 
     }
 

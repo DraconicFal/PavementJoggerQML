@@ -63,7 +63,7 @@ Item {
 
     Image {
         anchors.fill: parent
-        source: "qrc:/Images/assets/DRIVE.png"
+        source: "qrc:/Images/src/assets/DRIVE.png"
 
         // Save original image dimensions
         asynchronous: true

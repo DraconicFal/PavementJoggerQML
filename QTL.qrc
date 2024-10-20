@@ -1,15 +1,19 @@
 <RCC>
     <qresource prefix="/Images">
-        <file>assets/PavementJoggerLogo.png</file>
-        <file>assets/STEPHEN.jpg</file>
-        <file>assets/DRIVE.png</file>
-        <file>assets/centerstage_field.png</file>
-        <file>assets/double-arrow.png</file>
+        <file>src/assets/centerstage_field.png</file>
+        <file>src/assets/double-arrow.png</file>
+        <file>src/assets/DRIVE.png</file>
+        <file>src/assets/PavementJoggerLogo.png</file>
     </qresource>
     <qresource prefix="/components">
-        <file>src/panels/timeline/PJTimelineClip.qml</file>
-        <file>src/panels/palette/PJPaletteFolder.qml</file>
-        <file>src/panels/palette/PJPaletteFolderItems.qml</file>
-        <file>src/panels/palette/PJPaletteMovement.qml</file>
+        <file>src/qml/panels/timeline/PJTimelineClip.qml</file>
+        <file>src/qml/panels/palette/PJPaletteFolder.qml</file>
+        <file>src/qml/panels/palette/PJPaletteFolderItems.qml</file>
+        <file>src/qml/panels/palette/PJPaletteMovement.qml</file>
+    </qresource>
+    <qresource prefix="/singletons">
+        <file>src/qml/global/PJGlobalKeyboard.qml</file>
+        <file>src/qml/global/PJGlobalPalette.qml</file>
+        <file>src/qml/global/PJGlobalTimeline.qml</file>
     </qresource>
 </RCC>

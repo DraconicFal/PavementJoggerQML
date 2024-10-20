@@ -1,11 +1,11 @@
 import QtQuick
 import QtQuick.Controls
 import PavementJogger
-import "panels/fieldview"
-import "panels/menubar"
-import "panels/palette"
-import "panels/properties"
-import "panels/timeline"
+import "qml/panels/fieldview"
+import "qml/panels/menubar"
+import "qml/panels/palette"
+import "qml/panels/properties"
+import "qml/panels/timeline"
 
 ApplicationWindow {
     id: mainWindow
@@ -23,14 +23,6 @@ ApplicationWindow {
     height: screen.height * (2/3)
     visible: true
     title: qsTr("PavementJogger 2")
-
-    // Read in project file on completion
-    Component.onCompleted: {
-        // TODO: TESTING CODE, REMOVE THIS
-        // PJGlobalTimeline.tracks = projectXmlHandler.getTimelineTrackNames(PJGlobalProject.projectPath);
-        // PJGlobalTimeline.clips = [[],[],[]];
-        // PJGlobalTimeline.clips = projectXmlHandler.getTimelineClips(PJGlobalProject.projectPath, PJGlobalTimeline.clips, true);
-    }
 
     //////////////
     // MENU BAR //

@@ -1,5 +1,8 @@
 #include "pjprojectxmlhandler.h"
 
+// Static values
+#include "pjprojectbackend.h"
+
 PJProjectXmlHandler::PJProjectXmlHandler(QObject *parent,  QQmlApplicationEngine *engine)
     : QObject{parent}
 {
@@ -11,17 +14,27 @@ PJProjectXmlHandler::PJProjectXmlHandler(QObject *parent,  QQmlApplicationEngine
 /////////////////////
 // PALETTE METHODS //
 /////////////////////
-QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, QList<QQuickItem*> currentFolders, bool telemetry)
+void PJProjectXmlHandler::getPaletteFolders(bool telemetry)
 {
+    // Locate singletons
+    QObject *globalPalette = engine->singletonInstance<QObject*>("PavementJogger", "PJGlobalPalette");
+    if (!globalPalette) {
+        qCritical() << "cpp: PJGlobalPalette singleton instance could not be found!";
+        return;
+    }
+    QString projectPath = PJProjectBackend::projectPath;
+    QList<QVariant> currentFolders = globalPalette->property("folders").toList();
+
     // Deallocate clips from heap
-    for (QQuickItem* &folder : currentFolders) {
-        if (!folder) {
+    for (const QVariant& folder : currentFolders) {
+        QObject *folderObject = folder.value<QObject*>();
+        if (!folderObject) {
             qCritical() << "cpp: Tried to clear a dangling folder pointer!";
             continue;
         }
-        // Iterate through each folder to delete the movements
-        QList<QVariant> movements = folder->property("movements").toList();
 
+        // Iterate through each folder to delete the movements
+        QList<QVariant> movements = folderObject->property("movements").toList();
         foreach (const QVariant &movement, movements) {
             QObject *item = movement.value<QObject*>();
             if (item)
@@ -29,7 +42,9 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
             else
                 qCritical() << "cpp: Tried to clear a dangling pointer from getPaletteMovements()!";
         }
+        delete folderObject;
     }
+    globalPalette->setProperty("folders", QVariant::fromValue(QList<QQuickItem*>()));
     if (telemetry) qInfo() << "cpp: getPaletteMovements() - Deallocated all of currentClips";
 
     // Open file to be read
@@ -39,7 +54,7 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
     if (!file.open(QIODevice::ReadOnly)) {
         qCritical() << "cpp: Could not read file!";
         qCritical() << file.errorString();
-        return QList<QQuickItem*>();
+        return;
     }
     QByteArray data = file.readAll();
     file.close();
@@ -49,19 +64,19 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
     // Find parent item for folders
     if (engine->rootObjects().length()==0) {
         qCritical() << "cpp: Length of engine->rootObjects() is zero!";
-        return QList<QQuickItem*>();
+        return;
     }
     QQuickItem *paletteFolders = engine->rootObjects().at(0)->findChild<QQuickItem*>("paletteFolders");
     if (telemetry) qInfo() << "cpp: getPaletteMovements() - Found paletteFolders parent item" << paletteFolders;
 
     // Create Folder, FolderItems, and Movement component
-    QQmlComponent folderComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/palette/PJPaletteFolder.qml")));
+    QQmlComponent folderComponent(engine, QUrl(QStringLiteral("qrc:/components/src/qml/panels/palette/PJPaletteFolder.qml")));
     if (telemetry) qInfo() << "cpp: getPaletteMovements() - Created folderComponent, isError: " << folderComponent.isError();
 
-    QQmlComponent folderItemsComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/palette/PJPaletteFolderItems.qml")));
+    QQmlComponent folderItemsComponent(engine, QUrl(QStringLiteral("qrc:/components/src/qml/panels/palette/PJPaletteFolderItems.qml")));
     if (telemetry) qInfo() << "cpp: getPaletteMovements() - Created folderItemsComponent, isError: " << folderItemsComponent.isError();
 
-    QQmlComponent movementComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/palette/PJPaletteMovement.qml")));
+    QQmlComponent movementComponent(engine, QUrl(QStringLiteral("qrc:/components/src/qml/panels/palette/PJPaletteMovement.qml")));
     if (telemetry) qInfo() << "cpp: getPaletteMovements() - Created movementComponent, isError: " << movementComponent.isError();
 
     // Parse through XML file
@@ -100,7 +115,7 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
                 if (!folderObject) {
                     qCritical() << "cpp: Failed to load PJPaletteFolder.qml from getPaletteMovements()!";
                     qCritical() << folderComponent.errorString();
-                    return QList<QQuickItem*>();
+                    return;
                 }
                 QQuickItem *folderItem = qobject_cast<QQuickItem*>(folderObject);
                 engine->setObjectOwnership(folderItem, QQmlEngine::JavaScriptOwnership);
@@ -110,7 +125,7 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
                 if (!folderItemsObject) {
                     qCritical() << "cpp: Failed to load PJPaletteFolderItems.qml from getPaletteMovements()!";
                     qCritical() << folderItemsComponent.errorString();
-                    return QList<QQuickItem*>();
+                    return;
                 }
                 QQuickItem *folderItemsItem = qobject_cast<QQuickItem*>(folderItemsObject);
                 engine->setObjectOwnership(folderItemsItem, QQmlEngine::JavaScriptOwnership);
@@ -127,6 +142,9 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
 
                 // Set FolderItems parent
                 folderItemsItem->setParentItem(folderItem);
+                QObject::connect(folderItem, &QQuickItem::widthChanged, folderItemsItem, [folderItemsItem, folderItem]() {
+                    folderItemsItem->setWidth(folderItem->width());
+                });
 
                 // Append to list
                 folders.append(folderItem);
@@ -140,7 +158,7 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
                 // Error handling
                 if (folderNumber == -1) {
                     qCritical() << "cpp: Tried to read a folderless movement in getPaletteMovements()! Fix your project file!";
-                    return QList<QQuickItem*>();
+                    return;
                 }
                 QQuickItem *currentFolder = folders[folderNumber];
 
@@ -158,7 +176,7 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
                 if (!movementObject) {
                     qCritical() << "cpp: Failed to load PJPaletteMovement.qml from getPaletteMovements()!";
                     qCritical() << movementComponent.errorString();
-                    return QList<QQuickItem*>();
+                    return;
                 }
                 QQuickItem *movementItem = qobject_cast<QQuickItem*>(movementObject);
                 engine->setObjectOwnership(movementItem, QQmlEngine::JavaScriptOwnership);
@@ -185,13 +203,13 @@ QList<QQuickItem*> PJProjectXmlHandler::getPaletteFolders(QString projectPath, Q
             if (stream.name().toString() == "folder") {
                 QQuickItem *currentFolder = folders[folderNumber];
                 QList<QVariant> currentMovements = currentFolder->property("movements").toList();
-                qInfo() << "Folder num" << folderNumber << ":" << currentMovements;
+                if (telemetry) qInfo() << "Folder num" << folderNumber << ":" << currentMovements;
             }
             break;
         }
     }
 
-    return folders;
+    globalPalette->setProperty("folders", QVariant::fromValue(folders));
 
 }
 
@@ -299,7 +317,7 @@ QList<QList<QQuickItem*>> PJProjectXmlHandler::getTimelineClips(QString projectP
     if (telemetry) qInfo() << "cpp: getTimelineClips() - Found timelineTracks parent item" << timelineTracks;
 
     // Create clip component
-    QQmlComponent clipComponent(engine, QUrl(QStringLiteral("qrc:/components/src/panels/timeline/PJTimelineClip.qml")));
+    QQmlComponent clipComponent(engine, QUrl(QStringLiteral("qrc:/components/src/qml/panels/timeline/PJTimelineClip.qml")));
     if (telemetry) qInfo() << "cpp: getTimelineClips() - Created clipComponent, isError: " << clipComponent.isError();
 
     // Parse through XML file

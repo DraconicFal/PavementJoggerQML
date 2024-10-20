@@ -6,7 +6,7 @@ Rectangle {
     color: "#0d0d0d"
 
     Rectangle {
-        width: parent.width - 20 // Side Padding
+        width: parent.width - 10 // Side Padding
         height: 1
         color: "#39383E"
         anchors.horizontalCenter: parent.horizontalCenter

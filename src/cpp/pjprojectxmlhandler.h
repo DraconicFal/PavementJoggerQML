@@ -24,7 +24,7 @@ signals:
 
 public slots:
     /// Palette Methods ///
-    QList<QQuickItem*> getPaletteFolders(QString projectPath, QList<QQuickItem*> currentFolders, bool telemetry=false);
+    void getPaletteFolders(bool telemetry=false);
     void writePaletteFolders(QString projectPath, QList<QQuickItem*> folders);
 
     /// Timeline Methods ///

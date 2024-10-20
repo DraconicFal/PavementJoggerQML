@@ -19,8 +19,8 @@ MenuBar {
         nameFilters: ["XML files (*.xml), PavementJogger Project files (*.pvjg)"]
         currentFolder: StandardPaths.standardLocations(StandardPaths.DocumentsLocation)[0]
         onAccepted: {
-            PJGlobalProject.projectPath = selectedFile;
-            menuBar.openProjectPath(PJGlobalProject.projectPath);
+            projectBackend.setProjectPath(selectedFile);
+            menuBar.openProjectPath(projectBackend.getProjectPath());
         }
     }
 
@@ -52,7 +52,7 @@ MenuBar {
 
         /// PALETTE ///
         // Load folders
-        PJGlobalPalette.folders = projectXmlHandler.getPaletteFolders(projectPath, PJGlobalPalette.folders);
+        PJGlobalPalette.folders = projectXmlHandler.getPaletteFolders();
     }
 
     Menu { //File
@@ -85,10 +85,11 @@ MenuBar {
                         clips[track][index].destroy();
                     }
                 }
-                PJGlobalProject.projectPath = "";
                 PJGlobalTimeline.tracks = [];
                 PJGlobalTimeline.clips = [];
                 PJGlobalTimeline.timelineTracksItem.tracks.repaintTimeline();
+
+                projectBackend.setProjectPath("");
             }
         }
         Action {
@@ -120,13 +121,31 @@ MenuBar {
 
     }
 
-    Menu { //Edit
+
+
+    ///////////////
+    // EDIT MENU //
+    ///////////////
+
+    Menu {
         title: qsTr("Edit")
+
         Action {
             text: qsTr("Undo")
         }
-        Action { text: qsTr("Redo") }
-        Action { text: qsTr("Copy") }
+        Action {
+            text: qsTr("Redo")
+        }
+        PJMenuBarSeparator {}
+        Action {
+            text: qsTr("Cut")
+        }
+        Action {
+            text: qsTr("Copy")
+        }
+        Action {
+            text: qsTr("Paste")
+        }
 
         delegate: ItemDelegate {
             id: menuBarEdit
@@ -146,7 +165,13 @@ MenuBar {
         }
     }
 
-    Menu { //View
+
+
+    ///////////////
+    // VIEW MENU //
+    ///////////////
+
+    Menu {
         title: qsTr("View")
         id: menuView
         property bool isMaximized: false
@@ -206,6 +231,9 @@ MenuBar {
         }
     }
 
+    /////////////
+    // PALETTE //
+    /////////////
     Menu { //Timeline
         title: qsTr("Timeline")
         Action {
@@ -242,7 +270,6 @@ MenuBar {
             color: menuBarItem.highlighted ? "#ffffff" : "#ffffff"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            //elide: Text.ElideRight
         }
 
         background: Rectangle {

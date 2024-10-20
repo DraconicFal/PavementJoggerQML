@@ -14,60 +14,69 @@ qt_add_executable(appPavementJogger
 )
 
 set(cpp_files
-    pjprojectxmlhandler.h
-    pjprojectxmlhandler.cpp
+    ## Project backend ##
+    src/cpp/pjprojectbackend.h src/cpp/pjprojectbackend.cpp
+    src/cpp/pjprojectxmlhandler.h src/cpp/pjprojectxmlhandler.cpp
+
+    # Timeline
+    src/cpp/timeline/clip.h
+
+    ## Command system ##
+    src/cpp/commands/pjcommandbackend.h src/cpp/commands/pjcommandbackend.cpp
+    src/cpp/commands/commandmanager.h src/cpp/commands/commandmanager.cpp
+    src/cpp/commands/addclipcommand.h src/cpp/commands/addclipcommand.cpp
+    src/cpp/commands/command.h
 )
 
 set(plain_qml_files
     src/Main.qml
-    src/PJKeybindHandler.qml
+    src/qml/PJKeybindHandler.qml
 
     #-# Panels #-#
 
     ## Menu Bar files ##
-    src/panels/menubar/PJMenuBar.qml
-    src/panels/menubar/PJMenuBarSeparator.qml
+    src/qml/panels/menubar/PJMenuBar.qml
+    src/qml/panels/menubar/PJMenuBarSeparator.qml
 
     ## Field View panel files ##
-    src/panels/fieldview/PJFieldView.qml
-    src/panels/fieldview/PJFieldViewRobot.qml
+    src/qml/panels/fieldview/PJFieldView.qml
+    src/qml/panels/fieldview/PJFieldViewRobot.qml
 
     ## Palette panel files ##
-    src/panels/palette/PJPalette.qml
-    src/panels/palette/PJPaletteGhostItem.qml
-    src/panels/palette/PJPaletteFolder.qml
-    src/panels/palette/PJPaletteFolderItems.qml
-    src/panels/palette/PJPaletteMovement.qml
+    src/qml/panels/palette/PJPalette.qml
+    src/qml/panels/palette/PJPaletteGhostItem.qml
+    src/qml/panels/palette/PJPaletteFolder.qml
+    src/qml/panels/palette/PJPaletteFolderItems.qml
+    src/qml/panels/palette/PJPaletteMovement.qml
 
     ## Properties panel files ##
-    src/panels/properties/PJProperties.qml
+    src/qml/panels/properties/PJProperties.qml
 
     ## Timeline panel files ##
-    src/panels/timeline/PJTimeline.qml
-    src/panels/timeline/PJTimelineClip.qml
-    src/panels/timeline/PJTimelineZoomSlider.qml
-    src/panels/timeline/PJTimelineScrollArea.qml
+    src/qml/panels/timeline/PJTimeline.qml
+    src/qml/panels/timeline/PJTimelineClip.qml
+    src/qml/panels/timeline/PJTimelineZoomSlider.qml
+    src/qml/panels/timeline/PJTimelineScrollArea.qml
     # Labels
-    src/panels/timeline/labels/PJTimelineLabels.qml
-    src/panels/timeline/labels/PJTimelineScrubberLabel.qml
-    src/panels/timeline/labels/PJTimelineTrackLabels.qml
+    src/qml/panels/timeline/labels/PJTimelineLabels.qml
+    src/qml/panels/timeline/labels/PJTimelineScrubberLabel.qml
+    src/qml/panels/timeline/labels/PJTimelineTrackLabels.qml
     # Content
-    src/panels/timeline/content/PJTimelineContent.qml
-    src/panels/timeline/content/PJTimelineRuler.qml
-    src/panels/timeline/content/PJTimelineScrubber.qml
-    src/panels/timeline/content/PJTimelineTracks.qml
-    src/panels/timeline/content/PJTimelineShadowItem.qml
+    src/qml/panels/timeline/content/PJTimelineContent.qml
+    src/qml/panels/timeline/content/PJTimelineRuler.qml
+    src/qml/panels/timeline/content/PJTimelineScrubber.qml
+    src/qml/panels/timeline/content/PJTimelineTracks.qml
+    src/qml/panels/timeline/content/PJTimelineShadowItem.qml
 
 )
 
 set(qml_singletons
     ## System ##
-    src/global/PJGlobalProject.qml
-    src/global/PJGlobalKeyboard.qml
+    src/qml/global/PJGlobalKeyboard.qml
 
     ## Panels ##
-    src/global/PJGlobalPalette.qml
-    src/global/PJGlobalTimeline.qml
+    src/qml/global/PJGlobalPalette.qml
+    src/qml/global/PJGlobalTimeline.qml
 )
 
 set_source_files_properties(${qml_singletons}

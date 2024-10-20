@@ -1,8 +1,8 @@
 pragma Singleton
 import QtQuick
 import QtQml.XmlListModel
-import "../panels"
-import "../panels/timeline"
+// import "../panels"
+// import "../panels/timeline"
 
 QtObject {
 

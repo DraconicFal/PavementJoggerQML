@@ -106,7 +106,7 @@ Item {
                 x: 10
 
                 // Visual
-                source: "qrc:/Images/assets/double-arrow.png"
+                source: "qrc:/Images/src/assets/double-arrow.png"
                 scale: 0.5
             }
             Text {
